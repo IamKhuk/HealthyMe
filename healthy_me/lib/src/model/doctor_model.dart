@@ -8,6 +8,7 @@ class DoctorModel {
   LatLng location;
   String busy;
   String bio;
+  int reviews;
 
   DoctorModel({
     required this.name,
@@ -18,5 +19,6 @@ class DoctorModel {
     this.busy = 'Everyday except holidays',
     this.bio =
         'Dr. Krystal Jung is a Korean Dermatologists specialist. She practices general at Yulje Medical Center at South Korea',
+    this.reviews = 24,
   });
 }

@@ -1,8 +1,8 @@
-class Category {
+class CategoryModel {
   String img;
   String title;
 
-  Category({
+  CategoryModel({
     required this.img,
     required this.title,
   });

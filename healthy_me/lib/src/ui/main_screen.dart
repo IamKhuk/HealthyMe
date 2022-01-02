@@ -1,0 +1,323 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:healthy_me/src/theme/app_theme.dart';
+import 'package:healthy_me/src/ui/menu/chats/chats_screen.dart';
+import 'package:healthy_me/src/ui/menu/diagnose/diagnose_screen.dart';
+import 'package:healthy_me/src/ui/menu/profile/profile_screen.dart';
+import 'package:healthy_me/src/ui/menu/schedule/schedule_screen.dart';
+import 'menu/home/home_screen.dart';
+
+class MainScreen extends StatefulWidget {
+  @override
+  _MainScreenState createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  int _selectedIndex = 0;
+
+  List<Widget> data = [
+    HomeScreen(),
+    ScheduleScreen(),
+    DiagnoseScreen(),
+    ChatsScreen(),
+    ProfileScreen(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+    return Scaffold(
+      backgroundColor: AppTheme.bg,
+      body: Stack(
+        children: [
+          data[_selectedIndex],
+          Positioned(
+            bottom: 0,
+            left: 0,
+            child: Container(
+              height: 200,
+              width: size.width,
+              margin: EdgeInsets.only(left: 16, bottom: 16, right: 16),
+              child: Stack(
+                children: [
+                  CustomPaint(
+                    size: Size(size.width - 32, size.height),
+                    painter: RPSCustomPainter(),
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Container(
+                        height: 70,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(width: 0),
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  _selectedIndex = 0;
+                                });
+                              },
+                              child: Container(
+                                color: Colors.transparent,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(height: 8),
+                                    SvgPicture.asset(
+                                      'assets/icons/home.svg',
+                                      color: _selectedIndex == 0
+                                          ? AppTheme.orange
+                                          : AppTheme.dark,
+                                    ),
+                                    _selectedIndex == 0
+                                        ? Column(
+                                            children: [
+                                              SizedBox(height: 8),
+                                              Container(
+                                                height: 6,
+                                                width: 6,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(6),
+                                                  color: AppTheme.orange,
+                                                ),
+                                              ),
+                                            ],
+                                          )
+                                        : Container(),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  _selectedIndex = 1;
+                                });
+                              },
+                              child: Container(
+                                color: Colors.transparent,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(height: 8),
+                                    SvgPicture.asset(
+                                      'assets/icons/schedule.svg',
+                                      color: _selectedIndex == 1
+                                          ? AppTheme.orange
+                                          : AppTheme.dark,
+                                    ),
+                                    _selectedIndex == 1
+                                        ? Column(
+                                            children: [
+                                              SizedBox(height: 8),
+                                              Container(
+                                                height: 6,
+                                                width: 6,
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            6),
+                                                    color: AppTheme.orange),
+                                              ),
+                                            ],
+                                          )
+                                        : Container(),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Container(
+                              height: 54,
+                              width: 54,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                              ),
+                              child: InkWell(
+                                borderRadius: BorderRadius.circular(54),
+                                onTap: () {
+                                  setState(() {
+                                    _selectedIndex = 2;
+                                  });
+                                },
+                                child: Container(
+                                  height: 54,
+                                  width: 54,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        offset: Offset(0, 7),
+                                        blurRadius: 9,
+                                        spreadRadius: 0,
+                                        color: AppTheme.purple,
+                                      ),
+                                    ],
+                                    gradient: LinearGradient(
+                                        begin: Alignment.bottomCenter,
+                                        end: Alignment.topCenter,
+                                        colors: [
+                                          AppTheme.purpleLight,
+                                          AppTheme.purple,
+                                          AppTheme.purple,
+                                          AppTheme.purple,
+                                          AppTheme.purple,
+                                        ]),
+                                  ),
+                                  child: Center(
+                                    child: SvgPicture.asset(
+                                      'assets/icons/diagnose.svg',
+                                      color: _selectedIndex==2? AppTheme.orange: AppTheme.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  _selectedIndex = 3;
+                                });
+                              },
+                              child: Container(
+                                color: Colors.transparent,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(height: 8),
+                                    SvgPicture.asset(
+                                      'assets/icons/message.svg',
+                                      color: _selectedIndex == 3
+                                          ? AppTheme.orange
+                                          : AppTheme.dark,
+                                    ),
+                                    _selectedIndex == 3
+                                        ? Column(
+                                            children: [
+                                              SizedBox(height: 8),
+                                              Container(
+                                                height: 6,
+                                                width: 6,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(6),
+                                                  color: AppTheme.orange,
+                                                ),
+                                              ),
+                                            ],
+                                          )
+                                        : Container(),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  _selectedIndex = 4;
+                                });
+                              },
+                              child: Container(
+                                color: Colors.transparent,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(height: 8),
+                                    SvgPicture.asset(
+                                      'assets/icons/account.svg',
+                                      color: _selectedIndex == 4
+                                          ? AppTheme.orange
+                                          : AppTheme.dark,
+                                    ),
+                                    _selectedIndex == 4
+                                        ? Column(
+                                      children: [
+                                        SizedBox(height: 8),
+                                        Container(
+                                          height: 6,
+                                          width: 6,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                              BorderRadius.circular(
+                                                  6),
+                                              color: AppTheme.orange),
+                                        ),
+                                      ],
+                                    )
+                                        : Container(),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 32),
+                          ],
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
+      // bottomNavigationBar: CustomPaint(
+      //   size: Size(
+      //       MediaQuery.of(context).size.width - 48,
+      //       ((MediaQuery.of(context).size.width - 48) * 0.20833333333333334)
+      //           .toDouble()),
+      //   painter: RPSCustomPainter(),
+      // ),
+    );
+  }
+}
+
+class RPSCustomPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint paint0 = Paint()
+      ..color = const Color.fromARGB(255, 255, 255, 255)
+      ..style = PaintingStyle.fill
+      ..strokeWidth = 1.0;
+
+    Path path0 = Path();
+    path0.moveTo(size.width * 0.0625000, size.height);
+    path0.quadraticBezierTo(size.width * 0.0000500, size.height * 0.9964400, 0,
+        size.height * 0.9000000);
+    path0.cubicTo(0, size.height * 0.8750000, 0, size.height * 0.8250000, 0,
+        size.height * 0.8000000);
+    path0.quadraticBezierTo(size.width * 0.0000500, size.height * 0.7001000,
+        size.width * 0.0625000, size.height * 0.7000000);
+    path0.quadraticBezierTo(size.width * 0.2968750, size.height * 0.7000000,
+        size.width * 0.3750000, size.height * 0.7000000);
+    path0.quadraticBezierTo(size.width * 0.4384000, size.height * 0.7001000,
+        size.width * 0.4375000, size.height * 0.8000000);
+    path0.quadraticBezierTo(size.width * 0.4376750, size.height * 0.8999000,
+        size.width * 0.5000000, size.height * 0.9000000);
+    path0.quadraticBezierTo(size.width * 0.5623875, size.height * 0.8999000,
+        size.width * 0.5625000, size.height * 0.8000000);
+    path0.quadraticBezierTo(size.width * 0.5625875, size.height * 0.7001000,
+        size.width * 0.6250000, size.height * 0.7000000);
+    path0.quadraticBezierTo(size.width * 0.7031250, size.height * 0.7000000,
+        size.width * 0.9375000, size.height * 0.7000000);
+    path0.quadraticBezierTo(size.width * 0.9999500, size.height * 0.7002200,
+        size.width, size.height * 0.8000000);
+    path0.cubicTo(size.width, size.height * 0.8250000, size.width,
+        size.height * 0.8750000, size.width, size.height * 0.9000000);
+    path0.quadraticBezierTo(
+        size.width, size.height, size.width * 0.9375000, size.height);
+    path0.lineTo(size.width * 0.0625000, size.height);
+    path0.close();
+
+    canvas.drawPath(path0, paint0);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
+  }
+}

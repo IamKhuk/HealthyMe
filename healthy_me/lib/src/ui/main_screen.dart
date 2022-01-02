@@ -7,6 +7,7 @@ import 'package:healthy_me/src/ui/menu/diagnose/diagnose_screen.dart';
 import 'package:healthy_me/src/ui/menu/profile/profile_screen.dart';
 import 'package:healthy_me/src/ui/menu/schedule/schedule_screen.dart';
 import 'menu/home/home_screen.dart';
+int selectedIndex = 0;
 
 class MainScreen extends StatefulWidget {
   @override
@@ -14,7 +15,6 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int _selectedIndex = 0;
 
   List<Widget> data = [
     HomeScreen(),
@@ -31,7 +31,7 @@ class _MainScreenState extends State<MainScreen> {
       backgroundColor: AppTheme.bg,
       body: Stack(
         children: [
-          data[_selectedIndex],
+          data[selectedIndex],
           Positioned(
             bottom: 0,
             left: 0,
@@ -58,7 +58,7 @@ class _MainScreenState extends State<MainScreen> {
                             GestureDetector(
                               onTap: () {
                                 setState(() {
-                                  _selectedIndex = 0;
+                                  selectedIndex = 0;
                                 });
                               },
                               child: Container(
@@ -69,11 +69,11 @@ class _MainScreenState extends State<MainScreen> {
                                     SizedBox(height: 8),
                                     SvgPicture.asset(
                                       'assets/icons/home.svg',
-                                      color: _selectedIndex == 0
+                                      color: selectedIndex == 0
                                           ? AppTheme.orange
                                           : AppTheme.dark,
                                     ),
-                                    _selectedIndex == 0
+                                    selectedIndex == 0
                                         ? Column(
                                             children: [
                                               SizedBox(height: 8),
@@ -96,7 +96,7 @@ class _MainScreenState extends State<MainScreen> {
                             GestureDetector(
                               onTap: () {
                                 setState(() {
-                                  _selectedIndex = 1;
+                                  selectedIndex = 1;
                                 });
                               },
                               child: Container(
@@ -107,11 +107,11 @@ class _MainScreenState extends State<MainScreen> {
                                     SizedBox(height: 8),
                                     SvgPicture.asset(
                                       'assets/icons/schedule.svg',
-                                      color: _selectedIndex == 1
+                                      color: selectedIndex == 1
                                           ? AppTheme.orange
                                           : AppTheme.dark,
                                     ),
-                                    _selectedIndex == 1
+                                    selectedIndex == 1
                                         ? Column(
                                             children: [
                                               SizedBox(height: 8),
@@ -119,10 +119,10 @@ class _MainScreenState extends State<MainScreen> {
                                                 height: 6,
                                                 width: 6,
                                                 decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            6),
-                                                    color: AppTheme.orange),
+                                                  borderRadius:
+                                                      BorderRadius.circular(6),
+                                                  color: AppTheme.orange,
+                                                ),
                                               ),
                                             ],
                                           )
@@ -141,7 +141,7 @@ class _MainScreenState extends State<MainScreen> {
                                 borderRadius: BorderRadius.circular(54),
                                 onTap: () {
                                   setState(() {
-                                    _selectedIndex = 2;
+                                    selectedIndex = 2;
                                   });
                                 },
                                 child: Container(
@@ -171,7 +171,9 @@ class _MainScreenState extends State<MainScreen> {
                                   child: Center(
                                     child: SvgPicture.asset(
                                       'assets/icons/diagnose.svg',
-                                      color: _selectedIndex==2? AppTheme.orange: AppTheme.white,
+                                      color: selectedIndex == 2
+                                          ? AppTheme.orange
+                                          : AppTheme.white,
                                     ),
                                   ),
                                 ),
@@ -180,7 +182,7 @@ class _MainScreenState extends State<MainScreen> {
                             GestureDetector(
                               onTap: () {
                                 setState(() {
-                                  _selectedIndex = 3;
+                                  selectedIndex = 3;
                                 });
                               },
                               child: Container(
@@ -191,11 +193,11 @@ class _MainScreenState extends State<MainScreen> {
                                     SizedBox(height: 8),
                                     SvgPicture.asset(
                                       'assets/icons/message.svg',
-                                      color: _selectedIndex == 3
+                                      color: selectedIndex == 3
                                           ? AppTheme.orange
                                           : AppTheme.dark,
                                     ),
-                                    _selectedIndex == 3
+                                    selectedIndex == 3
                                         ? Column(
                                             children: [
                                               SizedBox(height: 8),
@@ -218,7 +220,7 @@ class _MainScreenState extends State<MainScreen> {
                             GestureDetector(
                               onTap: () {
                                 setState(() {
-                                  _selectedIndex = 4;
+                                  selectedIndex = 4;
                                 });
                               },
                               child: Container(
@@ -229,25 +231,25 @@ class _MainScreenState extends State<MainScreen> {
                                     SizedBox(height: 8),
                                     SvgPicture.asset(
                                       'assets/icons/account.svg',
-                                      color: _selectedIndex == 4
+                                      color: selectedIndex == 4
                                           ? AppTheme.orange
                                           : AppTheme.dark,
                                     ),
-                                    _selectedIndex == 4
+                                    selectedIndex == 4
                                         ? Column(
-                                      children: [
-                                        SizedBox(height: 8),
-                                        Container(
-                                          height: 6,
-                                          width: 6,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                              BorderRadius.circular(
-                                                  6),
-                                              color: AppTheme.orange),
-                                        ),
-                                      ],
-                                    )
+                                            children: [
+                                              SizedBox(height: 8),
+                                              Container(
+                                                height: 6,
+                                                width: 6,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(6),
+                                                  color: AppTheme.orange,
+                                                ),
+                                              ),
+                                            ],
+                                          )
                                         : Container(),
                                   ],
                                 ),

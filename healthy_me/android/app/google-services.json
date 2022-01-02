@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "491103665649",
+    "project_id": "healthyme-med",
+    "storage_bucket": "healthyme-med.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:491103665649:android:c3f8a9aad1364a05431850",
+        "android_client_info": {
+          "package_name": "uz.med.healthy_me"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "491103665649-vq1s7hb2cecvedoh718malusi5skgav2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCitIfxqq6afasDp0NnzjK8xxPXMhEtNcc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "491103665649-vq1s7hb2cecvedoh718malusi5skgav2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

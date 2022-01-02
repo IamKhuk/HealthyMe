@@ -50,7 +50,7 @@ class _VisitContainerState extends State<VisitContainer> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.doc.name,
+                      'Dr. '+widget.doc.name,
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 14,

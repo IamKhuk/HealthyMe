@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:healthy_me/src/defaults/doctors_list.dart';
 import 'package:healthy_me/src/model/category_model.dart';
+import 'package:healthy_me/src/model/doctor_model.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
+import 'package:healthy_me/src/widgets/doctor_container.dart';
 import 'package:healthy_me/src/widgets/visit_container.dart';
 
 import '../../main_screen.dart';
@@ -27,6 +29,18 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
 
   int ctgIndex = 0;
+
+  List<DoctorModel> docs = [
+    doc_01,
+    doc_02,
+    doc_03,
+    doc_04,
+    doc_05,
+    doc_06,
+    doc_07,
+    doc_08,
+    doc_09,
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -306,6 +320,57 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 },
               ),
+            ),
+            SizedBox(height: 28),
+            Row(
+              children: [
+                SizedBox(width: 24),
+                Expanded(
+                  child: Text(
+                    'Find a Doctor',
+                    style: TextStyle(
+                      fontFamily: AppTheme.fontFamily,
+                      fontSize: 18,
+                      fontWeight: FontWeight.normal,
+                      height: 1.5,
+                      color: AppTheme.black,
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {},
+                  child: Container(
+                    color: Colors.transparent,
+                    padding: EdgeInsets.only(left: 15, right: 24),
+                    child: Text(
+                      'See All',
+                      style: TextStyle(
+                        fontFamily: AppTheme.fontFamily,
+                        fontSize: 12,
+                        fontWeight: FontWeight.normal,
+                        height: 1.5,
+                        color: AppTheme.orange,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 12),
+            ListView.builder(
+              itemCount: docs.length,
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              padding: EdgeInsets.symmetric(horizontal: 24),
+              itemBuilder: (context, index) {
+                return Column(
+                  children: [
+                    SizedBox(height: index == 0? 0: 12),
+                    DoctorContainer(doc: docs[index]),
+                    SizedBox(height: index == docs.length - 1? 90: 0),
+                  ],
+                );
+              },
             ),
           ],
         ),

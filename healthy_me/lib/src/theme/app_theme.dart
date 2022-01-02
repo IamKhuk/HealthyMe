@@ -9,7 +9,7 @@ class AppTheme {
   static const Color dark = Color(0xFF656565);
   static const Color gray = Color(0xFFE8E9FF);
   static const Color light = Color(0xFFDEDEDE);
-  static const Color gold = Color(0xFFFDC350);
+  static const Color yellow = Color(0xFFFDC350);
   static const Color white = Color(0xFFFFFFFF);
   static const Color purple = Color(0xFF585CE5);
   static const Color purpleLight = Color(0xFF7376F4);

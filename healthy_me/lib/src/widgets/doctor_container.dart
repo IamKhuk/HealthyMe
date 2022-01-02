@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:healthy_me/src/model/doctor_model.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
+import 'package:healthy_me/src/widgets/rating_container.dart';
 
 class DoctorContainer extends StatelessWidget {
   final DoctorModel doc;
@@ -10,7 +12,6 @@ class DoctorContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 80,
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: AppTheme.white,
@@ -32,9 +33,55 @@ class DoctorContainer extends StatelessWidget {
           SizedBox(width: 14),
           Expanded(
             child: Column(
-
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Dr. ' + doc.name,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14,
+                    fontFamily: AppTheme.fontFamily,
+                    height: 1.5,
+                    color: AppTheme.dark,
+                  ),
+                ),
+                SizedBox(height: 3),
+                Text(
+                  doc.specialty,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w300,
+                    fontSize: 12,
+                    fontFamily: AppTheme.fontFamily,
+                    height: 1.5,
+                    color: AppTheme.dark,
+                  ),
+                ),
+                SizedBox(height: 2),
+                Row(
+                  children: [
+                    RatingContainer(rating: doc.star),
+                    SizedBox(width: 8),
+                    Text(
+                      '(' + doc.reviews.toString() + ' reviews)',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w300,
+                        fontSize: 12,
+                        fontFamily: AppTheme.fontFamily,
+                        height: 1.5,
+                        color: AppTheme.dark,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
+          SvgPicture.asset(
+            'assets/icons/right.svg',
+            color: AppTheme.purple,
+            height: 20,
+          ),
+          SizedBox(width: 10),
         ],
       ),
     );

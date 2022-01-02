@@ -36,13 +36,13 @@ class _MainScreenState extends State<MainScreen> {
             bottom: 0,
             left: 0,
             child: Container(
-              height: 200,
+              height: 70,
               width: size.width,
               margin: EdgeInsets.only(left: 16, bottom: 16, right: 16),
               child: Stack(
                 children: [
                   CustomPaint(
-                    size: Size(size.width - 32, size.height),
+                    size: Size(size.width - 32, 70),
                     painter: RPSCustomPainter(),
                   ),
                   Column(
@@ -66,7 +66,6 @@ class _MainScreenState extends State<MainScreen> {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    SizedBox(height: 8),
                                     SvgPicture.asset(
                                       'assets/icons/home.svg',
                                       color: selectedIndex == 0
@@ -104,7 +103,6 @@ class _MainScreenState extends State<MainScreen> {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    SizedBox(height: 8),
                                     SvgPicture.asset(
                                       'assets/icons/schedule.svg',
                                       color: selectedIndex == 1
@@ -134,6 +132,7 @@ class _MainScreenState extends State<MainScreen> {
                             Container(
                               height: 54,
                               width: 54,
+                              margin: EdgeInsets.only(bottom: 8),
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                               ),
@@ -190,7 +189,6 @@ class _MainScreenState extends State<MainScreen> {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    SizedBox(height: 8),
                                     SvgPicture.asset(
                                       'assets/icons/message.svg',
                                       color: selectedIndex == 3
@@ -228,7 +226,6 @@ class _MainScreenState extends State<MainScreen> {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    SizedBox(height: 8),
                                     SvgPicture.asset(
                                       'assets/icons/account.svg',
                                       color: selectedIndex == 4
@@ -267,59 +264,49 @@ class _MainScreenState extends State<MainScreen> {
           )
         ],
       ),
-      // bottomNavigationBar: CustomPaint(
-      //   size: Size(
-      //       MediaQuery.of(context).size.width - 48,
-      //       ((MediaQuery.of(context).size.width - 48) * 0.20833333333333334)
-      //           .toDouble()),
-      //   painter: RPSCustomPainter(),
-      // ),
     );
   }
 }
 
-class RPSCustomPainter extends CustomPainter {
+class RPSCustomPainter extends CustomPainter{
+
   @override
   void paint(Canvas canvas, Size size) {
+
+
+
     Paint paint0 = Paint()
       ..color = const Color.fromARGB(255, 255, 255, 255)
       ..style = PaintingStyle.fill
       ..strokeWidth = 1.0;
 
+
     Path path0 = Path();
-    path0.moveTo(size.width * 0.0625000, size.height);
-    path0.quadraticBezierTo(size.width * 0.0000500, size.height * 0.9964400, 0,
-        size.height * 0.9000000);
-    path0.cubicTo(0, size.height * 0.8750000, 0, size.height * 0.8250000, 0,
-        size.height * 0.8000000);
-    path0.quadraticBezierTo(size.width * 0.0000500, size.height * 0.7001000,
-        size.width * 0.0625000, size.height * 0.7000000);
-    path0.quadraticBezierTo(size.width * 0.2968750, size.height * 0.7000000,
-        size.width * 0.3750000, size.height * 0.7000000);
-    path0.quadraticBezierTo(size.width * 0.4384000, size.height * 0.7001000,
-        size.width * 0.4375000, size.height * 0.8000000);
-    path0.quadraticBezierTo(size.width * 0.4376750, size.height * 0.8999000,
-        size.width * 0.5000000, size.height * 0.9000000);
-    path0.quadraticBezierTo(size.width * 0.5623875, size.height * 0.8999000,
-        size.width * 0.5625000, size.height * 0.8000000);
-    path0.quadraticBezierTo(size.width * 0.5625875, size.height * 0.7001000,
-        size.width * 0.6250000, size.height * 0.7000000);
-    path0.quadraticBezierTo(size.width * 0.7031250, size.height * 0.7000000,
-        size.width * 0.9375000, size.height * 0.7000000);
-    path0.quadraticBezierTo(size.width * 0.9999500, size.height * 0.7002200,
-        size.width, size.height * 0.8000000);
-    path0.cubicTo(size.width, size.height * 0.8250000, size.width,
-        size.height * 0.8750000, size.width, size.height * 0.9000000);
-    path0.quadraticBezierTo(
-        size.width, size.height, size.width * 0.9375000, size.height);
-    path0.lineTo(size.width * 0.0625000, size.height);
+    path0.moveTo(size.width*0.0625000,size.height);
+    path0.quadraticBezierTo(size.width*-0.0010125,size.height*0.9993333,0,size.height*0.6666667);
+    path0.cubicTo(0,size.height*0.5833333,0,size.height*0.4166667,0,size.height*0.3333333);
+    path0.quadraticBezierTo(size.width*0.0000500,size.height*0.0005333,size.width*0.0625000,0);
+    path0.quadraticBezierTo(size.width*0.2968750,0,size.width*0.3750000,0);
+    path0.quadraticBezierTo(size.width*0.4374375,size.height*0.0003333,size.width*0.4375000,size.height*0.3333333);
+    path0.quadraticBezierTo(size.width*0.4376250,size.height*0.6663333,size.width*0.5000000,size.height*0.6666667);
+    path0.quadraticBezierTo(size.width*0.5624125,size.height*0.6663333,size.width*0.5625000,size.height*0.3333333);
+    path0.quadraticBezierTo(size.width*0.5635750,size.height*0.0003333,size.width*0.6250000,0);
+    path0.quadraticBezierTo(size.width*0.7031250,0,size.width*0.9375000,0);
+    path0.quadraticBezierTo(size.width*0.9999750,size.height*0.0002667,size.width,size.height*0.3333333);
+    path0.cubicTo(size.width,size.height*0.4166667,size.width,size.height*0.5833333,size.width,size.height*0.6666667);
+    path0.quadraticBezierTo(size.width*0.9999375,size.height*0.9992667,size.width*0.9375000,size.height);
+    path0.lineTo(size.width*0.0625000,size.height);
     path0.close();
 
     canvas.drawPath(path0, paint0);
+
+
   }
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
     return true;
   }
+
 }
+

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:healthy_me/src/model/doctor_model.dart';
@@ -271,15 +272,13 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                           child: GoogleMap(
                             myLocationButtonEnabled: false,
                             mapType: MapType.normal,
-                            scrollGesturesEnabled: false,
+                            scrollGesturesEnabled: true,
                             initialCameraPosition: CameraPosition(
-                              target: LatLng(
-                                widget.doc.location.latitude,
-                                widget.doc.location.longitude,
-                              ),
+                              target: widget.doc.location,
                               zoom: 16,
                             ),
                             zoomControlsEnabled: false,
+                            compassEnabled: false,
                             myLocationEnabled: false,
                             markers: <Marker>{_createMarker()},
                             onMapCreated: _onMapCreated,
@@ -304,7 +303,8 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                           borderRadius: BorderRadius.circular(16),
                           color: AppTheme.orangeLight,
                         ),
-                        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -322,7 +322,7 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                             ),
                           ],
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -389,15 +389,13 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
     if (_markerIcon != null) {
       return Marker(
         markerId: MarkerId("marker_1"),
-        position:
-            LatLng(widget.doc.location.latitude, widget.doc.location.longitude),
+        position: widget.doc.location,
         icon: _markerIcon!,
       );
     } else {
       return Marker(
         markerId: MarkerId("marker_1"),
-        position:
-            LatLng(widget.doc.location.latitude, widget.doc.location.longitude),
+        position: widget.doc.location,
       );
     }
   }
@@ -411,7 +409,7 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
       );
       BitmapDescriptor.fromAssetImage(
         imageConfiguration,
-        'assets/icons/location_pin.svg',
+        'assets/images/location_pin.png',
       ).then(_updateBitmap);
     }
   }

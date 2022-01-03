@@ -103,314 +103,323 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
           SizedBox(width: 36),
         ],
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView(
+      body: Stack(children: [
+        Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(height: 16),
+            Row(
               children: [
-                SizedBox(height: 16),
-                Row(
-                  children: [
-                    SizedBox(width: 36),
-                    Container(
-                      height: 120,
-                      width: 106,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(16),
-                        child: Image.asset(
-                          widget.doc.pfp,
-                          fit: BoxFit.cover,
+                SizedBox(width: 36),
+                Container(
+                  height: 120,
+                  width: 106,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: Image.asset(
+                      widget.doc.pfp,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                SizedBox(width: 20),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 4),
+                      Text(
+                        'Dr. ' + widget.doc.name,
+                        style: TextStyle(
+                          fontFamily: AppTheme.fontFamily,
+                          fontSize: 18,
+                          fontWeight: FontWeight.normal,
+                          height: 1.5,
+                          color: AppTheme.black,
                         ),
                       ),
-                    ),
-                    SizedBox(width: 20),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      SizedBox(height: 6),
+                      Text(
+                        widget.doc.specialty,
+                        style: TextStyle(
+                          fontFamily: AppTheme.fontFamily,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w300,
+                          height: 1.5,
+                          color: AppTheme.dark,
+                        ),
+                      ),
+                      SizedBox(height: 14),
+                      Row(
                         children: [
-                          SizedBox(height: 4),
+                          RatingContainer(rating: widget.doc.star),
+                          SizedBox(width: 8),
                           Text(
-                            'Dr. ' + widget.doc.name,
+                            '(' +
+                                widget.doc.reviews.toString() +
+                                ' reviews)',
                             style: TextStyle(
-                              fontFamily: AppTheme.fontFamily,
-                              fontSize: 18,
-                              fontWeight: FontWeight.normal,
-                              height: 1.5,
-                              color: AppTheme.black,
-                            ),
-                          ),
-                          SizedBox(height: 6),
-                          Text(
-                            widget.doc.specialty,
-                            style: TextStyle(
-                              fontFamily: AppTheme.fontFamily,
-                              fontSize: 12,
                               fontWeight: FontWeight.w300,
+                              fontSize: 12,
+                              fontFamily: AppTheme.fontFamily,
                               height: 1.5,
                               color: AppTheme.dark,
                             ),
                           ),
-                          SizedBox(height: 14),
-                          Row(
-                            children: [
-                              RatingContainer(rating: widget.doc.star),
-                              SizedBox(width: 8),
-                              Text(
-                                '(' +
-                                    widget.doc.reviews.toString() +
-                                    ' reviews)',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w300,
-                                  fontSize: 12,
-                                  fontFamily: AppTheme.fontFamily,
-                                  height: 1.5,
-                                  color: AppTheme.dark,
-                                ),
-                              ),
-                            ],
-                          ),
                         ],
-                      ),
-                    ),
-                    SizedBox(width: 36),
-                  ],
-                ),
-                SizedBox(height: 28),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(
-                    top: 12,
-                    left: 36,
-                    right: 36,
-                    bottom: 24,
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(48),
-                      topRight: Radius.circular(48),
-                    ),
-                    color: AppTheme.white,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Spacer(),
-                          Container(
-                            height: 4,
-                            width: 48,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(4),
-                              color: AppTheme.gray,
-                            ),
-                          ),
-                          Spacer(),
-                        ],
-                      ),
-                      SizedBox(height: 30),
-                      Text(
-                        'Biography',
-                        style: TextStyle(
-                          fontFamily: AppTheme.fontFamily,
-                          fontSize: 14,
-                          fontWeight: FontWeight.normal,
-                          height: 1.5,
-                          color: AppTheme.black,
-                        ),
-                      ),
-                      SizedBox(height: 16),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                              widget.doc.bio,
-                              style: TextStyle(
-                                fontFamily: AppTheme.fontFamily,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w300,
-                                height: 1.8,
-                                color: AppTheme.dark,
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: full == false ? 3 : 99,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                full = !full;
-                              });
-                            },
-                            child: Container(
-                              padding: EdgeInsets.only(
-                                left: 15,
-                                top: 4,
-                                bottom: 4,
-                              ),
-                              color: Colors.transparent,
-                              child: Text(full == false ? 'Read more' : 'Less',
-                                  style: TextStyle(
-                                    fontFamily: AppTheme.fontFamily,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.normal,
-                                    height: 1.5,
-                                    color: AppTheme.orange,
-                                  )),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 24),
-                      Text(
-                        'Location',
-                        style: TextStyle(
-                          fontFamily: AppTheme.fontFamily,
-                          fontSize: 14,
-                          fontWeight: FontWeight.normal,
-                          height: 1.5,
-                          color: AppTheme.black,
-                        ),
-                      ),
-                      SizedBox(height: 14),
-                      Container(
-                        height: 136,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
-                          color: AppTheme.light,
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(16),
-                          child: GoogleMap(
-                            myLocationButtonEnabled: false,
-                            mapType: MapType.normal,
-                            scrollGesturesEnabled: true,
-                            initialCameraPosition: CameraPosition(
-                              target: widget.doc.location,
-                              zoom: 16,
-                            ),
-                            zoomControlsEnabled: false,
-                            compassEnabled: false,
-                            myLocationEnabled: false,
-                            markers: <Marker>{_createMarker()},
-                            onMapCreated: _onMapCreated,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 24),
-                      Text(
-                        'Schedule',
-                        style: TextStyle(
-                          fontFamily: AppTheme.fontFamily,
-                          fontSize: 14,
-                          fontWeight: FontWeight.normal,
-                          height: 1.5,
-                          color: AppTheme.black,
-                        ),
-                      ),
-                      SizedBox(height: 14),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
-                          color: AppTheme.orangeLight,
-                        ),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                widget.doc.busy,
-                                style: TextStyle(
-                                  fontFamily: AppTheme.fontFamily,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.normal,
-                                  height: 1.5,
-                                  color: AppTheme.orange,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
                       ),
                     ],
                   ),
                 ),
+                SizedBox(width: 36),
               ],
             ),
-          ),
-          Container(
-            height: 92,
-            width: MediaQuery.of(context).size.width,
-            color: AppTheme.white,
-            padding: EdgeInsets.only(
-              top: 12,
-              left: 36,
-              right: 36,
-              bottom: 24,
-            ),
-            child: Row(
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return ChatScreen(data: _chat);
-                        },
-                      ),
-                    );
-                  },
-                  child: Container(
-                    height: 56,
-                    width: 56,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      color: AppTheme.orange,
+            SizedBox(height: 28),
+          ],
+        ),
+        Column(
+          children: [
+            Expanded(
+              child: ListView(
+                children: [
+                  SizedBox(height: 164),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    padding: EdgeInsets.only(
+                      top: 12,
+                      left: 36,
+                      right: 36,
+                      bottom: 24,
                     ),
-                    child: Center(
-                      child: SvgPicture.asset(
-                        'assets/icons/chat.svg',
-                        color: AppTheme.white,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(48),
+                        topRight: Radius.circular(48),
                       ),
+                      color: AppTheme.white,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Spacer(),
+                            Container(
+                              height: 4,
+                              width: 48,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(4),
+                                color: AppTheme.gray,
+                              ),
+                            ),
+                            Spacer(),
+                          ],
+                        ),
+                        SizedBox(height: 30),
+                        Text(
+                          'Biography',
+                          style: TextStyle(
+                            fontFamily: AppTheme.fontFamily,
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                            height: 1.5,
+                            color: AppTheme.black,
+                          ),
+                        ),
+                        SizedBox(height: 16),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                widget.doc.bio,
+                                style: TextStyle(
+                                  fontFamily: AppTheme.fontFamily,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w300,
+                                  height: 1.8,
+                                  color: AppTheme.dark,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: full == false ? 3 : 99,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  full = !full;
+                                });
+                              },
+                              child: Container(
+                                padding: EdgeInsets.only(
+                                  left: 15,
+                                  top: 4,
+                                  bottom: 4,
+                                ),
+                                color: Colors.transparent,
+                                child:
+                                    Text(full == false ? 'Read more' : 'Less',
+                                        style: TextStyle(
+                                          fontFamily: AppTheme.fontFamily,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.normal,
+                                          height: 1.5,
+                                          color: AppTheme.orange,
+                                        )),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 24),
+                        Text(
+                          'Location',
+                          style: TextStyle(
+                            fontFamily: AppTheme.fontFamily,
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                            height: 1.5,
+                            color: AppTheme.black,
+                          ),
+                        ),
+                        SizedBox(height: 14),
+                        Container(
+                          height: 136,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            color: AppTheme.light,
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(16),
+                            child: GoogleMap(
+                              myLocationButtonEnabled: false,
+                              mapType: MapType.normal,
+                              scrollGesturesEnabled: true,
+                              initialCameraPosition: CameraPosition(
+                                target: widget.doc.location,
+                                zoom: 16,
+                              ),
+                              zoomControlsEnabled: false,
+                              compassEnabled: false,
+                              myLocationEnabled: false,
+                              markers: <Marker>{_createMarker()},
+                              onMapCreated: _onMapCreated,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 24),
+                        Text(
+                          'Schedule',
+                          style: TextStyle(
+                            fontFamily: AppTheme.fontFamily,
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                            height: 1.5,
+                            color: AppTheme.black,
+                          ),
+                        ),
+                        SizedBox(height: 14),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            color: AppTheme.orangeLight,
+                          ),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 24, vertical: 16),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  widget.doc.busy,
+                                  style: TextStyle(
+                                    fontFamily: AppTheme.fontFamily,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.normal,
+                                    height: 1.5,
+                                    color: AppTheme.orange,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ),
-                SizedBox(width: 12),
-                Expanded(
-                  child: Container(
-                    height: 56,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      color: AppTheme.purple,
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Make Appointment',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                          fontFamily: AppTheme.fontFamily,
-                          height: 1.5,
+                ],
+              ),
+            ),
+            Container(
+              height: 92,
+              width: MediaQuery.of(context).size.width,
+              color: AppTheme.white,
+              padding: EdgeInsets.only(
+                top: 12,
+                left: 36,
+                right: 36,
+                bottom: 24,
+              ),
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return ChatScreen(data: _chat);
+                          },
+                        ),
+                      );
+                    },
+                    child: Container(
+                      height: 56,
+                      width: 56,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        color: AppTheme.orange,
+                      ),
+                      child: Center(
+                        child: SvgPicture.asset(
+                          'assets/icons/chat.svg',
                           color: AppTheme.white,
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
+                  SizedBox(width: 12),
+                  Expanded(
+                    child: Container(
+                      height: 56,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        color: AppTheme.purple,
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Make Appointment',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                            fontFamily: AppTheme.fontFamily,
+                            height: 1.5,
+                            color: AppTheme.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+      ]),
     );
   }
 

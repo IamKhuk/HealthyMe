@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:healthy_me/src/model/doctor_model.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
+import 'package:healthy_me/src/utils/utils.dart';
 
 class VisitContainer extends StatefulWidget {
   final DoctorModel doc;
@@ -76,7 +77,6 @@ class _VisitContainerState extends State<VisitContainer> {
             ),
           ),
           Container(
-            height: 56,
             padding: EdgeInsets.all(18),
             decoration: BoxDecoration(
               color: AppTheme.purpleLight,
@@ -86,23 +86,16 @@ class _VisitContainerState extends State<VisitContainer> {
               children: [
                 SvgPicture.asset('assets/icons/time.svg', color: AppTheme.white,),
                 SizedBox(width: 14),
-                Text(
-                  widget.time[0].weekday.toString() +
-                      ', ' +
-                      widget.time[0].month.toString() +
-                      ', ' +
-                      widget.time[0].year.toString() +
-                      ', ' +
-                      widget.time[0].hour.toString() +
-                      ' AM - ' +
-                      widget.time[1].hour.toString() +
-                      ' AM',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w300,
-                    fontSize: 12,
-                    fontFamily: AppTheme.fontFamily,
-                    height: 1.5,
-                    color: AppTheme.white,
+                Expanded(
+                  child: Text(
+                    Utils.dateFormat(widget.time[0], widget.time[1]),
+                    style: TextStyle(
+                      fontWeight: FontWeight.w300,
+                      fontSize: 12,
+                      fontFamily: AppTheme.fontFamily,
+                      height: 1.5,
+                      color: AppTheme.white,
+                    ),
                   ),
                 ),
               ],

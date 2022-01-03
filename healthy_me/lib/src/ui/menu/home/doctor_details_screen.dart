@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:healthy_me/src/model/chat_model.dart';
 import 'package:healthy_me/src/model/doctor_model.dart';
+import 'package:healthy_me/src/model/msg_model.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
+import 'package:healthy_me/src/ui/menu/home/chat_screen.dart';
 import 'package:healthy_me/src/widgets/map_style.dart';
 import 'package:healthy_me/src/widgets/rating_container.dart';
 
@@ -18,9 +21,23 @@ class DoctorDetailsScreen extends StatefulWidget {
 }
 
 class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
+  late ChatModel _chat;
   bool full = false;
   GoogleMapController? controller;
   BitmapDescriptor? _markerIcon;
+
+  @override
+  void initState() {
+    _chat = ChatModel(
+      user: widget.doc,
+      msg: [
+        MsgModel(msg: 'Hey dude', time: DateTime.now()),
+        MsgModel(msg: "How are you doing", time: DateTime.now()),
+      ],
+      isRead: true,
+    );
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -341,17 +358,29 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
             ),
             child: Row(
               children: [
-                Container(
-                  height: 56,
-                  width: 56,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                    color: AppTheme.orange,
-                  ),
-                  child: Center(
-                    child: SvgPicture.asset(
-                      'assets/icons/chat.svg',
-                      color: AppTheme.white,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return ChatScreen(data: _chat);
+                        },
+                      ),
+                    );
+                  },
+                  child: Container(
+                    height: 56,
+                    width: 56,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      color: AppTheme.orange,
+                    ),
+                    child: Center(
+                      child: SvgPicture.asset(
+                        'assets/icons/chat.svg',
+                        color: AppTheme.white,
+                      ),
                     ),
                   ),
                 ),

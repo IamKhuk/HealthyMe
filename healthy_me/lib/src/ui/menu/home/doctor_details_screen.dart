@@ -299,22 +299,28 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                       ),
                       SizedBox(height: 14),
                       Container(
-                        height: 52,
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16),
                           color: AppTheme.orangeLight,
                         ),
                         padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                        child: Text(
-                          widget.doc.busy,
-                          style: TextStyle(
-                            fontFamily: AppTheme.fontFamily,
-                            fontSize: 12,
-                            fontWeight: FontWeight.normal,
-                            height: 1.5,
-                            color: AppTheme.orange,
-                          ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                widget.doc.busy,
+                                style: TextStyle(
+                                  fontFamily: AppTheme.fontFamily,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.normal,
+                                  height: 1.5,
+                                  color: AppTheme.orange,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       )
                     ],

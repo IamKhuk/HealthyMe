@@ -22,9 +22,9 @@ class _HomeScreenState extends State<HomeScreen> {
     CategoryModel(img: 'assets/icons/hospital_bed.svg', title: 'All'),
     CategoryModel(img: 'assets/icons/hospital_bed.svg', title: 'General'),
     CategoryModel(img: 'assets/icons/dentist.svg', title: 'Dentist'),
-    CategoryModel(img: 'assets/icons/heart_beat.svg', title: 'Heart care'),
-    CategoryModel(img: 'assets/icons/pill.svg', title: 'Pharmacist'),
-    CategoryModel(img: 'assets/icons/needle.svg', title: 'Vaccine'),
+    CategoryModel(img: 'assets/icons/heart_beat.svg', title: 'Neurosurgeon'),
+    CategoryModel(img: 'assets/icons/pill.svg', title: 'Pediatrics'),
+    CategoryModel(img: 'assets/icons/needle.svg', title: 'Gynecologist'),
     CategoryModel(img: 'assets/icons/shield.svg', title: 'Other'),
   ];
 
@@ -363,15 +363,36 @@ class _HomeScreenState extends State<HomeScreen> {
               shrinkWrap: true,
               padding: EdgeInsets.symmetric(horizontal: 24),
               itemBuilder: (context, index) {
-                return Column(
-                  children: [
-                    SizedBox(height: index == 0? 0: 12),
-                    DoctorContainer(doc: docs[index]),
-                    SizedBox(height: index == docs.length - 1? 90: 0),
-                  ],
-                );
+                return categories[ctgIndex].title == 'All'
+                    ? Column(
+                        children: [
+                          SizedBox(height: index == 0 ? 0 : 12),
+                          DoctorContainer(doc: docs[index]),
+                        ],
+                      )
+                    : categories[ctgIndex].title == 'Other' &&
+                            docs[index].specialty != 'General' &&
+                            docs[index].specialty != 'Dentist' &&
+                            docs[index].specialty != 'Neurosurgeon' &&
+                            docs[index].specialty != 'Pediatrics' &&
+                            docs[index].specialty != 'Gynecologist'
+                        ? Column(
+                            children: [
+                              SizedBox(height: index == 0 ? 0 : 12),
+                              DoctorContainer(doc: docs[index]),
+                            ],
+                          )
+                        : docs[index].specialty == categories[ctgIndex].title
+                            ? Column(
+                                children: [
+                                  SizedBox(height: index == 0 ? 0 : 12),
+                                  DoctorContainer(doc: docs[index]),
+                                ],
+                              )
+                            : Container();
               },
             ),
+            SizedBox(height: 92),
           ],
         ),
       ),

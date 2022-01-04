@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
-import 'package:healthy_me/src/ui/menu/chats/chats_screen.dart';
 import 'package:healthy_me/src/ui/menu/diagnose/diagnose_screen.dart';
 import 'package:healthy_me/src/ui/menu/profile/profile_screen.dart';
 import 'package:healthy_me/src/ui/menu/schedule/schedule_screen.dart';
+import 'menu/chats/chats_screen.dart';
 import 'menu/home/home_screen.dart';
 int selectedIndex = 0;
 

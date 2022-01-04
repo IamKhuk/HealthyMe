@@ -343,7 +343,10 @@ class _ChatScreenState extends State<ChatScreen> {
                           });
                         },
                         controller: _controller,
+                        enableSuggestions: true,
+                        textAlignVertical: TextAlignVertical.center,
                         cursorColor: AppTheme.purple,
+                        enableInteractiveSelection: true,
                         style: TextStyle(
                           fontFamily: AppTheme.fontFamily,
                           fontSize: 14,

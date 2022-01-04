@@ -92,24 +92,23 @@ class _ChatsScreenState extends State<ChatsScreen>
             indicatorSize: TabBarIndicatorSize.tab,
             labelStyle: TextStyle(
               fontFamily: AppTheme.fontFamily,
-              fontWeight: FontWeight.normal,
+              fontWeight: FontWeight.w500,
               fontSize: 14,
               height: 1.5,
-              color: AppTheme.purple,
             ),
             unselectedLabelStyle: TextStyle(
               fontFamily: AppTheme.fontFamily,
               fontWeight: FontWeight.w500,
               fontSize: 14,
               height: 1.5,
-              color: AppTheme.dark,
             ),
             indicatorColor: AppTheme.purple,
             labelColor: AppTheme.purple,
+            unselectedLabelColor: AppTheme.dark,
             tabs: [
               Tab(
                 child: Container(
-                  width: (MediaQuery.of(context).size.width - 72) / 2.5,
+                  width: (MediaQuery.of(context).size.width - 48) / 2.5,
                   child: Center(
                     child: Text(
                       'All',
@@ -125,7 +124,7 @@ class _ChatsScreenState extends State<ChatsScreen>
               ),
               Tab(
                 child: Container(
-                  width: (MediaQuery.of(context).size.width - 72) / 2.5,
+                  width: (MediaQuery.of(context).size.width - 48) / 2.5,
                   child: Center(
                     child: Text(
                       'Unread',

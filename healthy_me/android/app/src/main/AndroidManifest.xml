@@ -3,7 +3,7 @@
 
     <application
         android:icon="@mipmap/ic_launcher"
-        android:label="healthy_me">
+        android:label="HealthyMe">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAif82vLTmiXCk126nJVidRZMaRCEOEc2g" />

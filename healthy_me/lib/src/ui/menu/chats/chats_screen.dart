@@ -77,7 +77,7 @@ class _ChatsScreenState extends State<ChatsScreen>
           title: Text(
             'Messages',
             style: TextStyle(
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.normal,
               fontSize: 18,
               fontFamily: AppTheme.fontFamily,
               height: 1.5,

@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:healthy_me/src/model/schedule_model.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
+import 'package:healthy_me/src/ui/menu/home/doctor_details_screen.dart';
 import 'package:healthy_me/src/utils/utils.dart';
 
 class ScheduleContainer extends StatefulWidget {
@@ -28,50 +30,62 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
       ),
       child: Column(
         children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                height: 50,
-                width: 50,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(16),
-                  child: Image.asset(
-                    widget.data.doc.pfp,
-                    fit: BoxFit.cover,
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return DoctorDetailsScreen(doc: widget.data.doc);
+                  },
+                ),
+              );
+            },
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  height: 50,
+                  width: 50,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: Image.asset(
+                      widget.data.doc.pfp,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(width: 14),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Dr. ' + widget.data.doc.name,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14,
-                        fontFamily: AppTheme.fontFamily,
-                        height: 1.5,
-                        color: AppTheme.black,
+                SizedBox(width: 14),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Dr. ' + widget.data.doc.name,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
+                          fontFamily: AppTheme.fontFamily,
+                          height: 1.5,
+                          color: AppTheme.black,
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 5),
-                    Text(
-                      widget.data.doc.specialty,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w300,
-                        fontSize: 12,
-                        fontFamily: AppTheme.fontFamily,
-                        height: 1.5,
-                        color: AppTheme.dark,
+                      SizedBox(height: 5),
+                      Text(
+                        widget.data.doc.specialty,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w300,
+                          fontSize: 12,
+                          fontFamily: AppTheme.fontFamily,
+                          height: 1.5,
+                          color: AppTheme.dark,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           SizedBox(height: 12),
           Row(
@@ -133,7 +147,7 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
             children: [
               GestureDetector(
                 onTap: () {
-                  if (widget.data.completed == false &&
+                  if (widget.data.time[1].day > DateTime.now().day &&
                       widget.data.canceled == false) {
                     widget.onChanged(true);
                   }
@@ -149,7 +163,7 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
                     child: Text(
                       widget.data.canceled == true
                           ? 'Canceled'
-                          : widget.data.completed == true
+                          : widget.data.time[1].day < DateTime.now().day
                               ? 'Completed'
                               : 'Cancel',
                       style: TextStyle(

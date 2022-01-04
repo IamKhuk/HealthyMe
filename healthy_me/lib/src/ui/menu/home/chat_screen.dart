@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:healthy_me/src/model/chat_model.dart';
 import 'package:healthy_me/src/model/msg_model.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
+import 'package:healthy_me/src/ui/menu/home/doctor_details_screen.dart';
 
 class ChatScreen extends StatefulWidget {
   final ChatModel data;
@@ -94,34 +95,47 @@ class _ChatScreenState extends State<ChatScreen> {
                         ),
                       ),
                       SizedBox(width: 12),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text(
-                              'Dr. ' + widget.data.user.name,
-                              style: TextStyle(
-                                fontWeight: FontWeight.normal,
-                                fontSize: 16,
-                                fontFamily: AppTheme.fontFamily,
-                                height: 1.5,
-                                color: AppTheme.white,
-                              ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return DoctorDetailsScreen(
+                                    doc: widget.data.user);
+                              },
                             ),
-                            Text(
-                              online == false ? 'Offline' : 'Online',
-                              style: TextStyle(
-                                fontWeight: FontWeight.normal,
-                                fontSize: 12,
-                                fontFamily: AppTheme.fontFamily,
-                                height: 1.5,
-                                color: AppTheme.white,
+                          );
+                        },
+                        child: Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                'Dr. ' + widget.data.user.name,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 16,
+                                  fontFamily: AppTheme.fontFamily,
+                                  height: 1.5,
+                                  color: AppTheme.white,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                               ),
-                            ),
-                          ],
+                              Text(
+                                online == false ? 'Offline' : 'Online',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 12,
+                                  fontFamily: AppTheme.fontFamily,
+                                  height: 1.5,
+                                  color: AppTheme.white,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       Row(

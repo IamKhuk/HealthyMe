@@ -157,4 +157,9 @@ class Utils {
 
     return h1 + ' ' + t1 + ' - ' + h2 + ' ' + t2;
   }
+
+  static List<String> visitDateFormat(DateTime time){
+
+    return [];
+  }
 }

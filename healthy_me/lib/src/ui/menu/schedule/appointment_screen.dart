@@ -194,7 +194,6 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
             ),
           ),
           SizedBox(height: 30),
-
           Row(
             children: [
               SizedBox(width: 36),

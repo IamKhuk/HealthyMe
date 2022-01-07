@@ -1,3 +1,5 @@
+import 'package:healthy_me/src/model/visit_date_model.dart';
+
 class Utils {
   static double starFormat(double k) {
     if (k == 0) {
@@ -158,8 +160,72 @@ class Utils {
     return h1 + ' ' + t1 + ' - ' + h2 + ' ' + t2;
   }
 
-  static List<String> visitDateFormat(DateTime time){
+  static String monthFormat(int time) {
+    String month = '';
+    time == 1
+        ? month = 'Jan'
+        : time == 2
+            ? month = 'Feb'
+            : time == 3
+                ? month = 'March'
+                : time == 4
+                    ? month = 'Apr'
+                    : time == 5
+                        ? month = 'May'
+                        : time == 6
+                            ? month = 'June'
+                            : time == 7
+                                ? month = 'July'
+                                : time == 8
+                                    ? month = 'Aug'
+                                    : time == 9
+                                        ? month = 'Sep'
+                                        : time == 10
+                                            ? month = 'Oct'
+                                            : time == 11
+                                                ? month = 'Nov'
+                                                : month = 'Dec';
 
-    return [];
+    return month;
+  }
+
+  static String weekFormat(int time) {
+    String weekDay = '';
+    time == 1
+        ? weekDay = 'Monday'
+        : time == 2
+            ? weekDay = 'Tuesday'
+            : time == 3
+                ? weekDay = 'Wednesday'
+                : time == 4
+                    ? weekDay = 'Thursday'
+                    : time == 5
+                        ? weekDay = 'Friday'
+                        : time == 6
+                            ? weekDay = 'Saturday'
+                            : weekDay = 'Sunday';
+
+    return weekDay;
+  }
+
+  static List<VisitDateModel> visitDateFormat(DateTime time) {
+    List<VisitDateModel> list = [];
+    list.add(VisitDateModel(
+      day: time.day,
+      week: time.weekday,
+      month: time.month,
+      year: time.year,
+    ));
+    for (int i = 1; i < 90; i++) {
+      list.add(
+        VisitDateModel(
+          day: time.add(Duration(days: i)).day,
+          week: time.add(Duration(days: i)).weekday,
+          month: time.add(Duration(days: i)).month,
+          year: time.add(Duration(days: i)).year,
+        ),
+      );
+    }
+    return list;
   }
 }

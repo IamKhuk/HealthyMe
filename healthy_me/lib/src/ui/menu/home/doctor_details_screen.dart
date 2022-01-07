@@ -8,6 +8,7 @@ import 'package:healthy_me/src/model/doctor_model.dart';
 import 'package:healthy_me/src/model/msg_model.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
 import 'package:healthy_me/src/ui/menu/home/chat_screen.dart';
+import 'package:healthy_me/src/ui/menu/schedule/appointment_screen.dart';
 import 'package:healthy_me/src/widgets/map_style.dart';
 import 'package:healthy_me/src/widgets/rating_container.dart';
 
@@ -405,29 +406,41 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                     ),
                     SizedBox(width: 12),
                     Expanded(
-                      child: Container(
-                        height: 56,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
-                          color: AppTheme.purple,
-                          boxShadow: [
-                            BoxShadow(
-                              offset: Offset(5, 9),
-                              blurRadius: 15,
-                              spreadRadius: 0,
-                              color: AppTheme.gray,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return AppointmentScreen();
+                              },
                             ),
-                          ],
-                        ),
-                        child: Center(
-                          child: Text(
-                            'Make Appointment',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16,
-                              fontFamily: AppTheme.fontFamily,
-                              height: 1.5,
-                              color: AppTheme.white,
+                          );
+                        },
+                        child: Container(
+                          height: 56,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            color: AppTheme.purple,
+                            boxShadow: [
+                              BoxShadow(
+                                offset: Offset(5, 9),
+                                blurRadius: 15,
+                                spreadRadius: 0,
+                                color: AppTheme.gray,
+                              ),
+                            ],
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Make Appointment',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16,
+                                fontFamily: AppTheme.fontFamily,
+                                height: 1.5,
+                                color: AppTheme.white,
+                              ),
                             ),
                           ),
                         ),

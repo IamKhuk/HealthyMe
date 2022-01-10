@@ -65,7 +65,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              GestureDetector(
+              GestureDetector( 
                 onTap: () {},
                 child: Container(
                   height: 40,
@@ -209,6 +209,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
               ),
             ],
           ),
+
         ],
       ),
     );

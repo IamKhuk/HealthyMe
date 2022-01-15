@@ -207,6 +207,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                   color: AppTheme.black,
                 ),
               ),
+
             ],
           ),
         ],

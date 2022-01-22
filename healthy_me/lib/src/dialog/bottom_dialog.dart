@@ -29,6 +29,11 @@ class BottomDialog {
                 horizontal: 24,
                 vertical: 16,
               ),
+              margin: EdgeInsets.only(
+                left: 24,
+                right: 24,
+                bottom: 32,
+              ),
               child: Column(
                 children: [
                   Container(
@@ -42,7 +47,7 @@ class BottomDialog {
                   SizedBox(height: 30),
                   SvgPicture.asset(
                     'assets/icons/alert.svg',
-                    color: AppTheme.orange,
+                    color: AppTheme.red,
                   ),
                   SizedBox(height: 24),
                   Text(
@@ -84,7 +89,7 @@ class BottomDialog {
                         child: Text(
                           'Delete',
                           style: TextStyle(
-                            fontWeight:FontWeight.w600,
+                            fontWeight: FontWeight.w600,
                             fontSize: 16,
                             fontFamily: AppTheme.fontFamily,
                             height: 1.5,

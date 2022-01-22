@@ -16,7 +16,7 @@ class CenterDialog {
               fontFamily: AppTheme.fontFamily,
               fontSize: 14,
               fontWeight: FontWeight.bold,
-              color: AppTheme.orange,
+              color: AppTheme.red,
             ),
           ),
           content: Text(

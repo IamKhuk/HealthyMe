@@ -228,4 +228,32 @@ class Utils {
     }
     return list;
   }
+
+  static List<TimeModel> visitTimeFormat() {
+    List<TimeModel> l = [];
+    for (int i = 8; i <= 17; i++) {
+      for (int j = 0; j <= 50; j += 10) {
+        l.add(TimeModel(hour: i, minutes: j));
+      }
+    }
+    return l;
+  }
+
+  static String minuteFormat(int minute) {
+    String i = '';
+    minute == 0 ? i = '00' : i = minute.toString();
+    return i;
+  }
+}
+
+class TimeModel {
+  int hour;
+  int minutes;
+  bool free;
+
+  TimeModel({
+    required this.hour,
+    required this.minutes,
+    this.free = true,
+  });
 }

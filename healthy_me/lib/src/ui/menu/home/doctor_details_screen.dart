@@ -450,7 +450,7 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                 ),
               )
             ],
-          )
+          ),
         ],
       ),
     );

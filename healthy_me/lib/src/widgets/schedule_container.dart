@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:healthy_me/src/model/schedule_model.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
 import 'package:healthy_me/src/ui/menu/home/doctor_details_screen.dart';
+import 'package:healthy_me/src/ui/menu/schedule/appointment_screen.dart';
 import 'package:healthy_me/src/utils/utils.dart';
 
 class ScheduleContainer extends StatefulWidget {
@@ -147,7 +148,7 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
             children: [
               GestureDetector(
                 onTap: () {
-                  if (widget.data.time[1].day > DateTime.now().day &&
+                  if (widget.data.time[1].compareTo(DateTime.now()) >= 0 &&
                       widget.data.canceled == false) {
                     widget.onChanged(true);
                   }
@@ -163,7 +164,7 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
                     child: Text(
                       widget.data.canceled == true
                           ? 'Canceled'
-                          : widget.data.time[1].day < DateTime.now().day
+                          : widget.data.time[1].compareTo(DateTime.now()) < 0
                               ? 'Completed'
                               : 'Cancel',
                       style: TextStyle(
@@ -179,6 +180,16 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
               ),
               SizedBox(width: 12),
               GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return AppointmentScreen();
+                      },
+                    ),
+                  );
+                },
                 child: Container(
                   height: 38,
                   width: (MediaQuery.of(context).size.width - 116) / 2,

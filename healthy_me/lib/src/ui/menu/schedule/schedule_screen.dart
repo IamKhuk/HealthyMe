@@ -23,11 +23,11 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
         .where((element) =>
             element.canceled == false &&
             element.completed == false &&
-            element.time[0].day > DateTime.now().day)
+            element.time[0].compareTo(DateTime.now()) >= 0)
         .toList();
     canceled = schedules.where((element) => element.canceled == true).toList();
     completed = schedules
-        .where((element) => element.time[0].day < DateTime.now().day)
+        .where((element) => element.time[0].compareTo(DateTime.now()) < 0)
         .toList();
     super.initState();
   }
@@ -83,9 +83,11 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                                     ScheduleContainer(
                                       data: schedules.firstWhere(
                                         (element) =>
-                                            element.time[0].day >
-                                                DateTime.now().day &&
-                                            element.canceled == false,
+                                            element.canceled == false &&
+                                            element.completed == false &&
+                                            element.time[0].compareTo(
+                                                    DateTime.now()) >=
+                                                0,
                                       ),
                                       onChanged: (cancel) {
                                         setState(() {

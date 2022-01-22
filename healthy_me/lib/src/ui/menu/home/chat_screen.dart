@@ -95,19 +95,19 @@ class _ChatScreenState extends State<ChatScreen> {
                         ),
                       ),
                       SizedBox(width: 12),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return DoctorDetailsScreen(
-                                    doc: widget.data.user);
-                              },
-                            ),
-                          );
-                        },
-                        child: Expanded(
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return DoctorDetailsScreen(
+                                      doc: widget.data.user);
+                                },
+                              ),
+                            );
+                          },
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.end,
@@ -314,7 +314,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                     fontFamily: AppTheme.fontFamily,
                                     fontSize: 14,
                                     fontWeight: FontWeight.normal,
-                                    color: AppTheme.gray,
+                                    color: AppTheme.dark,
                                   ),
                                 ),
                                 SizedBox(width: 24),

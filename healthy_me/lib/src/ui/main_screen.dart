@@ -39,21 +39,23 @@ class _MainScreenState extends State<MainScreen> {
               height: 70,
               width: size.width,
               margin: EdgeInsets.only(left: 16, bottom: 16, right: 16),
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    offset: Offset(5, 9),
-                    blurRadius: 30,
-                    spreadRadius: 0,
-                    color: AppTheme.gray,
-                  ),
-                ],
-              ),
               child: Stack(
                 children: [
-                  CustomPaint(
-                    size: Size(size.width - 32, 70),
-                    painter: RPSCustomPainter(),
+                  Container(
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          offset: Offset(0, 5),
+                          blurRadius: 25,
+                          spreadRadius: 0,
+                          color: AppTheme.dark.withOpacity(0.2),
+                        ),
+                      ],
+                    ),
+                    child: CustomPaint(
+                      size: Size(size.width - 32, 70),
+                      painter: RPSCustomPainter(),
+                    ),
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.end,

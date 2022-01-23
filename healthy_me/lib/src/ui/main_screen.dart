@@ -39,6 +39,16 @@ class _MainScreenState extends State<MainScreen> {
               height: 70,
               width: size.width,
               margin: EdgeInsets.only(left: 16, bottom: 16, right: 16),
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    offset: Offset(5, 9),
+                    blurRadius: 30,
+                    spreadRadius: 0,
+                    color: AppTheme.gray,
+                  ),
+                ],
+              ),
               child: Stack(
                 children: [
                   CustomPaint(

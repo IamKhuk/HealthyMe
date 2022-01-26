@@ -36,6 +36,7 @@ DoctorModel doc_04 = DoctorModel(
 DoctorModel doc_05 = DoctorModel(
   name: 'Aliyev Vali',
   pfp: 'assets/images/man_doc_04.jpg',
+
   specialty: 'Neurosurgeon',
   star: 4.7,
   location: LatLng(39.74781380762454, 64.39913613977183),

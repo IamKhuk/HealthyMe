@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:healthy_me/src/dialog/bottom_dialog.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
 import 'package:healthy_me/src/ui/auth/reset_pass_verification.dart';
+import 'package:healthy_me/src/utils/utils.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({Key? key}) : super(key: key);
@@ -167,16 +169,16 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             SizedBox(height: 44),
             GestureDetector(
               onTap: () {
-                if (_emailController.text.length > 0) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return ResetPassVerificationScreen();
-                      },
-                    ),
-                  );
-                }
+                Utils.emailValidator(_emailController.text) == false
+                    ? BottomDialog.showEmailFailed(context)
+                    : Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return ResetPassVerificationScreen();
+                    },
+                  ),
+                );
               },
               child: Container(
                 height: 56,

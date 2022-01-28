@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:healthy_me/src/dialog/bottom_dialog.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
+import 'package:healthy_me/src/utils/utils.dart';
 
 class SignUpScreen extends StatefulWidget {
   @override
@@ -298,7 +300,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         });
                       },
                       child: Padding(
-                        padding: const EdgeInsets.only(top: 14, bottom: 11, left: 11),
+                        padding: const EdgeInsets.only(
+                            top: 14, bottom: 11, left: 11),
                         child: SvgPicture.asset(
                           'assets/icons/eye.svg',
                           color: obscure == false
@@ -312,33 +315,40 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
             ),
             SizedBox(height: 48),
-            Container(
-              height: 56,
-              decoration: BoxDecoration(
-                color: AppTheme.purple,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    offset: Offset(5, 9),
-                    blurRadius: 15,
-                    spreadRadius: 0,
-                    color: AppTheme.gray,
-                  ),
-                ],
-              ),
-              child: Center(
-                child: Text(
-                  'Sign Up',
-                  style: TextStyle(
-                    fontFamily: AppTheme.fontFamily,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    height: 1.5,
-                    color: AppTheme.white,
+            GestureDetector(
+              onTap: () {
+                Utils.passwordValidator(_passController.text) == false
+                    ? BottomDialog.showPassFailed(context)
+                    : Navigator.pop(context);
+              },
+              child: Container(
+                height: 56,
+                decoration: BoxDecoration(
+                  color: AppTheme.purple,
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(5, 9),
+                      blurRadius: 15,
+                      spreadRadius: 0,
+                      color: AppTheme.gray,
+                    ),
+                  ],
+                ),
+                child: Center(
+                  child: Text(
+                    'Sign Up',
+                    style: TextStyle(
+                      fontFamily: AppTheme.fontFamily,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      height: 1.5,
+                      color: AppTheme.white,
+                    ),
                   ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

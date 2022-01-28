@@ -244,6 +244,12 @@ class Utils {
     minute == 0 ? i = '00' : i = minute.toString();
     return i;
   }
+
+  static bool passwordValidator(String value){
+    String  pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+    RegExp regExp = new RegExp(pattern);
+    return regExp.hasMatch(value);
+  }
 }
 
 class TimeModel {

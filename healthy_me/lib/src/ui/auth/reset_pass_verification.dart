@@ -4,14 +4,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
+import 'package:healthy_me/src/ui/auth/reset_password_screen.dart';
 import 'package:pinput/pin_put/pin_put.dart';
 
 class ResetPassVerificationScreen extends StatefulWidget {
   @override
-  _ResetPassVerificationScreenState createState() => _ResetPassVerificationScreenState();
+  _ResetPassVerificationScreenState createState() =>
+      _ResetPassVerificationScreenState();
 }
 
-class _ResetPassVerificationScreenState extends State<ResetPassVerificationScreen> {
+class _ResetPassVerificationScreenState
+    extends State<ResetPassVerificationScreen> {
   final _pinPutFocusNode = FocusNode();
   final _pinPutController = TextEditingController();
   bool _isLoading = false;
@@ -56,7 +59,10 @@ class _ResetPassVerificationScreenState extends State<ResetPassVerificationScree
                 height: 40,
                 width: 40,
                 child: Center(
-                  child: SvgPicture.asset('assets/icons/left.svg', color: AppTheme.black,),
+                  child: SvgPicture.asset(
+                    'assets/icons/left.svg',
+                    color: AppTheme.black,
+                  ),
                 ),
               ),
             ),
@@ -117,20 +123,20 @@ class _ResetPassVerificationScreenState extends State<ResetPassVerificationScree
           SizedBox(height: 8),
           timer > 0
               ? Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                timer.toString() + ' s.',
-                style: TextStyle(
-                  fontFamily: AppTheme.fontFamily,
-                  fontSize: 22,
-                  fontWeight: FontWeight.normal,
-                  height: 1.8,
-                  color: AppTheme.black,
-                ),
-              ),
-            ],
-          )
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      timer.toString() + ' s.',
+                      style: TextStyle(
+                        fontFamily: AppTheme.fontFamily,
+                        fontSize: 22,
+                        fontWeight: FontWeight.normal,
+                        height: 1.8,
+                        color: AppTheme.black,
+                      ),
+                    ),
+                  ],
+                )
               : Container(),
           SizedBox(height: 40),
           Container(
@@ -156,68 +162,80 @@ class _ResetPassVerificationScreenState extends State<ResetPassVerificationScree
           ),
           timer == 0
               ? Column(
-            children: [
-              SizedBox(height: 40),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Did not get the code? ',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16,
-                      height: 1.5,
-                      fontFamily: AppTheme.fontFamily,
-                      color: AppTheme.dark.withOpacity(0.6),
+                  children: [
+                    SizedBox(height: 40),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Did not get the code? ',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                            height: 1.5,
+                            fontFamily: AppTheme.fontFamily,
+                            color: AppTheme.dark.withOpacity(0.6),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () async {
+                            setState(() {
+                              timer = 120;
+                            });
+                            _startTimer();
+                          },
+                          child: Text(
+                            'Send Again',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              height: 1.5,
+                              fontFamily: AppTheme.fontFamily,
+                              color: AppTheme.orange,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                  GestureDetector(
-                    onTap: () async {
-                      setState(() {
-                        timer = 120;
-                      });
-                      _startTimer();
-                    },
-                    child: Text(
-                      'Send Again',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                        height: 1.5,
-                        fontFamily: AppTheme.fontFamily,
-                        color: AppTheme.orange,
-                      ),
-                    ),
+                  ],
+                )
+              : Container(),
+          SizedBox(height: 44),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return ResetPasswordScreen();
+                  },
+                ),
+              );
+            },
+            child: Container(
+              height: 56,
+              decoration: BoxDecoration(
+                color: AppTheme.purple,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    offset: Offset(5, 9),
+                    blurRadius: 15,
+                    spreadRadius: 0,
+                    color: AppTheme.gray,
                   ),
                 ],
               ),
-            ],
-          )
-              : Container(),
-          SizedBox(height: 44),
-          Container(
-            height: 56,
-            decoration: BoxDecoration(
-              color: AppTheme.purple,
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                BoxShadow(
-                  offset: Offset(5, 9),
-                  blurRadius: 15,
-                  spreadRadius: 0,
-                  color: AppTheme.gray,
-                ),
-              ],
-            ),
-            child: Center(
-              child: Text(
-                'Continue',
-                style: TextStyle(
-                  fontFamily: AppTheme.fontFamily,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  height: 1.5,
-                  color: AppTheme.white,
+              child: Center(
+                child: Text(
+                  'Continue',
+                  style: TextStyle(
+                    fontFamily: AppTheme.fontFamily,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    height: 1.5,
+                    color: AppTheme.white,
+                  ),
                 ),
               ),
             ),
@@ -230,7 +248,7 @@ class _ResetPassVerificationScreenState extends State<ResetPassVerificationScree
   void _startTimer() {
     _timer = Timer.periodic(
       Duration(seconds: 1),
-          (t) {
+      (t) {
         timer--;
         if (timer == 0) {
           _timer!.cancel();

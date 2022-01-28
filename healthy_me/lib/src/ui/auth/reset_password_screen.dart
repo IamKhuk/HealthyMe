@@ -1,18 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:healthy_me/src/dialog/bottom_dialog.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
-import 'package:healthy_me/src/ui/auth/reset_pass_verification.dart';
+import 'package:healthy_me/src/ui/auth/login_screen.dart';
+import 'package:healthy_me/src/utils/utils.dart';
 
-class ForgotPasswordScreen extends StatefulWidget {
-  const ForgotPasswordScreen({Key? key}) : super(key: key);
-
+class ResetPasswordScreen extends StatefulWidget {
   @override
-  _ForgotPasswordScreenState createState() => _ForgotPasswordScreenState();
+  _ResetPasswordScreenState createState() => _ResetPasswordScreenState();
 }
 
-class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
-  TextEditingController _emailController = new TextEditingController();
+class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
+  TextEditingController _passController = new TextEditingController();
+  TextEditingController _passAgainController = new TextEditingController();
+  bool obscure = false;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +47,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         ),
         centerTitle: false,
         title: Text(
-          'Forgot Password',
+          'Reset Password',
           style: TextStyle(
             fontWeight: FontWeight.w600,
             fontSize: 18,
@@ -105,7 +107,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             ),
             SizedBox(height: 40),
             Text(
-              'Email',
+              'Password',
               style: TextStyle(
                 fontFamily: AppTheme.fontFamily,
                 fontSize: 18,
@@ -137,7 +139,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 ),
                 child: TextField(
                   enabled: true,
-                  controller: _emailController,
+                  controller: _passController,
                   enableSuggestions: true,
                   textAlignVertical: TextAlignVertical.center,
                   cursorColor: AppTheme.purple,
@@ -152,7 +154,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   autofocus: false,
                   decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: 'Enter your email',
+                    hintText: 'Create your password',
                     hintStyle: TextStyle(
                       fontFamily: AppTheme.fontFamily,
                       fontSize: 14,
@@ -164,19 +166,99 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 ),
               ),
             ),
+            SizedBox(height: 32),
+            Text(
+              'Confirm Password',
+              style: TextStyle(
+                fontFamily: AppTheme.fontFamily,
+                fontSize: 18,
+                fontWeight: FontWeight.normal,
+                height: 1.5,
+                color: AppTheme.black,
+              ),
+            ),
+            SizedBox(height: 8),
+            Container(
+              height: 56,
+              decoration: BoxDecoration(
+                color: AppTheme.white,
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: [
+                  BoxShadow(
+                    offset: Offset(0, 10),
+                    blurRadius: 75,
+                    spreadRadius: 0,
+                    color: Color(0xFF939393).withOpacity(0.07),
+                  ),
+                ],
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  left: 20,
+                  right: 20,
+                  top: 2,
+                ),
+                child: TextField(
+                  enabled: true,
+                  controller: _passAgainController,
+                  enableSuggestions: true,
+                  textAlignVertical: TextAlignVertical.center,
+                  cursorColor: AppTheme.purple,
+                  obscureText: obscure,
+                  enableInteractiveSelection: true,
+                  style: TextStyle(
+                    fontFamily: AppTheme.fontFamily,
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
+                    height: 1.5,
+                    color: AppTheme.dark,
+                  ),
+                  autofocus: false,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: 'Create your password',
+                    hintStyle: TextStyle(
+                      fontFamily: AppTheme.fontFamily,
+                      fontSize: 14,
+                      fontWeight: FontWeight.normal,
+                      height: 1.5,
+                      color: AppTheme.dark.withOpacity(0.6),
+                    ),
+                    suffixIcon: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          obscure = !obscure;
+                        });
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            top: 14, bottom: 11, left: 22),
+                        child: SvgPicture.asset(
+                          'assets/icons/eye.svg',
+                          color: obscure == false
+                              ? AppTheme.gray
+                              : AppTheme.purple,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
             SizedBox(height: 44),
             GestureDetector(
               onTap: () {
-                if (_emailController.text.length > 0) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return ResetPassVerificationScreen();
-                      },
-                    ),
-                  );
-                }
+                Utils.passwordValidator(_passController.text) == false &&
+                        _passController.text != _passAgainController.text
+                    ? BottomDialog.showPassFailed(context)
+                    : Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return LoginScreen();
+                          },
+                        ),
+                      );
               },
               child: Container(
                 height: 56,

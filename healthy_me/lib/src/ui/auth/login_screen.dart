@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
+import 'package:healthy_me/src/ui/auth/forgot_password_screen.dart';
 import 'package:healthy_me/src/ui/auth/signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -245,7 +246,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                       child: Padding(
                         padding: const EdgeInsets.only(
-                            top: 14, bottom: 11, left: 11),
+                            top: 14, bottom: 11, left: 22),
                         child: SvgPicture.asset(
                           'assets/icons/eye.svg',
                           color: obscure == false
@@ -263,7 +264,16 @@ class _LoginScreenState extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return ForgotPasswordScreen();
+                        },
+                      ),
+                    );
+                  },
                   child: Container(
                     padding: EdgeInsets.only(
                       top: 2,

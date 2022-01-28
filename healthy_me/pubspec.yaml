@@ -18,6 +18,7 @@ dependencies:
   flutter_svg: ^0.22.0
   google_maps_flutter: ^2.0.9
   flutter_swipe_action_cell: ^2.1.5
+  pinput: ^1.2.2
 
 dev_dependencies:
   flutter_test:

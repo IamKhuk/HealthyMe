@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:healthy_me/src/dialog/bottom_dialog.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
+import 'package:healthy_me/src/ui/auth/verification_screen.dart';
 import 'package:healthy_me/src/utils/utils.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -301,7 +302,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       },
                       child: Padding(
                         padding: const EdgeInsets.only(
-                            top: 14, bottom: 11, left: 11),
+                            top: 14, bottom: 11, left: 22),
                         child: SvgPicture.asset(
                           'assets/icons/eye.svg',
                           color: obscure == false
@@ -319,7 +320,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
               onTap: () {
                 Utils.passwordValidator(_passController.text) == false
                     ? BottomDialog.showPassFailed(context)
-                    : Navigator.pop(context);
+                    : Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return VerificationScreen();
+                          },
+                        ),
+                      );
               },
               child: Container(
                 height: 56,

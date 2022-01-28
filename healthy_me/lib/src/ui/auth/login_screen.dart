@@ -2,15 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
+import 'package:healthy_me/src/ui/auth/signup_screen.dart';
 
-class SignUpScreen extends StatefulWidget {
+class LoginScreen extends StatefulWidget {
   @override
-  _SignUpScreenState createState() => _SignUpScreenState();
+  _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   TextEditingController _userController = new TextEditingController();
-  TextEditingController _emailController = new TextEditingController();
   TextEditingController _passController = new TextEditingController();
   bool obscure = false;
   String userName = '';
@@ -56,9 +56,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
+                  onTap: () {},
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -66,28 +64,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         padding: const EdgeInsets.symmetric(horizontal: 4),
                         child: Text(
                           'Log In',
-                          style: TextStyle(
-                            fontFamily: AppTheme.fontFamily,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
-                            height: 1.5,
-                            color: AppTheme.black.withOpacity(0.4),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                    ],
-                  ),
-                ),
-                SizedBox(width: 26),
-                GestureDetector(
-                  onTap: () {},
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Text(
-                          'Sign Up',
                           style: TextStyle(
                             fontFamily: AppTheme.fontFamily,
                             fontSize: 20,
@@ -109,11 +85,42 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ],
                   ),
                 ),
+                SizedBox(width: 26),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return SignUpScreen();
+                        },
+                      ),
+                    );
+                  },
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Text(
+                          'Sign Up',
+                          style: TextStyle(
+                            fontFamily: AppTheme.fontFamily,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                            height: 1.5,
+                            color: AppTheme.black.withOpacity(0.4),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                    ],
+                  ),
+                ),
               ],
             ),
             SizedBox(height: 40),
             Text(
-              'Username',
+              'Username or Email',
               style: TextStyle(
                 fontFamily: AppTheme.fontFamily,
                 fontSize: 18,
@@ -160,68 +167,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   autofocus: false,
                   decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: 'Create your username',
-                    hintStyle: TextStyle(
-                      fontFamily: AppTheme.fontFamily,
-                      fontSize: 14,
-                      fontWeight: FontWeight.normal,
-                      height: 1.5,
-                      color: AppTheme.dark.withOpacity(0.6),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 32),
-            Text(
-              'Email',
-              style: TextStyle(
-                fontFamily: AppTheme.fontFamily,
-                fontSize: 18,
-                fontWeight: FontWeight.normal,
-                height: 1.5,
-                color: AppTheme.black,
-              ),
-            ),
-            SizedBox(height: 8),
-            Container(
-              height: 56,
-              decoration: BoxDecoration(
-                color: AppTheme.white,
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: [
-                  BoxShadow(
-                    offset: Offset(0, 10),
-                    blurRadius: 75,
-                    spreadRadius: 0,
-                    color: Color(0xFF939393).withOpacity(0.07),
-                  ),
-                ],
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  left: 20,
-                  right: 20,
-                  top: 2,
-                ),
-                child: TextField(
-                  enabled: true,
-                  controller: _emailController,
-                  enableSuggestions: true,
-                  textAlignVertical: TextAlignVertical.center,
-                  cursorColor: AppTheme.purple,
-                  enableInteractiveSelection: true,
-                  style: TextStyle(
-                    fontFamily: AppTheme.fontFamily,
-                    fontSize: 14,
-                    fontWeight: FontWeight.normal,
-                    height: 1.5,
-                    color: AppTheme.dark,
-                  ),
-                  autofocus: false,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: 'Enter your email',
+                    hintText: 'Enter your username or Email',
                     hintStyle: TextStyle(
                       fontFamily: AppTheme.fontFamily,
                       fontSize: 14,
@@ -283,7 +229,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   autofocus: false,
                   decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: 'Create your password',
+                    hintText: 'Enter your password',
                     hintStyle: TextStyle(
                       fontFamily: AppTheme.fontFamily,
                       fontSize: 14,
@@ -298,7 +244,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         });
                       },
                       child: Padding(
-                        padding: const EdgeInsets.only(top: 14, bottom: 11, left: 11),
+                        padding: const EdgeInsets.only(
+                            top: 14, bottom: 11, left: 11),
                         child: SvgPicture.asset(
                           'assets/icons/eye.svg',
                           color: obscure == false
@@ -311,7 +258,33 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 48),
+            SizedBox(height: 14),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                GestureDetector(
+                  onTap: () {},
+                  child: Container(
+                    padding: EdgeInsets.only(
+                      top: 2,
+                      bottom: 2,
+                      left: 15,
+                    ),
+                    child: Text(
+                      'Forgot Password?',
+                      style: TextStyle(
+                        fontFamily: AppTheme.fontFamily,
+                        fontSize: 16,
+                        fontWeight: FontWeight.normal,
+                        height: 1.5,
+                        color: AppTheme.dark,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 30),
             Container(
               height: 56,
               decoration: BoxDecoration(
@@ -328,7 +301,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               child: Center(
                 child: Text(
-                  'Sign Up',
+                  'Login',
                   style: TextStyle(
                     fontFamily: AppTheme.fontFamily,
                     fontSize: 18,

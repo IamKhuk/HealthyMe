@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:healthy_me/src/ui/auth/login_screen.dart';
 import 'package:healthy_me/src/ui/auth/signup_screen.dart';
 import 'package:healthy_me/src/ui/main_screen.dart';
 
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
           child: child!,
         );
       },
-      home: SignUpScreen(),
+      home: LoginScreen(),
     );
   }
 }

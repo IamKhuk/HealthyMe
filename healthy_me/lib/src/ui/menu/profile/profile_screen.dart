@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:healthy_me/src/defaults/me.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
+import 'package:healthy_me/src/ui/menu/profile/personal_settings_screen.dart';
 import 'package:healthy_me/src/widgets/settings_container.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -202,9 +203,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                           ),
                           SizedBox(height: 28),
-                          SettingsContainer(
-                            img: 'assets/icons/user.svg',
-                            title: 'Personal',
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return PersonalSettingsScreen();
+                                  },
+                                ),
+                              );
+                            },
+                            child: SettingsContainer(
+                              img: 'assets/icons/user.svg',
+                              title: 'Personal',
+                            ),
                           ),
                           SizedBox(height: 8),
                           SettingsContainer(

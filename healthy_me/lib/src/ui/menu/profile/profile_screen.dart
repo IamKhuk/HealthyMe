@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:healthy_me/src/defaults/me.dart';
+import 'package:healthy_me/src/dialog/bottom_dialog.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
 import 'package:healthy_me/src/ui/menu/profile/personal_settings_screen.dart';
 import 'package:healthy_me/src/widgets/settings_container.dart';
@@ -235,9 +236,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             title: 'Help',
                           ),
                           SizedBox(height: 8),
-                          SettingsContainer(
-                            img: 'assets/icons/logout.svg',
-                            title: 'Logout',
+                          GestureDetector(
+                            onTap: (){
+                              BottomDialog.showLogOut(context);
+                            },
+                            child: SettingsContainer(
+                              img: 'assets/icons/logout.svg',
+                              title: 'Logout',
+                            ),
                           ),
                           SizedBox(height: 92),
                         ],

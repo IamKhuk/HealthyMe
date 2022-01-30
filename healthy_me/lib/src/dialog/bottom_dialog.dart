@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
+import 'package:healthy_me/src/ui/auth/login_screen.dart';
 import 'package:healthy_me/src/widgets/picker/custom_date_picker.dart';
-import 'dart:io';
 
 class BottomDialog {
   static void showDeleteChat(
@@ -604,6 +604,163 @@ class BottomDialog {
               ),
             ],
           ),
+        );
+      },
+    );
+  }
+
+  static void showLogOut(
+      BuildContext context,
+      ) {
+    showModalBottomSheet(
+      barrierColor: AppTheme.black.withOpacity(0.45),
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return Container(
+              height: 494,
+              child: Column(
+                children: [
+                  Container(
+                    height: 326,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(24),
+                        topLeft: Radius.circular(24),
+                        bottomRight: Radius.circular(16),
+                        bottomLeft: Radius.circular(16),
+                      ),
+                      color: AppTheme.white,
+                    ),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 24,
+                      vertical: 16,
+                    ),
+                    margin: EdgeInsets.only(
+                      left: 16,
+                      right: 16,
+                    ),
+                    child: Column(
+                      children: [
+                        Container(
+                          height: 5,
+                          width: 80,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: AppTheme.gray,
+                          ),
+                        ),
+                        SizedBox(height: 30),
+                        SvgPicture.asset(
+                          'assets/icons/alert.svg',
+                          color: AppTheme.red,
+                        ),
+                        SizedBox(height: 24),
+                        Text(
+                          'Are you sure you want to log out?',
+                          style: TextStyle(
+                            fontFamily: AppTheme.fontFamily,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            height: 1.5,
+                            color: AppTheme.black,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        SizedBox(height: 12),
+                        Expanded(
+                          child: Text(
+                            'Once you log out, all your cached data will be deleted',
+                            style: TextStyle(
+                              fontFamily: AppTheme.fontFamily,
+                              fontSize: 16,
+                              fontWeight: FontWeight.normal,
+                              height: 1.72,
+                              color: AppTheme.dark.withOpacity(0.8),
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).popUntil(
+                            (route) => route.isFirst,
+                      );
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return LoginScreen();
+                          },
+                        ),
+                      );
+                    },
+                    child: Container(
+                      height: 56,
+                      margin: EdgeInsets.only(
+                        left: 16,
+                        right: 16,
+                      ),
+                      decoration: BoxDecoration(
+                        color: AppTheme.white,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Log Out',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                            fontFamily: AppTheme.fontFamily,
+                            height: 1.5,
+                            color: AppTheme.red,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      height: 56,
+                      margin: EdgeInsets.only(
+                        left: 16,
+                        right: 16,
+                        bottom: 24,
+                      ),
+                      decoration: BoxDecoration(
+                        color: AppTheme.white,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Cancel',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                            fontFamily: AppTheme.fontFamily,
+                            height: 1.5,
+                            color: AppTheme.purple,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
         );
       },
     );

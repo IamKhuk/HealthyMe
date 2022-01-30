@@ -5,6 +5,8 @@ import 'package:healthy_me/src/theme/app_theme.dart';
 import 'package:healthy_me/src/ui/auth/forgot_password_screen.dart';
 import 'package:healthy_me/src/ui/auth/signup_screen.dart';
 
+import '../main_screen.dart';
+
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -295,29 +297,46 @@ class _LoginScreenState extends State<LoginScreen> {
               ],
             ),
             SizedBox(height: 30),
-            Container(
-              height: 56,
-              decoration: BoxDecoration(
-                color: AppTheme.purple,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    offset: Offset(5, 9),
-                    blurRadius: 15,
-                    spreadRadius: 0,
-                    color: AppTheme.gray,
-                  ),
-                ],
-              ),
-              child: Center(
-                child: Text(
-                  'Login',
-                  style: TextStyle(
-                    fontFamily: AppTheme.fontFamily,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    height: 1.5,
-                    color: AppTheme.white,
+            GestureDetector(
+              onTap: (){
+                if (_userController.text == 'qwerty' && _passController.text == 'Qwerty123!') {
+                  Navigator.of(context).popUntil(
+                        (route) => route.isFirst,
+                  );
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return MainScreen();
+                      },
+                    ),
+                  );
+                }
+              },
+              child: Container(
+                height: 56,
+                decoration: BoxDecoration(
+                  color: AppTheme.purple,
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(5, 9),
+                      blurRadius: 15,
+                      spreadRadius: 0,
+                      color: AppTheme.gray,
+                    ),
+                  ],
+                ),
+                child: Center(
+                  child: Text(
+                    'Login',
+                    style: TextStyle(
+                      fontFamily: AppTheme.fontFamily,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      height: 1.5,
+                      color: AppTheme.white,
+                    ),
                   ),
                 ),
               ),

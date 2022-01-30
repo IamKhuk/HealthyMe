@@ -22,6 +22,7 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
   TextEditingController _emailController = new TextEditingController();
   TextEditingController _phoneController = new TextEditingController();
   String name = me.name;
+  DateTime birthDate = DateTime(2000, 1, 1);
 
   @override
   void initState() {
@@ -449,18 +450,15 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                                 height: 20,
                                 width: 20,
                                 decoration: BoxDecoration(
-                                  borderRadius:
-                                  BorderRadius.circular(16),
-                                  border:
-                                  Border.all(color: AppTheme.purple),
+                                  borderRadius: BorderRadius.circular(16),
+                                  border: Border.all(color: AppTheme.purple),
                                 ),
                                 child: Center(
                                   child: Container(
                                     height: 14,
                                     width: 14,
                                     decoration: BoxDecoration(
-                                      borderRadius:
-                                      BorderRadius.circular(16),
+                                      borderRadius: BorderRadius.circular(16),
                                       color: gender == "man"
                                           ? AppTheme.orange
                                           : Colors.transparent,
@@ -503,18 +501,15 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                                 height: 20,
                                 width: 20,
                                 decoration: BoxDecoration(
-                                  borderRadius:
-                                  BorderRadius.circular(16),
-                                  border:
-                                  Border.all(color: AppTheme.purple),
+                                  borderRadius: BorderRadius.circular(16),
+                                  border: Border.all(color: AppTheme.purple),
                                 ),
                                 child: Center(
                                   child: Container(
                                     height: 14,
                                     width: 14,
                                     decoration: BoxDecoration(
-                                      borderRadius:
-                                      BorderRadius.circular(16),
+                                      borderRadius: BorderRadius.circular(16),
                                       color: gender == "woman"
                                           ? AppTheme.orange
                                           : Colors.transparent,
@@ -540,6 +535,158 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                     ),
                   ],
                 ),
+                SizedBox(height: 4),
+                Text(
+                  'Phone number',
+                  style: TextStyle(
+                    fontFamily: AppTheme.fontFamily,
+                    fontSize: 18,
+                    fontWeight: FontWeight.normal,
+                    height: 1.5,
+                    color: AppTheme.black,
+                  ),
+                ),
+                SizedBox(height: 8),
+                Container(
+                  height: 56,
+                  decoration: BoxDecoration(
+                    color: AppTheme.white,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        offset: Offset(0, 10),
+                        blurRadius: 75,
+                        spreadRadius: 0,
+                        color: Color(0xFF939393).withOpacity(0.07),
+                      ),
+                    ],
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      left: 16,
+                      right: 20,
+                      top: 2,
+                    ),
+                    child: TextFormField(
+                      controller: _phoneController,
+                      textAlignVertical: TextAlignVertical.center,
+                      cursorColor: AppTheme.purple,
+                      enableInteractiveSelection: true,
+                      style: TextStyle(
+                        fontFamily: AppTheme.fontFamily,
+                        fontSize: 16,
+                        fontWeight: FontWeight.normal,
+                        height: 1.5,
+                        color: AppTheme.dark,
+                      ),
+                      autofocus: false,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Enter your phone number',
+                        hintStyle: TextStyle(
+                          fontFamily: AppTheme.fontFamily,
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                          height: 1.5,
+                          color: AppTheme.dark.withOpacity(0.6),
+                        ),
+                        prefixIcon: Padding(
+                          padding: const EdgeInsets.only(
+                            top: 4,
+                            right: 12,
+                          ),
+                          child: Icon(
+                            Icons.call,
+                            color: AppTheme.purple,
+                            size: 28,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16),
+                Text(
+                  'Birth Date',
+                  style: TextStyle(
+                    fontFamily: AppTheme.fontFamily,
+                    fontSize: 18,
+                    fontWeight: FontWeight.normal,
+                    height: 1.5,
+                    color: AppTheme.black,
+                  ),
+                ),
+                SizedBox(height: 8),
+                GestureDetector(
+                  onTap: () {
+                    BottomDialog.showDateTime(
+                      context,
+                          (data) {
+                        setState(() {
+                          birthDate = data;
+                        });
+                      },
+                      birthDate,
+                    );
+                  },
+                  child: Container(
+                    height: 56,
+                    width: MediaQuery.of(context).size.width - 32,
+                    padding: EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      color: AppTheme.white,
+                      boxShadow: [
+                        BoxShadow(
+                          offset: Offset(0, 10),
+                          blurRadius: 75,
+                          spreadRadius: 0,
+                          color: Color(0xFF939393).withOpacity(0.07),
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      children: [
+                        SvgPicture.asset(
+                          'assets/icons/calendar.svg',
+                          color: AppTheme.purple,
+                        ),
+                        SizedBox(width: 16),
+                        Text(
+                          (birthDate.day
+                              .toString()
+                              .length ==
+                              1
+                              ? '0' +
+                              birthDate.day
+                                  .toString()
+                              : birthDate.day
+                              .toString()) +
+                              '/' +
+                              (birthDate.month
+                                  .toString()
+                                  .length ==
+                                  1
+                                  ? '0' +
+                                  birthDate.month
+                                      .toString()
+                                  : birthDate.month
+                                  .toString()) +
+                              '/' +
+                              birthDate.year.toString(),
+                          style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                            fontSize: 16,
+                            fontFamily: AppTheme.fontFamily,
+                            color: AppTheme.dark,
+                            height: 1.5,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 90),
               ],
             ),
           ),
@@ -592,7 +739,7 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                     ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ],

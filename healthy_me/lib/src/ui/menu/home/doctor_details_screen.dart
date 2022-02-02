@@ -274,7 +274,6 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         color: AppTheme.white,
-                        // border: Border.all(color: AppTheme.purple),
                         boxShadow: [
                           BoxShadow(
                             offset: Offset(5, 9),

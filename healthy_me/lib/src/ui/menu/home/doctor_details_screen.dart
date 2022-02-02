@@ -281,6 +281,7 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                             blurRadius: 15,
                             spreadRadius: 0,
                             color: AppTheme.gray,
+
                           ),
                         ],
                       ),

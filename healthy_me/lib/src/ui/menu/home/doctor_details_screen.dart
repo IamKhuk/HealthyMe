@@ -108,6 +108,7 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
           SizedBox(width: 36),
         ],
       ),
+      endDrawerEnableOpenDragGesture: false,
       endDrawer: Container(
         color: AppTheme.white,
         width: MediaQuery.of(context).size.width - 36,

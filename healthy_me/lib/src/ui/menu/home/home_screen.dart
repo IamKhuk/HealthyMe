@@ -4,6 +4,7 @@ import 'package:healthy_me/src/defaults/doctors_list.dart';
 import 'package:healthy_me/src/model/category_model.dart';
 import 'package:healthy_me/src/model/doctor_model.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
+import 'package:healthy_me/src/ui/menu/profile/personal_settings_screen.dart';
 import 'package:healthy_me/src/widgets/doctor_container.dart';
 import 'package:healthy_me/src/widgets/visit_container.dart';
 
@@ -100,7 +101,16 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return PersonalSettingsScreen();
+                      },
+                    ),
+                  );
+                },
                 child: Container(
                   height: 40,
                   width: 40,

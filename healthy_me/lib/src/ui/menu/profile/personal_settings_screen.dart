@@ -7,6 +7,8 @@ import 'package:healthy_me/src/theme/app_theme.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../main_screen.dart';
+
 class PersonalSettingsScreen extends StatefulWidget {
   @override
   _PersonalSettingsScreenState createState() => _PersonalSettingsScreenState();
@@ -44,7 +46,17 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
             SizedBox(width: 36),
             GestureDetector(
               onTap: () {
-                Navigator.pop(context);
+                Navigator.of(context).popUntil(
+                      (route) => route.isFirst,
+                );
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return MainScreen();
+                    },
+                  ),
+                );
               },
               child: Container(
                 height: 40,

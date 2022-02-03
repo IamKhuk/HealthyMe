@@ -47,7 +47,7 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
             GestureDetector(
               onTap: () {
                 Navigator.of(context).popUntil(
-                      (route) => route.isFirst,
+                  (route) => route.isFirst,
                 );
                 Navigator.pushReplacement(
                   context,
@@ -100,19 +100,19 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                 Row(
                   children: [
                     Container(
-                      height: 64,
-                      width: 64,
+                      height: 96,
+                      width: 96,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(64),
+                        borderRadius: BorderRadius.circular(20),
                       ),
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(64),
+                        borderRadius: BorderRadius.circular(20),
                         child: isLoadingImage
                             ? Container(
                                 padding: EdgeInsets.all(16),
                                 child: CircularProgressIndicator(
                                   valueColor: AlwaysStoppedAnimation<Color>(
-                                      AppTheme.white),
+                                      AppTheme.purple),
                                 ),
                               )
                             : Image.asset(
@@ -121,7 +121,7 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                               ),
                       ),
                     ),
-                    SizedBox(width: 16),
+                    SizedBox(width: 24),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -129,13 +129,13 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                           'Your Image',
                           style: TextStyle(
                             fontFamily: AppTheme.fontFamily,
-                            fontSize: 14,
+                            fontSize: 16,
                             fontWeight: FontWeight.w500,
                             height: 1.5,
                             color: AppTheme.black,
                           ),
                         ),
-                        SizedBox(height: 8),
+                        SizedBox(height: 12),
                         Row(
                           children: [
                             GestureDetector(
@@ -186,32 +186,74 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                                 //   },
                                 // );
                               },
-                              child: Text(
-                                'Edit',
-                                style: TextStyle(
-                                  fontFamily: AppTheme.fontFamily,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                  height: 1.375,
-                                  color: AppTheme.yellow,
+                              child: Container(
+                                height: 32,
+                                width:
+                                    (MediaQuery.of(context).size.width - 192) /
+                                        2,
+                                decoration: BoxDecoration(
+                                  color: AppTheme.white,
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(12),
+                                    bottomLeft: Radius.circular(12),
+                                  ),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      offset: Offset(0, 10),
+                                      blurRadius: 75,
+                                      spreadRadius: 0,
+                                      color:
+                                          Color(0xFF939393).withOpacity(0.07),
+                                    ),
+                                  ],
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    'Edit',
+                                    style: TextStyle(
+                                      fontFamily: AppTheme.fontFamily,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                      height: 1.375,
+                                      color: AppTheme.purple,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                            Container(
-                              height: 18,
-                              width: 1,
-                              color: AppTheme.dark,
-                              margin: EdgeInsets.symmetric(horizontal: 12),
-                            ),
                             GestureDetector(
-                              child: Text(
-                                'Delete',
-                                style: TextStyle(
-                                  fontFamily: AppTheme.fontFamily,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                  height: 1.375,
-                                  color: AppTheme.red,
+                              child: Container(
+                                height: 32,
+                                width:
+                                    (MediaQuery.of(context).size.width - 192) /
+                                        2,
+                                decoration: BoxDecoration(
+                                  color: AppTheme.purple,
+                                  borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(12),
+                                    bottomRight: Radius.circular(12),
+                                  ),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      offset: Offset(0, 10),
+                                      blurRadius: 75,
+                                      spreadRadius: 0,
+                                      color:
+                                          Color(0xFF939393).withOpacity(0.07),
+                                    ),
+                                  ],
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    'Delete',
+                                    style: TextStyle(
+                                      fontFamily: AppTheme.fontFamily,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                      height: 1.375,
+                                      color: AppTheme.white,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
@@ -633,7 +675,7 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                   onTap: () {
                     BottomDialog.showDateTime(
                       context,
-                          (data) {
+                      (data) {
                         setState(() {
                           birthDate = data;
                         });
@@ -665,25 +707,13 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                         ),
                         SizedBox(width: 16),
                         Text(
-                          (birthDate.day
-                              .toString()
-                              .length ==
-                              1
-                              ? '0' +
-                              birthDate.day
-                                  .toString()
-                              : birthDate.day
-                              .toString()) +
+                          (birthDate.day.toString().length == 1
+                                  ? '0' + birthDate.day.toString()
+                                  : birthDate.day.toString()) +
                               '/' +
-                              (birthDate.month
-                                  .toString()
-                                  .length ==
-                                  1
-                                  ? '0' +
-                                  birthDate.month
-                                      .toString()
-                                  : birthDate.month
-                                  .toString()) +
+                              (birthDate.month.toString().length == 1
+                                  ? '0' + birthDate.month.toString()
+                                  : birthDate.month.toString()) +
                               '/' +
                               birthDate.year.toString(),
                           style: TextStyle(

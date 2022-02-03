@@ -13,6 +13,7 @@ class AppointmentScreen extends StatefulWidget {
 }
 
 class _AppointmentScreenState extends State<AppointmentScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
   List<VisitDateModel> dateList = Utils.visitDateFormat(DateTime.now());
   int _selectedDate = 0;
   int _selectedTime = 0;
@@ -27,6 +28,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: AppTheme.bg,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -70,7 +72,9 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  _scaffoldKey.currentState!.openEndDrawer();
+                },
                 child: Container(
                   height: 40,
                   width: 40,
@@ -86,6 +90,260 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
           ),
           SizedBox(width: 36),
         ],
+      ),
+      endDrawerEnableOpenDragGesture: false,
+      endDrawer: Container(
+        color: AppTheme.white,
+        width: MediaQuery.of(context).size.width - 36,
+        child: Drawer(
+          elevation: 0,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              ListView(
+                padding: EdgeInsets.all(24),
+                children: [
+                  SizedBox(height: 24),
+                  Text(
+                    'What can I do in this page?',
+                    style: TextStyle(
+                      fontFamily: AppTheme.fontFamily,
+                      fontSize: 18,
+                      fontWeight: FontWeight.normal,
+                      height: 1.5,
+                      color: AppTheme.black,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'You can mainly make an appointment with certain doctor you selected, for doing so, you need to complete few process. Firstly, you need to select an appropriate date and time for the appointment, you can leave a request (optional) too, and after that simply tap the \'Make appointment\' button, then the appointment will be scheduled and added to your Schedule List.',
+                          style: TextStyle(
+                            fontFamily: AppTheme.fontFamily,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w300,
+                            height: 1.8,
+                            color: AppTheme.dark,
+                          ),
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 24),
+                  Text(
+                    'How to select date?',
+                    style: TextStyle(
+                      fontFamily: AppTheme.fontFamily,
+                      fontSize: 14,
+                      fontWeight: FontWeight.normal,
+                      height: 1.5,
+                      color: AppTheme.black,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      color: AppTheme.bg,
+                      boxShadow: [
+                        BoxShadow(
+                          offset: Offset(5, 9),
+                          blurRadius: 15,
+                          spreadRadius: 0,
+                          color: AppTheme.gray,
+                        ),
+                      ],
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: SvgPicture.asset('assets/images/select_date.svg'),
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'You can select the date by choosing one of the dates from the list like above, chosen date will be appeared as an orange one.',
+                          style: TextStyle(
+                            fontFamily: AppTheme.fontFamily,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w300,
+                            height: 1.8,
+                            color: AppTheme.dark,
+                          ),
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 24),
+                  Text(
+                    'How to select time?',
+                    style: TextStyle(
+                      fontFamily: AppTheme.fontFamily,
+                      fontSize: 14,
+                      fontWeight: FontWeight.normal,
+                      height: 1.5,
+                      color: AppTheme.black,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      color: AppTheme.bg,
+                      boxShadow: [
+                        BoxShadow(
+                          offset: Offset(5, 9),
+                          blurRadius: 15,
+                          spreadRadius: 0,
+                          color: AppTheme.gray,
+                        ),
+                      ],
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: SvgPicture.asset('assets/images/select_time.svg'),
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'Here is the example of the list of available times to make an appointment. Just simply choose one of them, the chosen one will get orange.',
+                          style: TextStyle(
+                            fontFamily: AppTheme.fontFamily,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w300,
+                            height: 1.8,
+                            color: AppTheme.dark,
+                          ),
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 16),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'Note: Selecting date and time are required, so that means that you have to select them. Otherwise, you will not be able to make an appointment. But writing a request is optional so you decide whether you write or not',
+                          style: TextStyle(
+                            fontFamily: AppTheme.fontFamily,
+                            fontSize: 12,
+                            fontWeight: FontWeight.normal,
+                            height: 1.8,
+                            color: AppTheme.orange,
+                          ),
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 24),
+                  Text(
+                    'How to select time?',
+                    style: TextStyle(
+                      fontFamily: AppTheme.fontFamily,
+                      fontSize: 14,
+                      fontWeight: FontWeight.normal,
+                      height: 1.5,
+                      color: AppTheme.black,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Container(
+                    height: 56,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      color: AppTheme.purple,
+                      boxShadow: [
+                        BoxShadow(
+                          offset: Offset(5, 9),
+                          blurRadius: 15,
+                          spreadRadius: 0,
+                          color: AppTheme.gray,
+                        ),
+                      ],
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Make Appointment',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
+                          fontFamily: AppTheme.fontFamily,
+                          height: 1.5,
+                          color: AppTheme.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'You can schedule an appointment by tapping this button, but make sure you selected the date and time, you will not be able to schedule unless you select them both.',
+                          style: TextStyle(
+                            fontFamily: AppTheme.fontFamily,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w300,
+                            height: 1.8,
+                            color: AppTheme.dark,
+                          ),
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 90),
+                ],
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      height: 61,
+                      width: 61,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: AppTheme.white,
+                        boxShadow: [
+                          BoxShadow(
+                            offset: Offset(5, 9),
+                            blurRadius: 15,
+                            spreadRadius: 0,
+                            color: AppTheme.gray,
+                          ),
+                        ],
+                      ),
+                      child: Center(
+                        child: SvgPicture.asset(
+                          'assets/icons/x.svg',
+                          color: AppTheme.purple,
+                          height: 28,
+                          width: 28,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 32),
+                ],
+              ),
+            ],
+          ),
+        ),
       ),
       body: Stack(
         children: [
@@ -158,7 +416,8 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                   alignment: Alignment.center,
                                   children: [
                                     Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
                                       children: [
                                         Text(
                                           dateList[index].day.toString(),

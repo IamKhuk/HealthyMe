@@ -118,7 +118,7 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
             alignment: Alignment.center,
             children: [
               ListView(
-                padding: EdgeInsets.all(24),
+                padding: EdgeInsets.all(24),  
                 children: [
                   SizedBox(height: 24),
                   Text(

@@ -236,47 +236,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(width: 36),
               ],
             ),
-            SizedBox(height: 20),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return AdvicesScreen();
-                    },
-                  ),
-                );
-              },
-              child: Container(
-                height: 64,
-                margin: EdgeInsets.symmetric(horizontal: 36),
-                decoration: BoxDecoration(
-                  color: AppTheme.white,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      offset: Offset(11, 8),
-                      blurRadius: 19,
-                      spreadRadius: 0,
-                      color: AppTheme.gray,
-                    )
-                  ],
-                ),
-                child: Center(
-                  child: Text(
-                    'Get Healthcare Advices',
-                    style: TextStyle(
-                      fontFamily: AppTheme.fontFamily,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      height: 1.5,
-                      color: AppTheme.orange,
-                    ),
-                  ),
-                ),
-              ),
-            ),
             SizedBox(height: 24),
             Row(
               children: [
@@ -335,7 +294,48 @@ class _HomeScreenState extends State<HomeScreen> {
                     time: [schedules[0].time[0], schedules[0].time[1]]),
               ),
             ),
-            SizedBox(height: 16),
+            SizedBox(height: 16,),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return AdvicesScreen();
+                    },
+                  ),
+                );
+              },
+              child: Container(
+                height: 64,
+                margin: EdgeInsets.symmetric(horizontal: 36),
+                decoration: BoxDecoration(
+                  color: AppTheme.white,
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(11, 8),
+                      blurRadius: 19,
+                      spreadRadius: 0,
+                      color: AppTheme.gray,
+                    )
+                  ],
+                ),
+                child: Center(
+                  child: Text(
+                    'Get Healthcare Advices',
+                    style: TextStyle(
+                      fontFamily: AppTheme.fontFamily,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      height: 1.5,
+                      color: AppTheme.orange,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 20),
             Container(
               height: 82,
               child: ListView.builder(

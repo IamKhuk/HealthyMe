@@ -14,7 +14,7 @@ class ResetPasswordScreen extends StatefulWidget {
 class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   TextEditingController _passController = new TextEditingController();
   TextEditingController _passAgainController = new TextEditingController();
-  bool obscure = false;
+  bool obscure = true;
 
   @override
   Widget build(BuildContext context) {
@@ -216,7 +216,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   autofocus: false,
                   decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: 'Create your password',
+                    hintText: 'Confirm your password',
                     hintStyle: TextStyle(
                       fontFamily: AppTheme.fontFamily,
                       fontSize: 14,
@@ -235,7 +235,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                             top: 14, bottom: 11, left: 22),
                         child: SvgPicture.asset(
                           'assets/icons/eye.svg',
-                          color: obscure == false
+                          color: obscure == true
                               ? AppTheme.gray
                               : AppTheme.purple,
                         ),

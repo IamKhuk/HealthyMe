@@ -15,7 +15,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController _userController = new TextEditingController();
   TextEditingController _emailController = new TextEditingController();
   TextEditingController _passController = new TextEditingController();
-  bool obscure = false;
+  bool obscure = true;
   String userName = '';
   String email = '';
   String password = '';
@@ -305,7 +305,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             top: 14, bottom: 11, left: 22),
                         child: SvgPicture.asset(
                           'assets/icons/eye.svg',
-                          color: obscure == false
+                          color: obscure == true
                               ? AppTheme.gray
                               : AppTheme.purple,
                         ),

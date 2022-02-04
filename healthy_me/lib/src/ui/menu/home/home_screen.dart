@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:healthy_me/src/defaults/doctors_list.dart';
+import 'package:healthy_me/src/defaults/schedules_list.dart';
 import 'package:healthy_me/src/model/category_model.dart';
 import 'package:healthy_me/src/model/doctor_model.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
+import 'package:healthy_me/src/ui/menu/home/doctor_details_screen.dart';
 import 'package:healthy_me/src/ui/menu/profile/personal_settings_screen.dart';
 import 'package:healthy_me/src/widgets/doctor_container.dart';
 import 'package:healthy_me/src/widgets/visit_container.dart';
 
 import '../../main_screen.dart';
+import 'advices_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -232,6 +235,47 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(width: 36),
               ],
             ),
+            SizedBox(height: 20),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return AdvicesScreen();
+                    },
+                  ),
+                );
+              },
+              child: Container(
+                height: 64,
+                margin: EdgeInsets.symmetric(horizontal: 36),
+                decoration: BoxDecoration(
+                  color: AppTheme.white,
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(11, 8),
+                      blurRadius: 19,
+                      spreadRadius: 0,
+                      color: AppTheme.gray,
+                    )
+                  ],
+                ),
+                child: Center(
+                  child: Text(
+                    'Get Healthcare Advices',
+                    style: TextStyle(
+                      fontFamily: AppTheme.fontFamily,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      height: 1.5,
+                      color: AppTheme.orange,
+                    ),
+                  ),
+                ),
+              ),
+            ),
             SizedBox(height: 24),
             Row(
               children: [
@@ -274,8 +318,21 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(height: 12),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: VisitContainer(
-                  doc: doc_02, time: [DateTime.now(), DateTime.now()]),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return DoctorDetailsScreen(doc: schedules[0].doc);
+                      },
+                    ),
+                  );
+                },
+                child: VisitContainer(
+                    doc: schedules[0].doc,
+                    time: [schedules[0].time[0], schedules[0].time[1]]),
+              ),
             ),
             SizedBox(height: 16),
             Container(
@@ -303,6 +360,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ? AppTheme.purple
                                   : AppTheme.white,
                               borderRadius: BorderRadius.circular(16),
+                              boxShadow: [
+                                ctgIndex == index?
+                                BoxShadow(
+                                  offset: Offset(5, 12),
+                                  blurRadius: 19,
+                                  spreadRadius: 0,
+                                  color: AppTheme.gray,
+                                ): BoxShadow(
+                                  offset: Offset(0, 0),
+                                  blurRadius: 0,
+                                  spreadRadius: 0,
+                                  color: AppTheme.gray,
+                                )
+                              ],
                             ),
                             child: Center(
                               child: SvgPicture.asset(

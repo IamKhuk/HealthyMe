@@ -29,7 +29,7 @@ class _AllChatsScreenState extends State<AllChatsScreen> {
                 padding: const EdgeInsets.only(bottom: 16),
                 child: SvgPicture.asset(
                   'assets/icons/trash.svg',
-                  color: AppTheme.orange,
+                  color: AppTheme.red,
                 ),
               ),
               widthSpace: 76,

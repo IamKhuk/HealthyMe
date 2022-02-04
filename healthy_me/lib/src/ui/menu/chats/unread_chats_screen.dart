@@ -38,7 +38,7 @@ class _UnreadChatsScreenState extends State<UnreadChatsScreen> {
                 padding: const EdgeInsets.only(bottom: 16),
                 child: SvgPicture.asset(
                   'assets/icons/trash.svg',
-                  color: AppTheme.orange,
+                  color: AppTheme.red,
                 ),
               ),
               widthSpace: 76,

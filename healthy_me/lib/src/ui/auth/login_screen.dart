@@ -165,7 +165,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
                     height: 1.5,
-                    color: AppTheme.dark,
+                    color: AppTheme.black,
                   ),
                   autofocus: false,
                   decoration: InputDecoration(
@@ -227,7 +227,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
                     height: 1.5,
-                    color: AppTheme.dark,
+                    color: AppTheme.black,
                   ),
                   autofocus: false,
                   decoration: InputDecoration(

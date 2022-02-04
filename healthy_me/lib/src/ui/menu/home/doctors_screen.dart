@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:healthy_me/src/defaults/doctors_list.dart';
+import 'package:healthy_me/src/dialog/bottom_dialog.dart';
 import 'package:healthy_me/src/model/category_model.dart';
 import 'package:healthy_me/src/model/doctor_model.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
@@ -187,7 +188,9 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                 ),
                 SizedBox(width: 12),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    BottomDialog.showDocFilter(context);
+                  },
                   child: Container(
                     height: 48,
                     width: 48,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:healthy_me/src/defaults/doctors_list.dart';
 import 'package:healthy_me/src/defaults/schedules_list.dart';
+import 'package:healthy_me/src/dialog/bottom_dialog.dart';
 import 'package:healthy_me/src/model/category_model.dart';
 import 'package:healthy_me/src/model/doctor_model.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
@@ -220,7 +221,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 SizedBox(width: 12),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    BottomDialog.showDocFilter(context);
+                  },
                   child: Container(
                     height: 48,
                     width: 48,
@@ -294,7 +297,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     time: [schedules[0].time[0], schedules[0].time[1]]),
               ),
             ),
-            SizedBox(height: 16,),
+            SizedBox(height: 16),
             GestureDetector(
               onTap: () {
                 Navigator.push(

@@ -45,31 +45,33 @@ class _VisitContainerState extends State<VisitContainer> {
                 ),
               ),
               SizedBox(width: 14),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Dr. '+ widget.doc.name,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14,
-                      fontFamily: AppTheme.fontFamily,
-                      height: 1.5,
-                      color: AppTheme.white,
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Dr. '+ widget.doc.name,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                        fontFamily: AppTheme.fontFamily,
+                        height: 1.5,
+                        color: AppTheme.white,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 5),
-                  Text(
-                    widget.doc.specialty,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w300,
-                      fontSize: 12,
-                      fontFamily: AppTheme.fontFamily,
-                      height: 1.5,
-                      color: AppTheme.light,
+                    SizedBox(height: 5),
+                    Text(
+                      widget.doc.specialty,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w300,
+                        fontSize: 12,
+                        fontFamily: AppTheme.fontFamily,
+                        height: 1.5,
+                        color: AppTheme.light,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),

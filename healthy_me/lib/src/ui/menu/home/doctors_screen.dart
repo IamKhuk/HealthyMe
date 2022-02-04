@@ -1,25 +1,18 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:healthy_me/src/defaults/doctors_list.dart';
-import 'package:healthy_me/src/defaults/schedules_list.dart';
 import 'package:healthy_me/src/model/category_model.dart';
 import 'package:healthy_me/src/model/doctor_model.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
-import 'package:healthy_me/src/ui/menu/home/doctor_details_screen.dart';
-import 'package:healthy_me/src/ui/menu/home/doctors_screen.dart';
-import 'package:healthy_me/src/ui/menu/profile/personal_settings_screen.dart';
 import 'package:healthy_me/src/widgets/doctor_container.dart';
-import 'package:healthy_me/src/widgets/visit_container.dart';
 
-import '../../main_screen.dart';
-import 'advices_screen.dart';
-
-class HomeScreen extends StatefulWidget {
+class DoctorsScreen extends StatefulWidget {
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _DoctorsScreenState createState() => _DoctorsScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _DoctorsScreenState extends State<DoctorsScreen> {
   TextEditingController controller = new TextEditingController();
   bool onChanged = false;
 
@@ -50,6 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppTheme.bg,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -59,7 +53,9 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             SizedBox(width: 36),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.pop(context);
+              },
               child: Container(
                 height: 40,
                 width: 40,
@@ -68,67 +64,38 @@ class _HomeScreenState extends State<HomeScreen> {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Center(
-                  child: SvgPicture.asset('assets/icons/menu.svg'),
+                  child: SvgPicture.asset('assets/icons/left.svg'),
                 ),
               ),
             ),
           ],
         ),
         centerTitle: true,
-        title: Column(
-          children: [
-            Text(
-              'Current location',
-              style: TextStyle(
-                fontWeight: FontWeight.w300,
-                fontSize: 12,
-                fontFamily: AppTheme.fontFamily,
-                height: 1.5,
-                color: AppTheme.dark,
-              ),
-            ),
-            SizedBox(height: 4),
-            Text(
-              'Samarkand City',
-              style: TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 14,
-                fontFamily: AppTheme.fontFamily,
-                height: 1.5,
-                color: AppTheme.black,
-              ),
-            ),
-          ],
+        title: Text(
+          'Choose a Doctor',
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 14,
+            fontFamily: AppTheme.fontFamily,
+            height: 1.5,
+            color: AppTheme.black,
+          ),
         ),
         actions: [
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return PersonalSettingsScreen();
-                      },
-                    ),
-                  );
-                },
+                onTap: () {},
                 child: Container(
                   height: 40,
                   width: 40,
+                  padding: EdgeInsets.all(11),
                   decoration: BoxDecoration(
                     color: AppTheme.gray,
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: Image.asset(
-                      'assets/images/pfp.jpg',
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+                  child: SvgPicture.asset('assets/icons/help.svg'),
                 ),
               ),
             ],
@@ -236,105 +203,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(width: 36),
               ],
             ),
-            SizedBox(height: 20),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return AdvicesScreen();
-                    },
-                  ),
-                );
-              },
-              child: Container(
-                height: 64,
-                margin: EdgeInsets.symmetric(horizontal: 36),
-                decoration: BoxDecoration(
-                  color: AppTheme.white,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      offset: Offset(11, 8),
-                      blurRadius: 19,
-                      spreadRadius: 0,
-                      color: AppTheme.gray,
-                    )
-                  ],
-                ),
-                child: Center(
-                  child: Text(
-                    'Get Healthcare Advices',
-                    style: TextStyle(
-                      fontFamily: AppTheme.fontFamily,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      height: 1.5,
-                      color: AppTheme.orange,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 24),
-            Row(
-              children: [
-                SizedBox(width: 24),
-                Expanded(
-                  child: Text(
-                    'Upcoming Schedule',
-                    style: TextStyle(
-                      fontFamily: AppTheme.fontFamily,
-                      fontSize: 18,
-                      fontWeight: FontWeight.normal,
-                      height: 1.5,
-                      color: AppTheme.black,
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      selectedIndex = 1;
-                    });
-                  },
-                  child: Container(
-                    color: Colors.transparent,
-                    padding: EdgeInsets.only(left: 15, right: 24),
-                    child: Text(
-                      'See All',
-                      style: TextStyle(
-                        fontFamily: AppTheme.fontFamily,
-                        fontSize: 12,
-                        fontWeight: FontWeight.normal,
-                        height: 1.5,
-                        color: AppTheme.orange,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 12),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return DoctorDetailsScreen(doc: schedules[0].doc);
-                      },
-                    ),
-                  );
-                },
-                child: VisitContainer(
-                    doc: schedules[0].doc,
-                    time: [schedules[0].time[0], schedules[0].time[1]]),
-              ),
-            ),
             SizedBox(height: 16),
             Container(
               height: 82,
@@ -404,51 +272,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
               ),
             ),
-            SizedBox(height: 28),
-            Row(
-              children: [
-                SizedBox(width: 24),
-                Expanded(
-                  child: Text(
-                    'Find a Doctor',
-                    style: TextStyle(
-                      fontFamily: AppTheme.fontFamily,
-                      fontSize: 18,
-                      fontWeight: FontWeight.normal,
-                      height: 1.5,
-                      color: AppTheme.black,
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return DoctorsScreen();
-                        },
-                      ),
-                    );
-                  },
-                  child: Container(
-                    color: Colors.transparent,
-                    padding: EdgeInsets.only(left: 15, right: 24),
-                    child: Text(
-                      'See All',
-                      style: TextStyle(
-                        fontFamily: AppTheme.fontFamily,
-                        fontSize: 12,
-                        fontWeight: FontWeight.normal,
-                        height: 1.5,
-                        color: AppTheme.orange,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 12),
+            SizedBox(height: 16),
             ListView.builder(
               itemCount: docs.length,
               physics: NeverScrollableScrollPhysics(),
@@ -484,7 +308,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             : Container();
               },
             ),
-            SizedBox(height: 92),
+            SizedBox(height: 24),
           ],
         ),
       ),

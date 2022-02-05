@@ -14,6 +14,8 @@ class DoctorsScreen extends StatefulWidget {
 }
 
 class _DoctorsScreenState extends State<DoctorsScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
+
   TextEditingController controller = new TextEditingController();
   bool onChanged = false;
 
@@ -44,6 +46,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: AppTheme.bg,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -87,7 +90,9 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  _scaffoldKey.currentState!.openEndDrawer();
+                },
                 child: Container(
                   height: 40,
                   width: 40,
@@ -103,6 +108,179 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
           ),
           SizedBox(width: 36),
         ],
+      ),
+      endDrawer: Container(
+        width: MediaQuery.of(context).size.width - 36,
+        color: AppTheme.white,
+        child: Drawer(
+          elevation: 0,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              ListView(
+                padding: EdgeInsets.all(24),
+                children: [
+                  SizedBox(height: 24),
+                  Text(
+                    'What can I do in this page?',
+                    style: TextStyle(
+                      fontFamily: AppTheme.fontFamily,
+                      fontSize: 18,
+                      fontWeight: FontWeight.normal,
+                      height: 1.5,
+                      color: AppTheme.black,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'You can search for doctors and choose the appropriate one to make an appointment or chat with him/her.',
+                          style: TextStyle(
+                            fontFamily: AppTheme.fontFamily,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w300,
+                            height: 1.8,
+                            color: AppTheme.dark,
+                          ),
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 24),
+                  Text(
+                    'How to search?',
+                    style: TextStyle(
+                      fontFamily: AppTheme.fontFamily,
+                      fontSize: 14,
+                      fontWeight: FontWeight.normal,
+                      height: 1.5,
+                      color: AppTheme.black,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      color: AppTheme.bg,
+                      boxShadow: [
+                        BoxShadow(
+                          offset: Offset(5, 9),
+                          blurRadius: 15,
+                          spreadRadius: 0,
+                          color: AppTheme.gray,
+                        ),
+                      ],
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: Row(
+                        children: [
+                          SvgPicture.asset('assets/images/search_form.svg'),
+                          SizedBox(width: 10),
+                          SvgPicture.asset('assets/images/filter_form.svg'),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'You can search by using this search form like above. Simply type the name of the doctor you want or type the specialty of doctors. Then the results will appear as soon as you type the name. And you can filter the doctors by specialty, region and city.',
+                          style: TextStyle(
+                            fontFamily: AppTheme.fontFamily,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w300,
+                            height: 1.8,
+                            color: AppTheme.dark,
+                          ),
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 16),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'And you can sort by following categories. Once you choose one of the categories, the results will be sorted in order.',
+                          style: TextStyle(
+                            fontFamily: AppTheme.fontFamily,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w300,
+                            height: 1.8,
+                            color: AppTheme.dark,
+                          ),
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 8),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      color: AppTheme.bg,
+                      boxShadow: [
+                        BoxShadow(
+                          offset: Offset(5, 9),
+                          blurRadius: 15,
+                          spreadRadius: 0,
+                          color: AppTheme.gray,
+                        ),
+                      ],
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: SvgPicture.asset('assets/images/category_form.svg'),
+                    ),
+                  ),
+                  SizedBox(height: 90),
+                ],
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      height: 61,
+                      width: 61,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: AppTheme.white,
+                        boxShadow: [
+                          BoxShadow(
+                            offset: Offset(5, 9),
+                            blurRadius: 15,
+                            spreadRadius: 0,
+                            color: AppTheme.gray,
+                          ),
+                        ],
+                      ),
+                      child: Center(
+                        child: SvgPicture.asset(
+                          'assets/icons/x.svg',
+                          color: AppTheme.purple,
+                          height: 28,
+                          width: 28,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 32),
+                ],
+              ),
+            ],
+          ),
+        ),
       ),
       body: GestureDetector(
         onTap: () {

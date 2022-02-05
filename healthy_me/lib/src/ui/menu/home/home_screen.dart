@@ -293,8 +293,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 },
                 child: VisitContainer(
-                    doc: schedules[0].doc,
-                    time: [schedules[0].time[0], schedules[0].time[1]]),
+                  doc: schedules[0].doc,
+                  time: [schedules[0].time[0], schedules[0].time[1]],
+                ),
               ),
             ),
             SizedBox(height: 16),

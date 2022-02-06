@@ -8,6 +8,7 @@ import 'package:healthy_me/src/model/doctor_model.dart';
 import 'package:healthy_me/src/model/msg_model.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
 import 'package:healthy_me/src/ui/menu/home/chat_screen.dart';
+import 'package:healthy_me/src/ui/menu/home/doctor_map.dart';
 import 'package:healthy_me/src/ui/menu/schedule/appointment_screen.dart';
 import 'package:healthy_me/src/widgets/map_style.dart';
 import 'package:healthy_me/src/widgets/rating_container.dart';
@@ -118,7 +119,7 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
             alignment: Alignment.center,
             children: [
               ListView(
-                padding: EdgeInsets.all(24),  
+                padding: EdgeInsets.all(24),
                 children: [
                   SizedBox(height: 24),
                   Text(
@@ -215,7 +216,7 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                   SizedBox(height: 8),
                   Container(
                     height: 56,
-                    width: MediaQuery.of(context).size.width-74,
+                    width: MediaQuery.of(context).size.width - 74,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
                       color: AppTheme.purple,
@@ -266,7 +267,7 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       Navigator.pop(context);
                     },
                     child: Container(
@@ -483,27 +484,39 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                             ),
                           ),
                           SizedBox(height: 14),
-                          Container(
-                            height: 136,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16),
-                              color: AppTheme.light,
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(16),
-                              child: GoogleMap(
-                                myLocationButtonEnabled: false,
-                                mapType: MapType.normal,
-                                scrollGesturesEnabled: true,
-                                initialCameraPosition: CameraPosition(
-                                  target: widget.doc.location,
-                                  zoom: 16,
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return DoctorMapScreen(doc: widget.doc);
+                                  },
                                 ),
-                                zoomControlsEnabled: false,
-                                compassEnabled: false,
-                                myLocationEnabled: false,
-                                markers: <Marker>{_createMarker()},
-                                onMapCreated: _onMapCreated,
+                              );
+                            },
+                            child: Container(
+                              height: 136,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16),
+                                color: AppTheme.light,
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(16),
+                                child: GoogleMap(
+                                  myLocationButtonEnabled: false,
+                                  mapType: MapType.normal,
+                                  scrollGesturesEnabled: true,
+                                  initialCameraPosition: CameraPosition(
+                                    target: widget.doc.location,
+                                    zoom: 16,
+                                  ),
+                                  zoomControlsEnabled: false,
+                                  compassEnabled: false,
+                                  myLocationEnabled: false,
+                                  markers: <Marker>{_createMarker()},
+                                  onMapCreated: _onMapCreated,
+                                ),
                               ),
                             ),
                           ),

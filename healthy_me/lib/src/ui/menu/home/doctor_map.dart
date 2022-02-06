@@ -23,57 +23,67 @@ class _DoctorMapScreenState extends State<DoctorMapScreen> {
     _createMarkerImageFromAsset(context);
     return Scaffold(
       backgroundColor: AppTheme.bg,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        brightness: Brightness.light,
-        leadingWidth: 76,
-        leading: Row(
-          children: [
-            SizedBox(width: 36),
-            GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: Container(
-                height: 40,
-                width: 40,
-                decoration: BoxDecoration(
-                  color: AppTheme.gray,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Center(
-                  child: SvgPicture.asset('assets/icons/left.svg'),
-                ),
-              ),
+      body: Stack(
+        children: [
+          GoogleMap(
+            myLocationButtonEnabled: false,
+            mapType: MapType.normal,
+            scrollGesturesEnabled: true,
+            initialCameraPosition: CameraPosition(
+              target: widget.doc.location,
+              zoom: 16,
             ),
-          ],
-        ),
-        centerTitle: true,
-        title: Text(
-          'Doctor Location',
-          style: TextStyle(
-            fontWeight: FontWeight.w500,
-            fontSize: 14,
-            fontFamily: AppTheme.fontFamily,
-            height: 1.5,
-            color: AppTheme.black,
+            zoomControlsEnabled: false,
+            compassEnabled: false,
+            myLocationEnabled: false,
+            markers: <Marker>{_createMarker()},
+            onMapCreated: _onMapCreated,
           ),
-        ),
-      ),
-      body: GoogleMap(
-        myLocationButtonEnabled: false,
-        mapType: MapType.normal,
-        scrollGesturesEnabled: true,
-        initialCameraPosition: CameraPosition(
-          target: widget.doc.location,
-          zoom: 16,
-        ),
-        zoomControlsEnabled: false,
-        compassEnabled: false,
-        myLocationEnabled: false,
-        markers: <Marker>{_createMarker()},
-        onMapCreated: _onMapCreated,
+          Container(
+            height: MediaQuery.of(context).size.height * ((94) / 812),
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.symmetric(horizontal: 36, vertical: 12),
+            color: AppTheme.bg.withOpacity(0.3),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Container(
+                        height: 40,
+                        width: 40,
+                        decoration: BoxDecoration(
+                          color: AppTheme.gray,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Center(
+                          child: SvgPicture.asset('assets/icons/left.svg'),
+                        ),
+                      ),
+                    ),
+                    Spacer(),
+                    Text(
+                      'Doctor Location',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                        fontFamily: AppTheme.fontFamily,
+                        height: 1.5,
+                        color: AppTheme.black,
+                      ),
+                    ),
+                    Spacer(),
+                    SizedBox(width: 40),
+                  ],
+                )
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -96,7 +106,7 @@ class _DoctorMapScreenState extends State<DoctorMapScreen> {
   Future<void> _createMarkerImageFromAsset(BuildContext context) async {
     if (_markerIcon == null) {
       final ImageConfiguration imageConfiguration =
-      createLocalImageConfiguration(
+          createLocalImageConfiguration(
         context,
         size: Size.square(64),
       );

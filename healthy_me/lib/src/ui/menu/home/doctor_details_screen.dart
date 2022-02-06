@@ -484,40 +484,49 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                             ),
                           ),
                           SizedBox(height: 14),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return DoctorMapScreen(doc: widget.doc);
-                                  },
-                                ),
-                              );
-                            },
-                            child: Container(
-                              height: 136,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16),
-                                color: AppTheme.light,
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(16),
-                                child: GoogleMap(
-                                  myLocationButtonEnabled: false,
-                                  mapType: MapType.normal,
-                                  scrollGesturesEnabled: true,
-                                  initialCameraPosition: CameraPosition(
-                                    target: widget.doc.location,
-                                    zoom: 16,
+                          Container(
+                            height: 136,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16),
+                              color: AppTheme.light,
+                            ),
+                            child: Stack(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(16),
+                                  child: GoogleMap(
+                                    myLocationButtonEnabled: false,
+                                    mapType: MapType.normal,
+                                    scrollGesturesEnabled: true,
+                                    initialCameraPosition: CameraPosition(
+                                      target: widget.doc.location,
+                                      zoom: 16,
+                                    ),
+                                    zoomControlsEnabled: false,
+                                    compassEnabled: false,
+                                    myLocationEnabled: false,
+                                    markers: <Marker>{_createMarker()},
+                                    onMapCreated: _onMapCreated,
                                   ),
-                                  zoomControlsEnabled: false,
-                                  compassEnabled: false,
-                                  myLocationEnabled: false,
-                                  markers: <Marker>{_createMarker()},
-                                  onMapCreated: _onMapCreated,
                                 ),
-                              ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) {
+                                          return DoctorMapScreen(doc: widget.doc);
+                                        },
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    height: 136,
+                                    width: MediaQuery.of(context).size.width-72,
+                                    color: Colors.transparent,
+                                  ),
+                                )
+                              ],
                             ),
                           ),
                           SizedBox(height: 24),

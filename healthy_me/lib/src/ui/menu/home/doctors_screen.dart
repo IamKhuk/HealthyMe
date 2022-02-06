@@ -175,12 +175,19 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                       ],
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 10),
                       child: Row(
                         children: [
-                          SvgPicture.asset('assets/images/search_form.svg'),
-                          SizedBox(width: 10),
-                          SvgPicture.asset('assets/images/filter_form.svg'),
+                          SvgPicture.asset(
+                            'assets/images/search_form.svg',
+                            width: MediaQuery.of(context).size.width - 156,
+                          ),
+                          SizedBox(width: 8),
+                          SvgPicture.asset(
+                            'assets/images/filter_form.svg',
+                            width: 40,
+                          ),
                         ],
                       ),
                     ),
@@ -236,8 +243,12 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                       ],
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      child: SvgPicture.asset('assets/images/category_form.svg'),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 4,
+                      ),
+                      child:
+                          SvgPicture.asset('assets/images/category_form.svg'),
                     ),
                   ),
                   SizedBox(height: 90),
@@ -247,7 +258,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       Navigator.pop(context);
                     },
                     child: Container(

@@ -17,7 +17,7 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
         backgroundColor: AppTheme.bg,
         brightness: Brightness.light,
         title: Text(
-          'Schedule',
+          'Diagnose',
           style: TextStyle(
             fontWeight: FontWeight.normal,
             fontSize: 18,

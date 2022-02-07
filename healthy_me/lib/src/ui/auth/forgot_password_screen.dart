@@ -72,17 +72,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             Row(
               children: [
                 Spacer(),
-                Container(
+                Image.asset(
+                  'assets/images/logo.png',
                   height: 64,
                   width: 64,
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: AppTheme.white,
-                  ),
-                  child: Center(
-                    child: Image.asset('assets/images/logo.png'),
-                  ),
                 ),
                 Spacer(),
               ],
@@ -92,7 +85,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               children: [
                 Expanded(
                   child: Text(
-                    'Enter your email for the verification proccess, and we will send 4 digits code to your email for the verification.',
+                    'Enter your email for the verification process, and we will send 4 digits code to your email for the verification.',
                     style: TextStyle(
                       fontFamily: AppTheme.fontFamily,
                       fontSize: 14,
@@ -172,13 +165,13 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 Utils.emailValidator(_emailController.text) == false
                     ? BottomDialog.showEmailFailed(context)
                     : Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return ResetPassVerificationScreen();
-                    },
-                  ),
-                );
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return ResetPassVerificationScreen();
+                          },
+                        ),
+                      );
               },
               child: Container(
                 height: 56,

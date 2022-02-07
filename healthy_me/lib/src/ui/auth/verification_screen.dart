@@ -93,17 +93,10 @@ class _VerificationScreenState extends State<VerificationScreen> {
             Row(
               children: [
                 Spacer(),
-                Container(
+                Image.asset(
+                  'assets/images/logo.png',
                   height: 64,
                   width: 64,
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: AppTheme.white,
-                  ),
-                  child: Center(
-                    child: Image.asset('assets/images/logo.png'),
-                  ),
                 ),
                 Spacer(),
               ],
@@ -210,7 +203,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
             GestureDetector(
               onTap: () {
                 Navigator.of(context).popUntil(
-                      (route) => route.isFirst,
+                  (route) => route.isFirst,
                 );
                 Navigator.pushReplacement(
                   context,

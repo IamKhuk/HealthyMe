@@ -95,17 +95,10 @@ class _ResetPassVerificationScreenState
             Row(
               children: [
                 Spacer(),
-                Container(
+                Image.asset(
+                  'assets/images/logo.png',
                   height: 64,
                   width: 64,
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: AppTheme.white,
-                  ),
-                  child: Center(
-                    child: Image.asset('assets/images/logo.png'),
-                  ),
                 ),
                 Spacer(),
               ],

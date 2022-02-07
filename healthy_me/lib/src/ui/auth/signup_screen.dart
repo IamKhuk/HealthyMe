@@ -39,17 +39,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
             Row(
               children: [
                 Spacer(),
-                Container(
+                Image.asset(
+                  'assets/images/logo.png',
                   height: 64,
                   width: 64,
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: AppTheme.white,
-                  ),
-                  child: Center(
-                    child: Image.asset('assets/images/logo.png'),
-                  ),
                 ),
                 Spacer(),
               ],
@@ -305,9 +298,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             top: 14, bottom: 11, left: 22),
                         child: SvgPicture.asset(
                           'assets/icons/eye.svg',
-                          color: obscure == true
-                              ? AppTheme.gray
-                              : AppTheme.purple,
+                          color:
+                              obscure == true ? AppTheme.gray : AppTheme.purple,
                         ),
                       ),
                     ),

@@ -39,17 +39,10 @@ class _LoginScreenState extends State<LoginScreen> {
             Row(
               children: [
                 Spacer(),
-                Container(
+                Image.asset(
+                  'assets/images/logo.png',
                   height: 64,
                   width: 64,
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: AppTheme.white,
-                  ),
-                  child: Center(
-                    child: Image.asset('assets/images/logo.png'),
-                  ),
                 ),
                 Spacer(),
               ],
@@ -251,9 +244,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             top: 14, bottom: 11, left: 22),
                         child: SvgPicture.asset(
                           'assets/icons/eye.svg',
-                          color: obscure == true
-                              ? AppTheme.gray
-                              : AppTheme.purple,
+                          color:
+                              obscure == true ? AppTheme.gray : AppTheme.purple,
                         ),
                       ),
                     ),
@@ -298,10 +290,11 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             SizedBox(height: 30),
             GestureDetector(
-              onTap: (){
-                if (_userController.text == 'qwerty' && _passController.text == 'Qwerty123!') {
+              onTap: () {
+                if (_userController.text == 'qwerty' &&
+                    _passController.text == 'Qwerty123!') {
                   Navigator.of(context).popUntil(
-                        (route) => route.isFirst,
+                    (route) => route.isFirst,
                   );
                   Navigator.pushReplacement(
                     context,

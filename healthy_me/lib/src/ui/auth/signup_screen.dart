@@ -312,18 +312,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
             GestureDetector(
               onTap: () {
                 if (_userController.text.length > 0) {
-                  if(_phoneController.text.length>=9){
-                    Utils.passwordValidator(_passController.text) == false
-                        ? BottomDialog.showPassFailed(context)
-                        : Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return VerificationScreen();
-                        },
-                      ),
-                    );
-                  }else{
+                  if (_phoneController.text.length >= 9) {
+                    if (_passController.text.length > 0) {
+                      Utils.passwordValidator(_passController.text) == false
+                          ? BottomDialog.showPassFailed(context)
+                          : Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return VerificationScreen();
+                                },
+                              ),
+                            );
+                    } else {
+                      BottomDialog.showActionFailed(
+                        context,
+                        'Invalid Password',
+                        'Password is required and cannot be empty',
+                      );
+                    }
+                  } else {
                     BottomDialog.showActionFailed(
                       context,
                       'Invalid Phone Number',

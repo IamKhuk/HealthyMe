@@ -85,7 +85,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               children: [
                 Expanded(
                   child: Text(
-                    'Enter your email for the verification proccess, and we will send 4 digits code to your email for the verification.',
+                    'Enter your email for the verification process, and we will send 4 digits code to your email for the verification.',
                     style: TextStyle(
                       fontFamily: AppTheme.fontFamily,
                       fontSize: 14,

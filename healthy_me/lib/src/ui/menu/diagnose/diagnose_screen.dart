@@ -36,7 +36,7 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
         children: [
           Column(
             children: [
-              SizedBox(height: 108),
+              SizedBox(height: 124),
               Row(
                 children: [
                   SizedBox(width: 24),
@@ -59,6 +59,7 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
           ),
           Column(
             children: [
+              SizedBox(height: 16),
               Container(
                 height: 96,
                 width: MediaQuery.of(context).size.width,

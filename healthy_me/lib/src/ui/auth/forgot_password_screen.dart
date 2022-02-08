@@ -4,7 +4,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:healthy_me/src/dialog/bottom_dialog.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
 import 'package:healthy_me/src/ui/auth/reset_pass_verification.dart';
-import 'package:healthy_me/src/utils/utils.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({Key? key}) : super(key: key);
@@ -14,7 +13,7 @@ class ForgotPasswordScreen extends StatefulWidget {
 }
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
-  TextEditingController _emailController = new TextEditingController();
+  TextEditingController _phoneController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +99,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             ),
             SizedBox(height: 40),
             Text(
-              'Email',
+              'Phone Number',
               style: TextStyle(
                 fontFamily: AppTheme.fontFamily,
                 fontSize: 18,
@@ -132,8 +131,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 ),
                 child: TextField(
                   enabled: true,
-                  controller: _emailController,
+                  controller: _phoneController,
                   enableSuggestions: true,
+                  keyboardType: TextInputType.phone,
                   textAlignVertical: TextAlignVertical.center,
                   cursorColor: AppTheme.purple,
                   enableInteractiveSelection: true,
@@ -147,7 +147,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   autofocus: false,
                   decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: 'Enter your email',
+                    hintText: 'Enter your registered phone number',
                     hintStyle: TextStyle(
                       fontFamily: AppTheme.fontFamily,
                       fontSize: 14,
@@ -162,8 +162,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             SizedBox(height: 44),
             GestureDetector(
               onTap: () {
-                Utils.emailValidator(_emailController.text) == false
-                    ? BottomDialog.showEmailFailed(context)
+                _phoneController.text.length<9
+                    ? BottomDialog.showActionFailed(
+                        context,
+                        'Invalid Phone Number',
+                        'Please enter valid phone number so that we can register you correctly',
+                      )
                     : Navigator.push(
                         context,
                         MaterialPageRoute(

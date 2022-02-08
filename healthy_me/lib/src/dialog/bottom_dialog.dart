@@ -242,8 +242,10 @@ class BottomDialog {
     );
   }
 
-  static void showEmailFailed(
+  static void showActionFailed(
     BuildContext context,
+      String title,
+      String content,
   ) {
     showModalBottomSheet(
       barrierColor: AppTheme.black.withOpacity(0.45),
@@ -293,7 +295,7 @@ class BottomDialog {
                         ),
                         SizedBox(height: 24),
                         Text(
-                          'Invalid Email',
+                          title,
                           style: TextStyle(
                             fontFamily: AppTheme.fontFamily,
                             fontSize: 24,
@@ -305,7 +307,7 @@ class BottomDialog {
                         SizedBox(height: 12),
                         Expanded(
                           child: Text(
-                            'There is no email address like this, Please enter valid Email Address',
+                            content,
                             style: TextStyle(
                               fontFamily: AppTheme.fontFamily,
                               fontSize: 16,

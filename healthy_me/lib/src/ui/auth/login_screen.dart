@@ -116,7 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             SizedBox(height: 40),
             Text(
-              'Username or Email',
+              'Username',
               style: TextStyle(
                 fontFamily: AppTheme.fontFamily,
                 fontSize: 18,
@@ -163,7 +163,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   autofocus: false,
                   decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: 'Enter your username or Email',
+                    hintText: 'Enter your username',
                     hintStyle: TextStyle(
                       fontFamily: AppTheme.fontFamily,
                       fontSize: 14,

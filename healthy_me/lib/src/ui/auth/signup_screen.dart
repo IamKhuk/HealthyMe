@@ -13,11 +13,11 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController _userController = new TextEditingController();
-  TextEditingController _emailController = new TextEditingController();
+  TextEditingController _phoneController = new TextEditingController();
   TextEditingController _passController = new TextEditingController();
   bool obscure = true;
   String userName = '';
-  String email = '';
+  String phone = '';
   String password = '';
 
   @override
@@ -170,7 +170,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
             SizedBox(height: 32),
             Text(
-              'Email',
+              'Phone Number',
               style: TextStyle(
                 fontFamily: AppTheme.fontFamily,
                 fontSize: 18,
@@ -202,11 +202,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 child: TextField(
                   enabled: true,
-                  controller: _emailController,
+                  controller: _phoneController,
                   enableSuggestions: true,
                   textAlignVertical: TextAlignVertical.center,
                   cursorColor: AppTheme.purple,
                   enableInteractiveSelection: true,
+                  keyboardType: TextInputType.phone,
                   style: TextStyle(
                     fontFamily: AppTheme.fontFamily,
                     fontSize: 14,
@@ -217,7 +218,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   autofocus: false,
                   decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: 'Enter your email',
+                    hintText: 'Enter your phone number',
                     hintStyle: TextStyle(
                       fontFamily: AppTheme.fontFamily,
                       fontSize: 14,
@@ -310,16 +311,32 @@ class _SignUpScreenState extends State<SignUpScreen> {
             SizedBox(height: 48),
             GestureDetector(
               onTap: () {
-                Utils.passwordValidator(_passController.text) == false
-                    ? BottomDialog.showPassFailed(context)
-                    : Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return VerificationScreen();
-                          },
-                        ),
-                      );
+                if (_userController.text.length > 0) {
+                  if(_phoneController.text.length>=9){
+                    Utils.passwordValidator(_passController.text) == false
+                        ? BottomDialog.showPassFailed(context)
+                        : Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return VerificationScreen();
+                        },
+                      ),
+                    );
+                  }else{
+                    BottomDialog.showActionFailed(
+                      context,
+                      'Invalid Phone Number',
+                      'Please enter valid phone number so that we can register you correctly',
+                    );
+                  }
+                } else {
+                  BottomDialog.showActionFailed(
+                    context,
+                    'Invalid Username',
+                    'Please enter valid username that contains more than 2 characters',
+                  );
+                }
               },
               child: Container(
                 height: 56,

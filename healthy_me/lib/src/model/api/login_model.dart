@@ -17,7 +17,7 @@ class LoginModel {
     user: json["user"] == null
         ? User.fromJson({})
         : User.fromJson(json["user"]),
-    token: json["token"],
+    token: json["token"]??'',
   );
 
   Map<String, dynamic> toJson() => {

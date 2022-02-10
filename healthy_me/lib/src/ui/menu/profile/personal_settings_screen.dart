@@ -5,7 +5,6 @@ import 'package:healthy_me/src/defaults/me.dart';
 import 'package:healthy_me/src/dialog/bottom_dialog.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../main_screen.dart';
 
@@ -25,6 +24,8 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
   TextEditingController _phoneController = new TextEditingController();
   String name = me.name;
   DateTime birthDate = DateTime(2000, 1, 1);
+  String region = '';
+  String city = '';
 
   @override
   void initState() {
@@ -722,6 +723,98 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                             fontFamily: AppTheme.fontFamily,
                             color: AppTheme.dark,
                             height: 1.5,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16),
+                Text(
+                  'Region',
+                  style: TextStyle(
+                    fontFamily: AppTheme.fontFamily,
+                    fontSize: 18,
+                    fontWeight: FontWeight.normal,
+                    height: 1.5,
+                    color: AppTheme.black,
+                  ),
+                ),
+                SizedBox(height: 8),
+                Container(
+                  height: 56,
+                  decoration: BoxDecoration(
+                    color: AppTheme.white,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        offset: Offset(0, 10),
+                        blurRadius: 75,
+                        spreadRadius: 0,
+                        color: Color(0xFF939393).withOpacity(0.07),
+                      ),
+                    ],
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          region.length == 0 ? 'Choose region' : region,
+                          style: TextStyle(
+                            fontFamily: AppTheme.fontFamily,
+                            fontSize: 16,
+                            fontWeight: FontWeight.normal,
+                            height: 1.5,
+                            color: AppTheme.dark,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16),
+                Text(
+                  'City',
+                  style: TextStyle(
+                    fontFamily: AppTheme.fontFamily,
+                    fontSize: 18,
+                    fontWeight: FontWeight.normal,
+                    height: 1.5,
+                    color: AppTheme.black,
+                  ),
+                ),
+                SizedBox(height: 8),
+                Container(
+                  height: 56,
+                  decoration: BoxDecoration(
+                    color: AppTheme.white,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        offset: Offset(0, 10),
+                        blurRadius: 75,
+                        spreadRadius: 0,
+                        color: Color(0xFF939393).withOpacity(0.07),
+                      ),
+                    ],
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          city.length == 0 ? 'Choose city' : city,
+                          style: TextStyle(
+                            fontFamily: AppTheme.fontFamily,
+                            fontSize: 16,
+                            fontWeight: FontWeight.normal,
+                            height: 1.5,
+                            color: AppTheme.dark,
                           ),
                         ),
                       ],

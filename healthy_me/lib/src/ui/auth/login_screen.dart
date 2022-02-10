@@ -253,8 +253,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 top: 14, bottom: 11, left: 22),
                             child: SvgPicture.asset(
                               'assets/icons/eye.svg',
-                              color:
-                                  obscure == true ? AppTheme.gray : AppTheme.purple,
+                              color: obscure == true
+                                  ? AppTheme.gray
+                                  : AppTheme.purple,
                             ),
                           ),
                         ),
@@ -307,17 +308,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       _userController.text,
                       _passController.text,
                     );
-                    var result =
-                    LoginModel.fromJson(response.result);
+                    var result = LoginModel.fromJson(response.result);
 
-                    if(response.isSuccess){
+                    if (response.isSuccess) {
                       setState(() {
                         onLoading = false;
                       });
-                      if(result.status == 1){
+                      if (result.status == 1) {
                         _repository.cacheLoginUser(result);
                         Navigator.of(context).popUntil(
-                              (route) => route.isFirst,
+                          (route) => route.isFirst,
                         );
                         Navigator.pushReplacement(
                           context,
@@ -327,10 +327,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                           ),
                         );
-                      }else{
-                        BottomDialog.showActionFailed(context, 'Login Failed', result.msg);
+                      } else {
+                        BottomDialog.showActionFailed(
+                            context, 'Login Failed', result.msg);
                       }
-                    }else{
+                    } else {
                       setState(() {
                         onLoading = false;
                       });
@@ -382,29 +383,29 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           onLoading == true
               ? Center(
-            child: Container(
-              height: 96,
-              width: 96,
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.9),
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: [
-                  BoxShadow(
-                    offset: Offset(0, 5),
-                    blurRadius: 25,
-                    spreadRadius: 0,
-                    color: AppTheme.dark.withOpacity(0.2),
+                  child: Container(
+                    height: 96,
+                    width: 96,
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.9),
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                        BoxShadow(
+                          offset: Offset(0, 5),
+                          blurRadius: 25,
+                          spreadRadius: 0,
+                          color: AppTheme.dark.withOpacity(0.2),
+                        ),
+                      ],
+                    ),
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        valueColor:
+                            AlwaysStoppedAnimation<Color>(AppTheme.purple),
+                      ),
+                    ),
                   ),
-                ],
-              ),
-              child: Center(
-                child: CircularProgressIndicator(
-                  valueColor:
-                  AlwaysStoppedAnimation<Color>(AppTheme.purple),
-                ),
-              ),
-            ),
-          )
+                )
               : Container()
         ],
       ),

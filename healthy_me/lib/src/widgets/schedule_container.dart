@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:healthy_me/src/model/schedule_model.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
-import 'package:healthy_me/src/ui/menu/home/doctor_details_screen.dart';
+import 'package:healthy_me/src/ui/menu/home/doctor/doctor_details_screen.dart';
 import 'package:healthy_me/src/ui/menu/schedule/appointment_screen.dart';
 import 'package:healthy_me/src/utils/utils.dart';
 

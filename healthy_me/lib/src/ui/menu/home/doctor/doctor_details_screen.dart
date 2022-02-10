@@ -8,7 +8,7 @@ import 'package:healthy_me/src/model/doctor_model.dart';
 import 'package:healthy_me/src/model/msg_model.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
 import 'package:healthy_me/src/ui/menu/home/chat_screen.dart';
-import 'package:healthy_me/src/ui/menu/home/doctor_map.dart';
+import 'package:healthy_me/src/ui/menu/home/doctor/doctor_map.dart';
 import 'package:healthy_me/src/ui/menu/schedule/appointment_screen.dart';
 import 'package:healthy_me/src/widgets/map_style.dart';
 import 'package:healthy_me/src/widgets/rating_container.dart';

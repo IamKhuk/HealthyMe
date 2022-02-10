@@ -6,14 +6,14 @@ import 'package:healthy_me/src/dialog/bottom_dialog.dart';
 import 'package:healthy_me/src/model/category_model.dart';
 import 'package:healthy_me/src/model/doctor_model.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
-import 'package:healthy_me/src/ui/menu/home/doctor_details_screen.dart';
-import 'package:healthy_me/src/ui/menu/home/doctors_screen.dart';
+import 'package:healthy_me/src/ui/menu/home/doctor/doctor_details_screen.dart';
+import 'package:healthy_me/src/ui/menu/home/doctor/doctors_screen.dart';
 import 'package:healthy_me/src/ui/menu/profile/personal_settings_screen.dart';
 import 'package:healthy_me/src/widgets/doctor_container.dart';
 import 'package:healthy_me/src/widgets/visit_container.dart';
 
 import '../../main_screen.dart';
-import 'advices_screen.dart';
+import 'advices/advices_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override

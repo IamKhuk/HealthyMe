@@ -5,7 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:healthy_me/src/model/chat_model.dart';
 import 'package:healthy_me/src/model/msg_model.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
-import 'package:healthy_me/src/ui/menu/home/doctor_details_screen.dart';
+import 'package:healthy_me/src/ui/menu/home/doctor/doctor_details_screen.dart';
 
 class ChatScreen extends StatefulWidget {
   final ChatModel data;

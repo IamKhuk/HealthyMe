@@ -15,8 +15,8 @@ class AppTheme {
   static const Color purple = Color(0xFF585CE5);
   static const Color purpleLight = Color(0xFF7376F4);
   static const Color shadow = Color(0xFFE0EEFF);
-  static const Color baseColor = Color(0xFF1C2A34);
-  static const Color highlightColor = Color(0xFF121212);
+  static const Color baseColor = Color(0xFFEBEBF4);
+  static const Color highlightColor = Color(0xFFF4F4F4);
 
 
   /// Fonts

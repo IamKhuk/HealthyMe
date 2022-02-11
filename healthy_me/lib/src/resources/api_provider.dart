@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:healthy_me/src/model/api/profile_model.dart';
 import 'package:healthy_me/src/model/event_bus/http_result.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -157,5 +158,32 @@ class ApiProvider {
       "sms_code": smsCode,
     };
     return await postRequest(url, data, false);
+  }
+
+  /// Me
+  Future<HttpResult> fetchMe() async {
+    String url = baseUrl + 'me';
+    return await getRequest(url);
+  }
+
+  /// Update Profile
+  Future<HttpResult> fetchUpdateProfile(
+      ProfileData info,
+      ) async {
+    String url = baseUrl + 'profil';
+    String birthFormat = info.birthDate.year.toString() +
+        "-" +
+        info.birthDate.month.toString() +
+        "-" +
+        info.birthDate.day.toString();
+    final data = {
+      "full_name": info.fullName,
+      "phone": info.phone,
+      "gender": info.gender,
+      "birth_date": birthFormat,
+      "city": info.city,
+      "region": info.region,
+    };
+    return await postRequest(url, data, true);
   }
 }

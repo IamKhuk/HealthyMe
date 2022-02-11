@@ -1,4 +1,5 @@
 import 'package:healthy_me/src/model/api/login_model.dart';
+import 'package:healthy_me/src/model/api/profile_model.dart';
 import 'package:healthy_me/src/model/event_bus/http_result.dart';
 import 'package:healthy_me/src/utils/cache.dart';
 
@@ -36,6 +37,17 @@ class Repository {
         username,
         password,
       );
+
+  Future<HttpResult> fetchUpdateProfile(
+      ProfileData info,
+      ) =>
+      apiProvider.fetchUpdateProfile(info);
+
+  Future<HttpResult> fetchMe() => apiProvider.fetchMe();
+
+  Future<void> cacheSetMe(ProfileData data) => appCache.saveSetMe(data);
+
+  Future<ProfileData> cacheGetMe() => appCache.cacheGetMe();
 
   Future<void> cacheLoginUser(LoginModel data) => appCache.saveLoginUser(data);
 }

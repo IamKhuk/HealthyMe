@@ -277,6 +277,39 @@ class Utils {
       return k;
     }
   }
+
+  static String phoneTextFormat(String k) {
+    if (k.contains('+')) {
+      String s = "";
+      for (int i = 0; i < k.length; i++) {
+        s += k[i];
+        if (i == 3 || i == 5 || i == 8 || i == 10) {
+          s += " ";
+        }
+      }
+      return s;
+    } else if (k.length == 12) {
+      String s = "+";
+      for (int i = 0; i < k.length; i++) {
+        s += k[i];
+        if (i == 2 || i == 4 || i == 7 || i == 9) {
+          s += " ";
+        }
+      }
+      return s;
+    } else if (k.length == 9) {
+      String s = "";
+      for (int i = 0; i < k.length; i++) {
+        s += k[i];
+        if (i == 1 || i == 4 || i == 6) {
+          s += " ";
+        }
+      }
+      return '+998 ' + s;
+    } else {
+      return k;
+    }
+  }
 }
 
 class TimeModel {

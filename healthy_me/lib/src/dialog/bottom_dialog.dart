@@ -303,6 +303,7 @@ class BottomDialog {
                             height: 1.5,
                             color: AppTheme.black,
                           ),
+                          textAlign: TextAlign.center,
                         ),
                         SizedBox(height: 12),
                         Expanded(

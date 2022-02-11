@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:healthy_me/src/bloc/profile_bloc.dart';
 import 'package:healthy_me/src/defaults/doctors_list.dart';
 import 'package:healthy_me/src/defaults/schedules_list.dart';
 import 'package:healthy_me/src/dialog/bottom_dialog.dart';
@@ -47,6 +48,12 @@ class _HomeScreenState extends State<HomeScreen> {
     doc_08,
     doc_09,
   ];
+
+  @override
+  void initState() {
+    blocProfile.fetchMe();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

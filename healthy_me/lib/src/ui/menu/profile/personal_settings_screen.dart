@@ -91,15 +91,15 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
       body: StreamBuilder(
         stream: blocProfile.getInfoCache,
         builder: (context, AsyncSnapshot<ProfileData> snapshot) {
+          _nameController.text = snapshot.data!.fullName;
+          _userController.text = snapshot.data!.username;
+          _emailController.text = snapshot.data!.email;
+          _phoneController.text = Utils.phoneTextFormat(snapshot.data!.phone);
+          region = snapshot.data!.region;
+          city = snapshot.data!.city;
+          birthDate = snapshot.data!.birthDate;
+          gender = snapshot.data!.gender;
           if (snapshot.hasData) {
-            _nameController.text = snapshot.data!.fullName;
-            _userController.text = snapshot.data!.username;
-            _emailController.text = snapshot.data!.email;
-            _phoneController.text = Utils.phoneTextFormat(snapshot.data!.phone);
-            region = snapshot.data!.region;
-            city = snapshot.data!.city;
-            birthDate = snapshot.data!.birthDate;
-            gender = snapshot.data!.gender;
             return Stack(
               children: [
                 GestureDetector(

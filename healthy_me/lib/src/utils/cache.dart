@@ -21,7 +21,7 @@ class Cache {
     prefs.setInt("id", data.id);
     prefs.setString("city", data.city);
     prefs.setString("region", data.region);
-    prefs.setString("birthday", data.birthDate.toString());
+    prefs.setString("birth_date", data.birthDate.toString());
   }
 
   Future<ProfileData> cacheGetMe() async {
@@ -29,13 +29,13 @@ class Cache {
     ProfileData info = ProfileData(
       id: prefs.getInt("id") ?? 0,
       avatar: prefs.getString("avatar") ?? "",
-      fullName: prefs.getString("name") ?? "",
-      phone: prefs.getString("number") ?? "",
+      fullName: prefs.getString("fullname") ?? "",
+      phone: prefs.getString("phone") ?? "",
       gender: prefs.getString("gender") ?? "",
-      birthDate: prefs.getString("birthday") == null
+      birthDate: prefs.getString("birth_date") == null
           ? DateTime.now()
           : DateTime.parse(
-              prefs.getString("birthday") ?? "",
+              prefs.getString("birth_date") ?? "",
             ),
       city: prefs.getString('city') ?? '',
       region: prefs.getString('region') ?? '',

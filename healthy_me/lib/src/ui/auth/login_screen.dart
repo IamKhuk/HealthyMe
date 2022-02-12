@@ -382,30 +382,33 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           onLoading == true
-              ? Center(
-                  child: Container(
-                    height: 96,
-                    width: 96,
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.9),
-                      borderRadius: BorderRadius.circular(16),
-                      boxShadow: [
-                        BoxShadow(
-                          offset: Offset(0, 5),
-                          blurRadius: 25,
-                          spreadRadius: 0,
-                          color: AppTheme.dark.withOpacity(0.2),
+              ? Container(
+            color: AppTheme.black.withOpacity(0.45),
+                child: Center(
+                    child: Container(
+                      height: 96,
+                      width: 96,
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.9),
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [
+                          BoxShadow(
+                            offset: Offset(0, 5),
+                            blurRadius: 25,
+                            spreadRadius: 0,
+                            color: AppTheme.dark.withOpacity(0.2),
+                          ),
+                        ],
+                      ),
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(AppTheme.purple),
                         ),
-                      ],
-                    ),
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        valueColor:
-                            AlwaysStoppedAnimation<Color>(AppTheme.purple),
                       ),
                     ),
                   ),
-                )
+              )
               : Container()
         ],
       ),

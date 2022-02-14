@@ -50,6 +50,16 @@ class Repository {
         path,
       );
 
+  Future<HttpResult> fetchRegion() => apiProvider.fetchRegion();
+
+  Future<HttpResult> fetchCity(
+      int city,
+      ) =>
+      apiProvider.fetchCity(
+        city,
+      );
+
+
   Future<HttpResult> fetchMe() => apiProvider.fetchMe();
 
   Future<void> cacheSetMe(ProfileData data) => appCache.saveSetMe(data);

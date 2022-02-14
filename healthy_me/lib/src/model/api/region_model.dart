@@ -5,11 +5,11 @@ class RegionModel {
   });
 
   int status;
-  List<RegionData> data;
+  List<RegionsResult> data;
 
   factory RegionModel.fromJson(Map<dynamic, dynamic> json) => RegionModel(
     status: json["status"],
-    data: List<RegionData>.from(json["data"].map((x) => RegionData.fromJson(x))),
+    data: List<RegionsResult>.from(json["data"].map((x) => RegionsResult.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -18,8 +18,8 @@ class RegionModel {
   };
 }
 
-class RegionData {
-  RegionData({
+class RegionsResult {
+  RegionsResult({
     required this.id,
     required this.name,
   });
@@ -27,7 +27,7 @@ class RegionData {
   int id;
   String name;
 
-  factory RegionData.fromJson(Map<dynamic, dynamic> json) => RegionData(
+  factory RegionsResult.fromJson(Map<dynamic, dynamic> json) => RegionsResult(
     id: json["id"],
     name: json["name"],
   );

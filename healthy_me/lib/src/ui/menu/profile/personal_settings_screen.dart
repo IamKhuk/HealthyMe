@@ -5,8 +5,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:healthy_me/src/bloc/profile_bloc.dart';
 import 'package:healthy_me/src/dialog/bottom_dialog.dart';
 import 'package:healthy_me/src/model/api/profile_model.dart';
+import 'package:healthy_me/src/model/api/region_model.dart';
 import 'package:healthy_me/src/resources/repository.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
+import 'package:healthy_me/src/ui/menu/profile/cities_screen.dart';
+import 'package:healthy_me/src/ui/menu/profile/regions_screen.dart';
 import 'package:healthy_me/src/utils/utils.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,6 +33,8 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
   String region = '';
   String city = '';
   bool isLoading = false;
+  int regionId = 0;
+  int cityId = 0;
 
   @override
   void initState() {
@@ -780,37 +785,66 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                         ),
                       ),
                       SizedBox(height: 8),
-                      Container(
-                        height: 56,
-                        decoration: BoxDecoration(
-                          color: AppTheme.white,
-                          borderRadius: BorderRadius.circular(16),
-                          boxShadow: [
-                            BoxShadow(
-                              offset: Offset(0, 10),
-                              blurRadius: 75,
-                              spreadRadius: 0,
-                              color: Color(0xFF939393).withOpacity(0.07),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return RegionsScreen(
+                                  data: RegionsResult(
+                                    id: regionId,
+                                    name: snapshot.data!.region,
+                                  ),
+                                  changed: (
+                                    _name,
+                                    _id,
+                                  ) {
+                                    setState(
+                                      () {
+                                        snapshot.data!.region = _name;
+                                        region = _name;
+                                        regionId = _id;
+                                      },
+                                    );
+                                  },
+                                );
+                              },
                             ),
-                          ],
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                region.length == 0 ? 'Choose region' : region,
-                                style: TextStyle(
-                                  fontFamily: AppTheme.fontFamily,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.normal,
-                                  height: 1.5,
-                                  color: AppTheme.dark,
-                                ),
+                          );
+                        },
+                        child: Container(
+                          height: 56,
+                          decoration: BoxDecoration(
+                            color: AppTheme.white,
+                            borderRadius: BorderRadius.circular(16),
+                            boxShadow: [
+                              BoxShadow(
+                                offset: Offset(0, 10),
+                                blurRadius: 75,
+                                spreadRadius: 0,
+                                color: Color(0xFF939393).withOpacity(0.07),
                               ),
                             ],
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  region.length == 0 ? 'Choose region' : region,
+                                  style: TextStyle(
+                                    fontFamily: AppTheme.fontFamily,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.normal,
+                                    height: 1.5,
+                                    color: AppTheme.dark,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -826,37 +860,67 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                         ),
                       ),
                       SizedBox(height: 8),
-                      Container(
-                        height: 56,
-                        decoration: BoxDecoration(
-                          color: AppTheme.white,
-                          borderRadius: BorderRadius.circular(16),
-                          boxShadow: [
-                            BoxShadow(
-                              offset: Offset(0, 10),
-                              blurRadius: 75,
-                              spreadRadius: 0,
-                              color: Color(0xFF939393).withOpacity(0.07),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return CitiesScreen(
+                                  parentId: regionId,
+                                  data: RegionsResult(
+                                    id: cityId,
+                                    name: snapshot.data!.city,
+                                  ),
+                                  changed: (
+                                    _name,
+                                    _id,
+                                  ) {
+                                    setState(
+                                      () {
+                                        snapshot.data!.city = _name;
+                                        city = _name;
+                                        cityId = _id;
+                                      },
+                                    );
+                                  },
+                                );
+                              },
                             ),
-                          ],
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                city.length == 0 ? 'Choose city' : city,
-                                style: TextStyle(
-                                  fontFamily: AppTheme.fontFamily,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.normal,
-                                  height: 1.5,
-                                  color: AppTheme.dark,
-                                ),
+                          );
+                        },
+                        child: Container(
+                          height: 56,
+                          decoration: BoxDecoration(
+                            color: AppTheme.white,
+                            borderRadius: BorderRadius.circular(16),
+                            boxShadow: [
+                              BoxShadow(
+                                offset: Offset(0, 10),
+                                blurRadius: 75,
+                                spreadRadius: 0,
+                                color: Color(0xFF939393).withOpacity(0.07),
                               ),
                             ],
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  city.length == 0 ? 'Choose city' : city,
+                                  style: TextStyle(
+                                    fontFamily: AppTheme.fontFamily,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.normal,
+                                    height: 1.5,
+                                    color: AppTheme.dark,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -867,94 +931,82 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Container(
-                      height: 80,
-                      width: MediaQuery.of(context).size.width,
-                      padding: EdgeInsets.only(
-                        left: 36,
-                        right: 36,
-                        bottom: 24,
-                      ),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: GestureDetector(
-                              onTap: () async {
-                                setState(() {
-                                  isLoading = true;
-                                });
-                                snapshot.data!.fullName = _nameController.text;
-                                snapshot.data!.gender = gender;
-                                var response = await Repository()
-                                    .fetchUpdateProfile(snapshot.data!);
-                                if (response.isSuccess) {
-                                  setState(() {
-                                    isLoading = false;
-                                  });
-                                  ProfileModel data =
-                                      ProfileModel.fromJson(response.result);
-                                  if (data.status == 1) {
-                                    blocProfile.fetchUpdateInfo(data);
-                                    Navigator.pop(context);
-                                  } else {
-                                    BottomDialog.showActionFailed(
-                                      context,
-                                      'Something went wrong',
-                                      response.result["msg"] ??
-                                          "Please try again",
-                                    );
-                                  }
-                                } else if (response.status == -1) {
-                                  setState(() {
-                                    isLoading = false;
-                                  });
-                                  BottomDialog.showActionFailed(
-                                    context,
-                                    'Connection Failed',
-                                    'You do not have internet connection, please try again',
-                                  );
-                                } else {
-                                  setState(() {
-                                    isLoading = false;
-                                  });
-                                  BottomDialog.showActionFailed(
-                                    context,
-                                    'Something went wrong',
-                                    response.result["msg"] ??
-                                        "Please try again",
-                                  );
-                                }
-                              },
-                              child: Container(
-                                height: 56,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(16),
-                                  color: AppTheme.purple,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      offset: Offset(5, 9),
-                                      blurRadius: 15,
-                                      spreadRadius: 0,
-                                      color: AppTheme.gray,
-                                    ),
-                                  ],
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    'Save Changes',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 16,
-                                      fontFamily: AppTheme.fontFamily,
-                                      height: 1.5,
-                                      color: AppTheme.white,
-                                    ),
-                                  ),
-                                ),
-                              ),
+                    GestureDetector(
+                      onTap: () async {
+                        setState(() {
+                          isLoading = true;
+                        });
+                        snapshot.data!.fullName = _nameController.text;
+                        snapshot.data!.gender = gender;
+                        var response = await Repository()
+                            .fetchUpdateProfile(snapshot.data!);
+                        if (response.isSuccess) {
+                          setState(() {
+                            isLoading = false;
+                          });
+                          ProfileModel data =
+                              ProfileModel.fromJson(response.result);
+                          if (data.status == 1) {
+                            blocProfile.fetchUpdateInfo(data);
+                            Navigator.pop(context);
+                          } else {
+                            BottomDialog.showActionFailed(
+                              context,
+                              'Something went wrong',
+                              response.result["msg"] ?? "Please try again",
+                            );
+                          }
+                        } else if (response.status == -1) {
+                          setState(() {
+                            isLoading = false;
+                          });
+                          BottomDialog.showActionFailed(
+                            context,
+                            'Connection Failed',
+                            'You do not have internet connection, please try again',
+                          );
+                        } else {
+                          setState(() {
+                            isLoading = false;
+                          });
+                          BottomDialog.showActionFailed(
+                            context,
+                            'Something went wrong',
+                            response.result["msg"] ?? "Please try again",
+                          );
+                        }
+                      },
+                      child: Container(
+                        height: 56,
+                        margin: EdgeInsets.only(
+                          left: 36,
+                          right: 36,
+                          bottom: 24,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          color: AppTheme.purple,
+                          boxShadow: [
+                            BoxShadow(
+                              offset: Offset(5, 9),
+                              blurRadius: 15,
+                              spreadRadius: 0,
+                              color: AppTheme.gray,
+                            ),
+                          ],
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Save Changes',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16,
+                              fontFamily: AppTheme.fontFamily,
+                              height: 1.5,
+                              color: AppTheme.white,
                             ),
                           ),
-                        ],
+                        ),
                       ),
                     ),
                   ],

@@ -43,6 +43,13 @@ class Repository {
       ) =>
       apiProvider.fetchUpdateProfile(info);
 
+  Future<HttpResult> fetchProfileImageSend(
+      String path,
+      ) =>
+      apiProvider.fetchProfileImageSend(
+        path,
+      );
+
   Future<HttpResult> fetchMe() => apiProvider.fetchMe();
 
   Future<void> cacheSetMe(ProfileData data) => appCache.saveSetMe(data);

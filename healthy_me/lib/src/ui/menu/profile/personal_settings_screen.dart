@@ -9,6 +9,7 @@ import 'package:healthy_me/src/resources/repository.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
 import 'package:healthy_me/src/utils/utils.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../main_screen.dart';
 
@@ -187,51 +188,87 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                                 children: [
                                   GestureDetector(
                                     onTap: () {
-                                      // BottomDialog.createUploadImageChat(
-                                      //   context,
-                                      //   () async {
-                                      //     final pickedFile = await picker.pickImage(
-                                      //       source: ImageSource.gallery,
-                                      //     );
-                                      //     if (pickedFile != null) {
-                                      //       setState(() {
-                                      //         isLoadingImage = true;
-                                      //         pfp = pickedFile.path;
-                                      //       });
-                                      //
-                                      //       SharedPreferences prefs =
-                                      //           await SharedPreferences.getInstance();
-                                      //       prefs.setString(
-                                      //         "avatar",
-                                      //         pickedFile.path,
-                                      //       );
-                                      //       setState(() {
-                                      //         isLoadingImage = false;
-                                      //       });
-                                      //     }
-                                      //   },
-                                      //   () async {
-                                      //     final pickedFile = await picker.pickImage(
-                                      //       source: ImageSource.camera,
-                                      //     );
-                                      //     if (pickedFile != null) {
-                                      //       setState(() {
-                                      //         isLoadingImage = true;
-                                      //         pfp = pickedFile.path;
-                                      //       });
-                                      //
-                                      //       SharedPreferences prefs =
-                                      //           await SharedPreferences.getInstance();
-                                      //       prefs.setString(
-                                      //         "avatar",
-                                      //         pickedFile.path,
-                                      //       );
-                                      //       setState(() {
-                                      //         isLoadingImage = false;
-                                      //       });
-                                      //     }
-                                      //   },
-                                      // );
+                                      BottomDialog.createUploadImageChat(
+                                        context,
+                                        () async {
+                                          final pickedFile =
+                                              await picker.pickImage(
+                                            source: ImageSource.gallery,
+                                          );
+                                          if (pickedFile != null) {
+                                            setState(() {
+                                              isLoadingImage = true;
+                                            });
+                                            var response = await Repository()
+                                                .fetchProfileImageSend(
+                                              pickedFile.path,
+                                            );
+                                            if (response.isSuccess) {
+                                              var result =
+                                                  ProfileModel.fromJson(
+                                                      response.result);
+                                              setState(() {
+                                                isLoadingImage = false;
+                                                snapshot.data!.avatar =
+                                                    result.user.avatar;
+                                              });
+                                              SharedPreferences prefs =
+                                                  await SharedPreferences
+                                                      .getInstance();
+                                              prefs.setString(
+                                                "avatar",
+                                                result.user.avatar,
+                                              );
+                                              blocProfile.fetchMe();
+                                            } else {
+                                              BottomDialog.showActionFailed(
+                                                context,
+                                                'Action Failed',
+                                                'Could not upload the image, please try again',
+                                              );
+                                            }
+                                          }
+                                        },
+                                        () async {
+                                          final pickedFile =
+                                              await picker.pickImage(
+                                            source: ImageSource.camera,
+                                          );
+                                          if (pickedFile != null) {
+                                            setState(() {
+                                              isLoadingImage = true;
+                                            });
+                                            var response = await Repository()
+                                                .fetchProfileImageSend(
+                                              pickedFile.path,
+                                            );
+                                            if (response.isSuccess) {
+                                              var result =
+                                                  ProfileModel.fromJson(
+                                                      response.result);
+                                              setState(() {
+                                                isLoadingImage = false;
+                                                snapshot.data!.avatar =
+                                                    result.user.avatar;
+                                              });
+                                              SharedPreferences prefs =
+                                                  await SharedPreferences
+                                                      .getInstance();
+                                              prefs.setString(
+                                                "avatar",
+                                                result.user.avatar,
+                                              );
+                                              blocProfile.fetchMe();
+                                            } else {
+                                              BottomDialog.showActionFailed(
+                                                context,
+                                                'Action Failed',
+                                                'Could not upload the image, please try again',
+                                              );
+                                            }
+                                          }
+                                        },
+                                      );
                                     },
                                     child: Container(
                                       height: 32,

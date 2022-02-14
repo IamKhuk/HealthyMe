@@ -24,10 +24,13 @@ dependencies:
   shared_preferences: ^2.0.7
   carousel_slider: ^4.0.0
   http: ^0.13.3
+  url_launcher: ^6.0.10
   cached_network_image: ^3.2.0
   flutter_cache_manager: ^3.3.0
   sms_autofill: ^2.2.0
   shimmer: ^2.0.0
+  dio: ^4.0.1
+  package_info: ^2.0.2
 
 dev_dependencies:
   flutter_test:

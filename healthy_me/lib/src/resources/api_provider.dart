@@ -1,11 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-
+import 'package:dio/dio.dart';
 import 'package:healthy_me/src/model/api/profile_model.dart';
 import 'package:healthy_me/src/model/event_bus/http_result.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:path/path.dart';
 
 class ApiProvider {
   static Duration durationTimeout = new Duration(seconds: 30);
@@ -160,7 +161,7 @@ class ApiProvider {
     return await postRequest(url, data, false);
   }
 
-  /// Me
+  /// Get Me
   Future<HttpResult> fetchMe() async {
     String url = baseUrl + 'me';
     return await getRequest(url);
@@ -185,5 +186,63 @@ class ApiProvider {
       "region": info.region,
     };
     return await postRequest(url, data, true);
+  }
+
+  ///Profile image update
+  Future<HttpResult> fetchProfileImageSend(
+      String path,
+      ) async {
+    String url = baseUrl + 'update-profil-img';
+    Dio dio = new Dio();
+    final dynamic headers = await _getReqHeader();
+
+    FormData formData = FormData.fromMap(
+      {
+        "avatar": await MultipartFile.fromFile(
+          path,
+          filename: basename(path),
+        ),
+      },
+    );
+    Response response = await dio.post(
+      url,
+      data: formData,
+      options: Options(
+        headers: headers,
+      ),
+      onSendProgress: (int sent, int total) {
+        String percentage = (sent / total * 100).toStringAsFixed(2);
+        print("$sent" +
+            " Bytes of " "$total Bytes - " +
+            percentage +
+            " % uploaded");
+      },
+    );
+    if (response.statusCode == 200) {
+      return HttpResult(
+        isSuccess: true,
+        status: response.statusCode!,
+        result: response.data,
+      );
+    }
+    return HttpResult(
+      isSuccess: false,
+      status: -1,
+      result: {},
+    );
+  }
+
+  /// Regions
+  Future<HttpResult> fetchRegion() async {
+    String url = baseUrl + 'region';
+    return await getRequest(url);
+  }
+
+  /// City
+  Future<HttpResult> fetchCity(
+      int city,
+      ) async {
+    String url = baseUrl + "region?region_id=$city";
+    return await getRequest(url);
   }
 }

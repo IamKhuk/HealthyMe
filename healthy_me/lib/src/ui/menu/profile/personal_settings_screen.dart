@@ -225,12 +225,18 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                                                 result.user.avatar,
                                               );
                                               blocProfile.fetchMe();
+                                              setState(() {
+                                                isLoadingImage = false;
+                                              });
                                             } else {
                                               BottomDialog.showActionFailed(
                                                 context,
                                                 'Action Failed',
                                                 'Could not upload the image, please try again',
                                               );
+                                              setState(() {
+                                                isLoadingImage = false;
+                                              });
                                             }
                                           }
                                         },

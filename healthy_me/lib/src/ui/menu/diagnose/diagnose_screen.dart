@@ -140,6 +140,7 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
                   ),
                 ),
               ),
+              
               Spacer(),
               Container(
                 height: 56,

@@ -261,6 +261,7 @@ class BottomDialog {
                 children: [
                   Container(
                     height: 306,
+                    width: MediaQuery.of(context).size.width-32,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
                         topRight: Radius.circular(24),

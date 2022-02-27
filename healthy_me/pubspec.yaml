@@ -31,7 +31,7 @@ dependencies:
   shimmer: ^2.0.0
   dio: ^4.0.1
   package_info: ^2.0.2
-  flutter_tags: ^0.4.9+1
+  flutter_tags_x: ^1.0.0
 
 dev_dependencies:
   flutter_test:

@@ -2,7 +2,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_tags_x/flutter_tags_x.dart';
 import 'package:healthy_me/src/defaults/advices_list.dart';
+import 'package:healthy_me/src/defaults/conditions_list.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
 
 class DiagnoseScreen extends StatefulWidget {
@@ -13,6 +15,16 @@ class DiagnoseScreen extends StatefulWidget {
 }
 
 class _DiagnoseScreenState extends State<DiagnoseScreen> {
+  @override
+  void initState() {
+    for(int i = 0; i<conditions.length; i++){
+      _items.add(conditions[i].name);
+    }
+    super.initState();
+  }
+  final GlobalKey<TagsState> _tagStateKey = GlobalKey<TagsState>();
+  List _items = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -140,7 +152,57 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
                   ),
                 ),
               ),
-              
+              Tags(
+                key: _tagStateKey,
+                textField: TagsTextField(
+                  textStyle: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
+                    fontFamily: AppTheme.fontFamily,
+                  ),
+                  constraintSuggestion: true,
+                  suggestions: [],
+                  //width: double.infinity, padding: EdgeInsets.symmetric(horizontal: 10),
+                  onSubmitted: (String str) {
+                    // Add item to the data source.
+                    setState(() {
+                      // required
+                      _items.add(Item(
+                        title: str,
+                        active: true,
+                        index: 1,
+                      ));
+                    });
+                  },
+                ),
+                itemCount: _items.length,
+                itemBuilder: (int index){
+                  final item = _items[index];
+                  return ItemTags(
+                    key: Key(index.toString()),
+                    index: index, // required
+                    title: item.title,
+                    active: item.active,
+                    customData: item.customData,
+                    textStyle: TextStyle( fontSize: 12),
+                    combine: ItemTagsCombine.withTextBefore,
+                    // icon: ItemTagsIcon(
+                    //   icon: Icons.add,
+                    // ), // OR null,
+                    // removeButton: ItemTagsRemoveButton(
+                    //   onRemoved: (){
+                    //     setState(() {
+                    //       _items.removeAt(index);
+                    //     });
+                    //     return true;
+                    //   },
+                    // ),
+                    onPressed: (item) => print(item),
+                    onLongPressed: (item) => print(item),
+                  );
+
+                },
+              ),
               Spacer(),
               Container(
                 height: 56,

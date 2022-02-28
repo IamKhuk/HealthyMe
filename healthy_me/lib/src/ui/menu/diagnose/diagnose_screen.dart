@@ -77,6 +77,7 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
                         ),
                         constraintSuggestion: true,
                         suggestions: [],
+
                         //width: double.infinity, padding: EdgeInsets.symmetric(horizontal: 10),
                         onSubmitted: (String str) {
                           // Add item to the data source.

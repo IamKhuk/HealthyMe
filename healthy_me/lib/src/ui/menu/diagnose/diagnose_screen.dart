@@ -65,7 +65,62 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
                 ],
               ),
               Expanded(
-                child: ListView(),
+                child: ListView(
+                  children: [
+                    Tags(
+                      key: _tagStateKey,
+                      textField: TagsTextField(
+                        textStyle: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                          fontFamily: AppTheme.fontFamily,
+                        ),
+                        constraintSuggestion: true,
+                        suggestions: [],
+                        //width: double.infinity, padding: EdgeInsets.symmetric(horizontal: 10),
+                        onSubmitted: (String str) {
+                          // Add item to the data source.
+                          setState(() {
+                            // required
+                            _items.add(Item(
+                              title: str,
+                              active: true,
+                              index: 1,
+                            ));
+                          });
+                        },
+                      ),
+                      itemCount: _items.length,
+                      itemBuilder: (int index){
+                        final item = _items[index];
+                        return ItemTags(
+                          key: Key(index.toString()),
+                          index: index, // required
+                          title: item.title,
+                          active: item.active,
+                          customData: item.customData,
+                          textStyle: TextStyle( fontSize: 12),
+                          combine: ItemTagsCombine.withTextBefore,
+                          // icon: ItemTagsIcon(
+                          //   icon: Icons.add,
+                          // ), // OR null,
+                          // removeButton: ItemTagsRemoveButton(
+                          //   onRemoved: (){
+                          //     setState(() {
+                          //       _items.removeAt(index);
+                          //     });
+                          //     return true;
+                          //   },
+                          // ),
+                          onPressed: (item) => print(item),
+                          onLongPressed: (item) => print(item),
+                        );
+
+                      },
+                    ),
+                    SizedBox(height: 168),
+                  ],
+                ),
               ),
             ],
           ),
@@ -151,57 +206,6 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
                     viewportFraction: 0.5,
                   ),
                 ),
-              ),
-              Tags(
-                key: _tagStateKey,
-                textField: TagsTextField(
-                  textStyle: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.normal,
-                    fontFamily: AppTheme.fontFamily,
-                  ),
-                  constraintSuggestion: true,
-                  suggestions: [],
-                  //width: double.infinity, padding: EdgeInsets.symmetric(horizontal: 10),
-                  onSubmitted: (String str) {
-                    // Add item to the data source.
-                    setState(() {
-                      // required
-                      _items.add(Item(
-                        title: str,
-                        active: true,
-                        index: 1,
-                      ));
-                    });
-                  },
-                ),
-                itemCount: _items.length,
-                itemBuilder: (int index){
-                  final item = _items[index];
-                  return ItemTags(
-                    key: Key(index.toString()),
-                    index: index, // required
-                    title: item.title,
-                    active: item.active,
-                    customData: item.customData,
-                    textStyle: TextStyle( fontSize: 12),
-                    combine: ItemTagsCombine.withTextBefore,
-                    // icon: ItemTagsIcon(
-                    //   icon: Icons.add,
-                    // ), // OR null,
-                    // removeButton: ItemTagsRemoveButton(
-                    //   onRemoved: (){
-                    //     setState(() {
-                    //       _items.removeAt(index);
-                    //     });
-                    //     return true;
-                    //   },
-                    // ),
-                    onPressed: (item) => print(item),
-                    onLongPressed: (item) => print(item),
-                  );
-
-                },
               ),
               Spacer(),
               Container(

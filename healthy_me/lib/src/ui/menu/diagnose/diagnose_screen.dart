@@ -17,11 +17,12 @@ class DiagnoseScreen extends StatefulWidget {
 class _DiagnoseScreenState extends State<DiagnoseScreen> {
   @override
   void initState() {
-    for(int i = 0; i<conditions.length; i++){
-      _items.add(conditions[i].name);
+    for (int i = 0; i < conditions.length; i++) {
+      _items.add(Item(title: conditions[i].name, active: false, index: i));
     }
     super.initState();
   }
+
   final GlobalKey<TagsState> _tagStateKey = GlobalKey<TagsState>();
   List _items = [];
 
@@ -48,7 +49,7 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
         children: [
           Column(
             children: [
-              SizedBox(height: 124),
+              SizedBox(height: 130),
               Row(
                 children: [
                   SizedBox(width: 24),
@@ -67,56 +68,46 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
               Expanded(
                 child: ListView(
                   children: [
-                    Tags(
-                      key: _tagStateKey,
-                      textField: TagsTextField(
-                        textStyle: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.normal,
-                          fontFamily: AppTheme.fontFamily,
-                        ),
-                        constraintSuggestion: true,
-                        suggestions: [],
-                        //width: double.infinity, padding: EdgeInsets.symmetric(horizontal: 10),
-                        onSubmitted: (String str) {
-                          // Add item to the data source.
-                          setState(() {
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8, horizontal: 24),
+                      child: Tags(
+                        key: _tagStateKey,
+                        alignment: WrapAlignment.start,
+                        itemCount: _items.length,
+                        spacing: 8,
+                        itemBuilder: (int index) {
+                          final item = _items[index];
+                          return ItemTags(
+                            key: Key(index.toString()),
+                            index: index,
                             // required
-                            _items.add(Item(
-                              title: str,
-                              active: true,
-                              index: 1,
-                            ));
-                          });
+                            title: item.title,
+                            active: item.active,
+                            padding: EdgeInsets.symmetric(
+                              vertical: 8,
+                              horizontal: 12,
+                            ),
+                            activeColor: AppTheme.orange,
+                            splashColor: AppTheme.purple,
+                            colorShowDuplicate: AppTheme.orange,
+                            textColor: AppTheme.purple,
+                            textActiveColor: AppTheme.white,
+                            elevation: 0,
+                            color: AppTheme.white,
+                            border: Border.all(color: Colors.transparent),
+                            borderRadius: BorderRadius.circular(12),
+                            customData: item.customData,
+                            textStyle: TextStyle(
+                              fontSize: 14,
+                              fontFamily: AppTheme.fontFamily,
+                              fontWeight: FontWeight.normal,
+                            ),
+                            combine: ItemTagsCombine.withTextBefore,
+                            onPressed: (item) => print(item),
+                          );
                         },
                       ),
-                      itemCount: _items.length,
-                      itemBuilder: (int index){
-                        final item = _items[index];
-                        return ItemTags(
-                          key: Key(index.toString()),
-                          index: index, // required
-                          title: item.title,
-                          active: item.active,
-                          customData: item.customData,
-                          textStyle: TextStyle( fontSize: 12),
-                          combine: ItemTagsCombine.withTextBefore,
-                          // icon: ItemTagsIcon(
-                          //   icon: Icons.add,
-                          // ), // OR null,
-                          // removeButton: ItemTagsRemoveButton(
-                          //   onRemoved: (){
-                          //     setState(() {
-                          //       _items.removeAt(index);
-                          //     });
-                          //     return true;
-                          //   },
-                          // ),
-                          onPressed: (item) => print(item),
-                          onLongPressed: (item) => print(item),
-                        );
-
-                      },
                     ),
                     SizedBox(height: 168),
                   ],

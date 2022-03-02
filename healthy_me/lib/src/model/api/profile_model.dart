@@ -40,8 +40,8 @@ class ProfileData {
   String gender;
   String phone;
   DateTime birthDate;
-  String region;
-  String city;
+  City region;
+  City city;
 
   factory ProfileData.fromJson(Map<dynamic, dynamic> json) {
     DateTime dateTime;
@@ -69,8 +69,12 @@ class ProfileData {
       gender: json["gender"]??'man',
       phone: json["phone"]??'',
       birthDate: dateTime,
-      region: json["region"]??'',
-      city: json["city"]??'',
+      region: json["region"] == null
+          ? City.fromJson({})
+          : City.fromJson(json["region"]),
+      city: json["city"] == null
+          ? City.fromJson({})
+          : City.fromJson(json["city"]),
     );
   }
 
@@ -86,4 +90,19 @@ class ProfileData {
     "region": region,
     "city": city,
   };
+}
+
+class City {
+  City({
+    required this.id,
+    required this.name,
+  });
+
+  int id;
+  String name;
+
+  factory City.fromJson(Map<String, dynamic> json) => City(
+    id: json["id"] ?? -1,
+    name: json["name"] ?? "",
+  );
 }

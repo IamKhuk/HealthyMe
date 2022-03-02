@@ -19,8 +19,8 @@ class Cache {
     prefs.setString("gender", data.gender);
     prefs.setString("email", data.email);
     prefs.setInt("id", data.id);
-    prefs.setString("city", data.city);
-    prefs.setString("region", data.region);
+    prefs.setString("city", data.city.name);
+    prefs.setString("region", data.region.name);
     prefs.setString("birth_date", data.birthDate.toString());
   }
 
@@ -37,8 +37,14 @@ class Cache {
           : DateTime.parse(
               prefs.getString("birth_date") ?? "",
             ),
-      city: prefs.getString('city') ?? '',
-      region: prefs.getString('region') ?? '',
+      region: City(
+        id: prefs.getInt("regionId") ?? -1,
+        name: prefs.getString("region") ?? "",
+      ),
+      city: City(
+        id: prefs.getInt("cityId") ?? -1,
+        name: prefs.getString("city") ?? "",
+      ),
       email: prefs.getString('email') ?? '',
       username: prefs.getString('username') ?? '',
     );

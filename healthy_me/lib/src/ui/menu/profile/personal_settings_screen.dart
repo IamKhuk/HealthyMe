@@ -101,8 +101,8 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
           _userController.text = snapshot.data!.username;
           _emailController.text = snapshot.data!.email;
           _phoneController.text = Utils.phoneTextFormat(snapshot.data!.phone);
-          region = snapshot.data!.region;
-          city = snapshot.data!.city;
+          region = snapshot.data!.region.name;
+          city = snapshot.data!.city.name;
           birthDate = snapshot.data!.birthDate;
           gender = snapshot.data!.gender;
           if (snapshot.hasData) {
@@ -738,9 +738,10 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                             (data) {
                               setState(() {
                                 birthDate = data;
+                                snapshot.data!.birthDate = data;
                               });
                             },
-                            birthDate,
+                            snapshot.data!.birthDate,
                           );
                         },
                         child: Container(
@@ -760,15 +761,15 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                             ],
                           ),
                           child: Text(
-                            (birthDate.day.toString().length == 1
-                                    ? '0' + birthDate.day.toString()
-                                    : birthDate.day.toString()) +
+                            (snapshot.data!.birthDate.day.toString().length == 1
+                                    ? '0' + snapshot.data!.birthDate.day.toString()
+                                    : snapshot.data!.birthDate.day.toString()) +
                                 '/' +
-                                (birthDate.month.toString().length == 1
-                                    ? '0' + birthDate.month.toString()
-                                    : birthDate.month.toString()) +
+                                (snapshot.data!.birthDate.month.toString().length == 1
+                                    ? '0' + snapshot.data!.birthDate.month.toString()
+                                    : snapshot.data!.birthDate.month.toString()) +
                                 '/' +
-                                birthDate.year.toString(),
+                                snapshot.data!.birthDate.year.toString(),
                             style: TextStyle(
                               fontWeight: FontWeight.normal,
                               fontSize: 16,
@@ -800,7 +801,7 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                                 return RegionsScreen(
                                   data: RegionsResult(
                                     id: regionId,
-                                    name: snapshot.data!.region,
+                                    name: snapshot.data!.region.name,
                                   ),
                                   changed: (
                                     _name,
@@ -808,8 +809,9 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                                   ) {
                                     setState(
                                       () {
-                                        snapshot.data!.region = _name;
+                                        snapshot.data!.region.name = _name;
                                         region = _name;
+                                        snapshot.data!.region.id = _id;
                                         regionId = _id;
                                       },
                                     );
@@ -876,7 +878,7 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                                   parentId: regionId,
                                   data: RegionsResult(
                                     id: cityId,
-                                    name: snapshot.data!.city,
+                                    name: snapshot.data!.city.name,
                                   ),
                                   changed: (
                                     _name,
@@ -884,9 +886,9 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                                   ) {
                                     setState(
                                       () {
-                                        snapshot.data!.city = _name;
+                                        snapshot.data!.city.name = _name;
                                         city = _name;
-                                        cityId = _id;
+                                        snapshot.data!.city.id = _id;
                                       },
                                     );
                                   },

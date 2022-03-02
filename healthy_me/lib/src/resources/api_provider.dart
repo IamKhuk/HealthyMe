@@ -178,12 +178,12 @@ class ApiProvider {
         "-" +
         info.birthDate.day.toString();
     final data = {
-      "full_name": info.fullName,
+      "fullname": info.fullName,
       "phone": info.phone,
       "gender": info.gender,
       "birth_date": birthFormat,
-      "city": info.city,
-      "region": info.region,
+      "region": info.region.id.toString(),
+      "city": info.city.id.toString(),
     };
     return await postRequest(url, data, true);
   }

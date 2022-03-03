@@ -946,6 +946,7 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                         });
                         snapshot.data!.fullName = _nameController.text;
                         snapshot.data!.gender = gender;
+                        snapshot.data!.username = _userController.text;
                         var response = await Repository()
                             .fetchUpdateProfile(snapshot.data!);
                         if (response.isSuccess) {

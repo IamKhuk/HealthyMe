@@ -1055,7 +1055,6 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
             return Container();
           }
         },
-
       ),
     );
   }

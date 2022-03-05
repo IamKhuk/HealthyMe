@@ -21,31 +21,31 @@ class Repository {
       );
 
   Future<HttpResult> fetchAcceptUser(
-      String username,
-      String smsCode,
-      ) =>
+    String username,
+    String smsCode,
+  ) =>
       apiProvider.fetchAcceptUser(
         username,
         smsCode,
       );
 
   Future<HttpResult> fetchLogin(
-      String username,
-      String password,
-      ) =>
+    String username,
+    String password,
+  ) =>
       apiProvider.fetchLogin(
         username,
         password,
       );
 
   Future<HttpResult> fetchUpdateProfile(
-      ProfileData info,
-      ) =>
+    ProfileData info,
+  ) =>
       apiProvider.fetchUpdateProfile(info);
 
   Future<HttpResult> fetchProfileImageSend(
-      String path,
-      ) =>
+    String path,
+  ) =>
       apiProvider.fetchProfileImageSend(
         path,
       );
@@ -53,12 +53,22 @@ class Repository {
   Future<HttpResult> fetchRegion() => apiProvider.fetchRegion();
 
   Future<HttpResult> fetchCity(
-      int city,
-      ) =>
+    int city,
+  ) =>
       apiProvider.fetchCity(
         city,
       );
 
+  Future<HttpResult> fetchDocList(
+    String text,
+    int regionId,
+    int cityId,
+  ) =>
+      apiProvider.fetchDocList(
+        text,
+        regionId,
+        cityId,
+      );
 
   Future<HttpResult> fetchMe() => apiProvider.fetchMe();
 

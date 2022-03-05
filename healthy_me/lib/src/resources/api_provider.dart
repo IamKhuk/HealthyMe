@@ -245,4 +245,14 @@ class ApiProvider {
     String url = baseUrl + "region?region_id=$city";
     return await getRequest(url);
   }
+
+  /// Doctors List
+  Future<HttpResult> fetchDocList(
+      String text,
+      int regionId,
+      int cityId,
+      ) async {
+    String url = baseUrl + "region?search=$text&region_id=$regionId&city_id=$cityId";
+    return await getRequest(url);
+  }
 }

@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:healthy_me/src/defaults/categories_list.dart';
 import 'package:healthy_me/src/defaults/doctors_list.dart';
 import 'package:healthy_me/src/dialog/bottom_dialog.dart';
-import 'package:healthy_me/src/model/category_model.dart';
 import 'package:healthy_me/src/model/doctor_model.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
 import 'package:healthy_me/src/widgets/doctor_container.dart';
@@ -18,16 +18,6 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
 
   TextEditingController controller = new TextEditingController();
   bool onChanged = false;
-
-  List<CategoriesModel> categories = [
-    CategoriesModel(img: 'assets/icons/hospital_bed.svg', title: 'All'),
-    CategoriesModel(img: 'assets/icons/hospital_bed.svg', title: 'General'),
-    CategoriesModel(img: 'assets/icons/dentist.svg', title: 'Dentist'),
-    CategoriesModel(img: 'assets/icons/heart_beat.svg', title: 'Neurosurgeon'),
-    CategoriesModel(img: 'assets/icons/pill.svg', title: 'Pediatrics'),
-    CategoriesModel(img: 'assets/icons/needle.svg', title: 'Gynecologist'),
-    CategoriesModel(img: 'assets/icons/shield.svg', title: 'Other'),
-  ];
 
   int ctgIndex = 0;
 
@@ -475,7 +465,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                     ? Column(
                         children: [
                           SizedBox(height: index == 0 ? 0 : 12),
-                          DoctorContainer(doc: docs[index]),
+                          // DoctorContainer(doc: docs[index]),
                         ],
                       )
                     : categories[ctgIndex].title == 'Other' &&
@@ -487,14 +477,14 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                         ? Column(
                             children: [
                               SizedBox(height: index == 0 ? 0 : 12),
-                              DoctorContainer(doc: docs[index]),
+                              // DoctorContainer(doc: docs[index]),
                             ],
                           )
                         : docs[index].specialty == categories[ctgIndex].title
                             ? Column(
                                 children: [
                                   SizedBox(height: index == 0 ? 0 : 12),
-                                  DoctorContainer(doc: docs[index]),
+                                  // DoctorContainer(doc: docs[index]),
                                 ],
                               )
                             : Container();

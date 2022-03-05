@@ -466,30 +466,20 @@ class _HomeScreenState extends State<HomeScreen> {
                           ? Column(
                               children: [
                                 SizedBox(height: index == 0 ? 0 : 12),
-                                DoctorContainer(doc: docs[index]),
+                                DoctorContainer(
+                                    doc: snapshot.data!.results[index]),
                               ],
                             )
-                          : categories[ctgIndex].title == 'Other' &&
-                                  docs[index].specialty != 'General' &&
-                                  docs[index].specialty != 'Dentist' &&
-                                  docs[index].specialty != 'Neurosurgeon' &&
-                                  docs[index].specialty != 'Pediatrics' &&
-                                  docs[index].specialty != 'Gynecologist'
+                          : categories[ctgIndex].idList.contains(
+                                  snapshot.data!.results[index].profession.id)
                               ? Column(
                                   children: [
                                     SizedBox(height: index == 0 ? 0 : 12),
-                                    DoctorContainer(doc: docs[index]),
+                                    DoctorContainer(
+                                        doc: snapshot.data!.results[index]),
                                   ],
                                 )
-                              : docs[index].specialty ==
-                                      categories[ctgIndex].title
-                                  ? Column(
-                                      children: [
-                                        SizedBox(height: index == 0 ? 0 : 12),
-                                        DoctorContainer(doc: docs[index]),
-                                      ],
-                                    )
-                                  : Container();
+                              : Container();
                     },
                   );
                 } else {

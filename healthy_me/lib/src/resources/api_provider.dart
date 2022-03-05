@@ -21,10 +21,10 @@ class ApiProvider {
     try {
       http.Response response = await http
           .post(
-        Uri.parse(url),
-        headers: head ? headers : null,
-        body: body,
-      )
+            Uri.parse(url),
+            headers: head ? headers : null,
+            body: body,
+          )
           .timeout(durationTimeout);
       print(response.body);
       return _result(response);
@@ -49,9 +49,9 @@ class ApiProvider {
     try {
       http.Response response = await http
           .get(
-        Uri.parse(url),
-        headers: headers,
-      )
+            Uri.parse(url),
+            headers: headers,
+          )
           .timeout(durationTimeout);
       print(response.body);
       return _result(response);
@@ -119,10 +119,10 @@ class ApiProvider {
 
   /// Register api
   Future<HttpResult> fetchRegister(
-      String username,
-      String password,
-      String phone,
-      ) async {
+    String username,
+    String password,
+    String phone,
+  ) async {
     String url = baseUrl + 'register';
 
     final data = {
@@ -135,9 +135,9 @@ class ApiProvider {
 
   /// Login api
   Future<HttpResult> fetchLogin(
-      String username,
-      String password,
-      ) async {
+    String username,
+    String password,
+  ) async {
     String url = baseUrl + 'login';
 
     final data = {
@@ -149,9 +149,9 @@ class ApiProvider {
 
   /// Accept user
   Future<HttpResult> fetchAcceptUser(
-      String username,
-      String smsCode,
-      ) async {
+    String username,
+    String smsCode,
+  ) async {
     String url = baseUrl + 'register-accepted';
 
     final data = {
@@ -169,8 +169,8 @@ class ApiProvider {
 
   /// Update Profile
   Future<HttpResult> fetchUpdateProfile(
-      ProfileData info,
-      ) async {
+    ProfileData info,
+  ) async {
     String url = baseUrl + 'profil';
     String birthFormat = info.birthDate.year.toString() +
         "-" +
@@ -190,8 +190,8 @@ class ApiProvider {
 
   ///Profile image update
   Future<HttpResult> fetchProfileImageSend(
-      String path,
-      ) async {
+    String path,
+  ) async {
     String url = baseUrl + 'update-profil-img';
     Dio dio = new Dio();
     final dynamic headers = await _getReqHeader();
@@ -240,19 +240,21 @@ class ApiProvider {
 
   /// City
   Future<HttpResult> fetchCity(
-      int city,
-      ) async {
+    int city,
+  ) async {
     String url = baseUrl + "region?region_id=$city";
     return await getRequest(url);
   }
 
   /// Doctors List
   Future<HttpResult> fetchDocList(
-      String text,
-      int regionId,
-      int cityId,
-      ) async {
-    String url = baseUrl + "region?search=$text&region_id=$regionId&city_id=$cityId";
+    String text,
+    int regionId,
+    int cityId,
+    int categoryId,
+  ) async {
+    String url = baseUrl +
+        "region?region_id=$regionId&city_id=$cityId&category_id=$categoryId&search=$text";
     return await getRequest(url);
   }
 

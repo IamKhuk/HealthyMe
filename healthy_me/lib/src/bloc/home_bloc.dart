@@ -17,8 +17,14 @@ class HomeBloc {
     String text,
     int regionId,
     int cityId,
+    int categoryId,
   ) async {
-    var response = await _repository.fetchDocList(text, regionId, cityId);
+    var response = await _repository.fetchDocList(
+      text,
+      regionId,
+      cityId,
+      categoryId,
+    );
     if (response.isSuccess) {
       DoctorsListModel result = DoctorsListModel.fromJson(response.result);
       _infoDocFetcher.sink.add(result);

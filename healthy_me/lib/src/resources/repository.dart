@@ -63,11 +63,13 @@ class Repository {
     String text,
     int regionId,
     int cityId,
+      int categoryId,
   ) =>
       apiProvider.fetchDocList(
         text,
         regionId,
         cityId,
+        categoryId,
       );
 
   Future<HttpResult> fetchCategories() => apiProvider.fetchCategories();

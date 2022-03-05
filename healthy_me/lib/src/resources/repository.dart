@@ -70,6 +70,8 @@ class Repository {
         cityId,
       );
 
+  Future<HttpResult> fetchCategories() => apiProvider.fetchCategories();
+
   Future<HttpResult> fetchMe() => apiProvider.fetchMe();
 
   Future<void> cacheSetMe(ProfileData data) => appCache.saveSetMe(data);

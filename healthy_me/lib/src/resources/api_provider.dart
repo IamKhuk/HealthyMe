@@ -255,4 +255,10 @@ class ApiProvider {
     String url = baseUrl + "region?search=$text&region_id=$regionId&city_id=$cityId";
     return await getRequest(url);
   }
+
+  /// Categories
+  Future<HttpResult> fetchCategories() async {
+    String url = baseUrl + 'category';
+    return await getRequest(url);
+  }
 }

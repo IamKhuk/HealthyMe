@@ -1,9 +1,11 @@
-class CategoryModel {
+class CategoriesModel {
   String img;
   String title;
+  List<int> idList;
 
-  CategoryModel({
+  CategoriesModel({
     required this.img,
     required this.title,
+    required this.idList,
   });
 }

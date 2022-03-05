@@ -1,5 +1,5 @@
-class CategoryModel {
-  CategoryModel({
+class ProfessionModel {
+  ProfessionModel({
     required this.count,
     required this.next,
     required this.previous,
@@ -11,7 +11,7 @@ class CategoryModel {
   dynamic previous;
   List<Result> results;
 
-  factory CategoryModel.fromJson(Map<dynamic, dynamic> json) => CategoryModel(
+  factory ProfessionModel.fromJson(Map<dynamic, dynamic> json) => ProfessionModel(
     count: json["count"],
     next: json["next"],
     previous: json["previous"],

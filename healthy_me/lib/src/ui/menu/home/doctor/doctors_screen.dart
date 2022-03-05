@@ -19,14 +19,14 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
   TextEditingController controller = new TextEditingController();
   bool onChanged = false;
 
-  List<CategoryModel> categories = [
-    CategoryModel(img: 'assets/icons/hospital_bed.svg', title: 'All'),
-    CategoryModel(img: 'assets/icons/hospital_bed.svg', title: 'General'),
-    CategoryModel(img: 'assets/icons/dentist.svg', title: 'Dentist'),
-    CategoryModel(img: 'assets/icons/heart_beat.svg', title: 'Neurosurgeon'),
-    CategoryModel(img: 'assets/icons/pill.svg', title: 'Pediatrics'),
-    CategoryModel(img: 'assets/icons/needle.svg', title: 'Gynecologist'),
-    CategoryModel(img: 'assets/icons/shield.svg', title: 'Other'),
+  List<CategoriesModel> categories = [
+    CategoriesModel(img: 'assets/icons/hospital_bed.svg', title: 'All'),
+    CategoriesModel(img: 'assets/icons/hospital_bed.svg', title: 'General'),
+    CategoriesModel(img: 'assets/icons/dentist.svg', title: 'Dentist'),
+    CategoriesModel(img: 'assets/icons/heart_beat.svg', title: 'Neurosurgeon'),
+    CategoriesModel(img: 'assets/icons/pill.svg', title: 'Pediatrics'),
+    CategoriesModel(img: 'assets/icons/needle.svg', title: 'Gynecologist'),
+    CategoriesModel(img: 'assets/icons/shield.svg', title: 'Other'),
   ];
 
   int ctgIndex = 0;

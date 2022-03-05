@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:healthy_me/src/bloc/home_bloc.dart';
 import 'package:healthy_me/src/bloc/profile_bloc.dart';
+import 'package:healthy_me/src/defaults/categories_list.dart';
 import 'package:healthy_me/src/defaults/doctors_list.dart';
 import 'package:healthy_me/src/defaults/schedules_list.dart';
 import 'package:healthy_me/src/dialog/bottom_dialog.dart';
-import 'package:healthy_me/src/model/category_model.dart';
+import 'package:healthy_me/src/model/api/doctors_list_model.dart';
 import 'package:healthy_me/src/model/doctor_model.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
 import 'package:healthy_me/src/ui/menu/home/doctor/doctor_details_screen.dart';
@@ -24,16 +26,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   TextEditingController controller = new TextEditingController();
   bool onChanged = false;
-
-  List<CategoryModel> categories = [
-    CategoryModel(img: 'assets/icons/hospital_bed.svg', title: 'All'),
-    CategoryModel(img: 'assets/icons/hospital_bed.svg', title: 'General'),
-    CategoryModel(img: 'assets/icons/dentist.svg', title: 'Dentist'),
-    CategoryModel(img: 'assets/icons/heart_beat.svg', title: 'Neurosurgeon'),
-    CategoryModel(img: 'assets/icons/pill.svg', title: 'Pediatrics'),
-    CategoryModel(img: 'assets/icons/needle.svg', title: 'Gynecologist'),
-    CategoryModel(img: 'assets/icons/shield.svg', title: 'Other'),
-  ];
 
   int ctgIndex = 0;
 
@@ -460,41 +452,86 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
             SizedBox(height: 12),
-            ListView.builder(
-              itemCount: docs.length,
-              physics: NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              padding: EdgeInsets.symmetric(horizontal: 24),
-              itemBuilder: (context, index) {
-                return categories[ctgIndex].title == 'All'
-                    ? Column(
-                        children: [
-                          SizedBox(height: index == 0 ? 0 : 12),
-                          DoctorContainer(doc: docs[index]),
-                        ],
-                      )
-                    : categories[ctgIndex].title == 'Other' &&
-                            docs[index].specialty != 'General' &&
-                            docs[index].specialty != 'Dentist' &&
-                            docs[index].specialty != 'Neurosurgeon' &&
-                            docs[index].specialty != 'Pediatrics' &&
-                            docs[index].specialty != 'Gynecologist'
-                        ? Column(
-                            children: [
-                              SizedBox(height: index == 0 ? 0 : 12),
-                              DoctorContainer(doc: docs[index]),
-                            ],
-                          )
-                        : docs[index].specialty == categories[ctgIndex].title
-                            ? Column(
-                                children: [
-                                  SizedBox(height: index == 0 ? 0 : 12),
-                                  DoctorContainer(doc: docs[index]),
-                                ],
-                              )
-                            : Container();
+            StreamBuilder(
+              stream: blocHome.getDocs,
+              builder: (context, AsyncSnapshot<DoctorsListModel> snapshot) {
+                if (snapshot.hasData) {
+                  return ListView.builder(
+                    itemCount: snapshot.data!.results.length,
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    padding: EdgeInsets.symmetric(horizontal: 24),
+                    itemBuilder: (context, index) {
+                      return categories[ctgIndex].title == 'All'
+                          ? Column(
+                              children: [
+                                SizedBox(height: index == 0 ? 0 : 12),
+                                DoctorContainer(doc: docs[index]),
+                              ],
+                            )
+                          : categories[ctgIndex].title == 'Other' &&
+                                  docs[index].specialty != 'General' &&
+                                  docs[index].specialty != 'Dentist' &&
+                                  docs[index].specialty != 'Neurosurgeon' &&
+                                  docs[index].specialty != 'Pediatrics' &&
+                                  docs[index].specialty != 'Gynecologist'
+                              ? Column(
+                                  children: [
+                                    SizedBox(height: index == 0 ? 0 : 12),
+                                    DoctorContainer(doc: docs[index]),
+                                  ],
+                                )
+                              : docs[index].specialty ==
+                                      categories[ctgIndex].title
+                                  ? Column(
+                                      children: [
+                                        SizedBox(height: index == 0 ? 0 : 12),
+                                        DoctorContainer(doc: docs[index]),
+                                      ],
+                                    )
+                                  : Container();
+                    },
+                  );
+                } else {
+                  return Container();
+                }
               },
             ),
+            // ListView.builder(
+            //   itemCount: docs.length,
+            //   physics: NeverScrollableScrollPhysics(),
+            //   shrinkWrap: true,
+            //   padding: EdgeInsets.symmetric(horizontal: 24),
+            //   itemBuilder: (context, index) {
+            //     return categories[ctgIndex].title == 'All'
+            //         ? Column(
+            //             children: [
+            //               SizedBox(height: index == 0 ? 0 : 12),
+            //               DoctorContainer(doc: docs[index]),
+            //             ],
+            //           )
+            //         : categories[ctgIndex].title == 'Other' &&
+            //                 docs[index].specialty != 'General' &&
+            //                 docs[index].specialty != 'Dentist' &&
+            //                 docs[index].specialty != 'Neurosurgeon' &&
+            //                 docs[index].specialty != 'Pediatrics' &&
+            //                 docs[index].specialty != 'Gynecologist'
+            //             ? Column(
+            //                 children: [
+            //                   SizedBox(height: index == 0 ? 0 : 12),
+            //                   DoctorContainer(doc: docs[index]),
+            //                 ],
+            //               )
+            //             : docs[index].specialty == categories[ctgIndex].title
+            //                 ? Column(
+            //                     children: [
+            //                       SizedBox(height: index == 0 ? 0 : 12),
+            //                       DoctorContainer(doc: docs[index]),
+            //                     ],
+            //                   )
+            //                 : Container();
+            //   },
+            // ),
             SizedBox(height: 92),
           ],
         ),

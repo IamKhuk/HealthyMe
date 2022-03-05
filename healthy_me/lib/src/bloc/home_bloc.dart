@@ -1,4 +1,4 @@
-import 'package:healthy_me/src/model/api/category_model.dart';
+import 'package:healthy_me/src/model/api/profession_model.dart';
 import 'package:healthy_me/src/model/api/doctors_list_model.dart';
 import 'package:healthy_me/src/resources/repository.dart';
 import 'package:rxdart/rxdart.dart';
@@ -7,11 +7,11 @@ class HomeBloc {
   Repository _repository = Repository();
 
   final _infoDocFetcher = PublishSubject<DoctorsListModel>();
-  final _categoriesFetcher = PublishSubject<CategoryModel>();
+  final _categoriesFetcher = PublishSubject<ProfessionModel>();
 
   Stream<DoctorsListModel> get getDocs => _infoDocFetcher.stream;
 
-  Stream<CategoryModel> get getCategories => _categoriesFetcher.stream;
+  Stream<ProfessionModel> get getCategories => _categoriesFetcher.stream;
 
   fetchDocList(
     String text,
@@ -34,7 +34,7 @@ class HomeBloc {
   fetchCategories() async {
     var response = await _repository.fetchRegion();
     if (response.isSuccess) {
-      CategoryModel result = CategoryModel.fromJson(response.result);
+      ProfessionModel result = ProfessionModel.fromJson(response.result);
       _categoriesFetcher.sink.add(result);
     }
   }
@@ -45,4 +45,4 @@ class HomeBloc {
   }
 }
 
-final blocProfile = HomeBloc();
+final blocHome = HomeBloc();

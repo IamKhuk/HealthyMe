@@ -26,6 +26,10 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   TextEditingController controller = new TextEditingController();
   bool onChanged = false;
+  String search = '';
+  int professionId = -1;
+  int regionId = -1;
+  int cityId = -1;
 
   int ctgIndex = 0;
 
@@ -44,6 +48,13 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     blocProfile.fetchMe();
+    blocHome.fetchDocList(
+      search,
+      regionId,
+      cityId,
+      professionId,
+    );
+    blocHome.fetchCategories();
     super.initState();
   }
 
@@ -346,63 +357,70 @@ class _HomeScreenState extends State<HomeScreen> {
                 scrollDirection: Axis.horizontal,
                 padding: EdgeInsets.only(left: 24),
                 itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        ctgIndex = index;
-                      });
-                    },
-                    child: Container(
-                      margin: EdgeInsets.only(right: 16),
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 64,
-                            width: 64,
-                            decoration: BoxDecoration(
-                              color: ctgIndex == index
-                                  ? AppTheme.purple
-                                  : AppTheme.white,
-                              borderRadius: BorderRadius.circular(16),
-                              boxShadow: [
-                                ctgIndex == index
-                                    ? BoxShadow(
-                                        offset: Offset(5, 12),
-                                        blurRadius: 19,
-                                        spreadRadius: 0,
-                                        color: AppTheme.gray,
-                                      )
-                                    : BoxShadow(
-                                        offset: Offset(0, 0),
-                                        blurRadius: 0,
-                                        spreadRadius: 0,
-                                        color: AppTheme.gray,
-                                      )
-                              ],
-                            ),
-                            child: Center(
-                              child: SvgPicture.asset(
-                                categories[index].img,
-                                color: ctgIndex == index
-                                    ? AppTheme.white
-                                    : AppTheme.purple,
+                  return Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            ctgIndex = index;
+                          });
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(right: 16),
+                          child: Column(
+                            children: [
+                              Container(
+                                height: 64,
+                                width: 64,
+                                decoration: BoxDecoration(
+                                  color: ctgIndex == index
+                                      ? AppTheme.purple
+                                      : AppTheme.white,
+                                  borderRadius: BorderRadius.circular(16),
+                                  boxShadow: [
+                                    ctgIndex == index
+                                        ? BoxShadow(
+                                            offset: Offset(5, 12),
+                                            blurRadius: 19,
+                                            spreadRadius: 0,
+                                            color: AppTheme.gray,
+                                          )
+                                        : BoxShadow(
+                                            offset: Offset(0, 0),
+                                            blurRadius: 0,
+                                            spreadRadius: 0,
+                                            color: AppTheme.gray,
+                                          )
+                                  ],
+                                ),
+                                child: Center(
+                                  child: SvgPicture.asset(
+                                    categories[index].img,
+                                    color: ctgIndex == index
+                                        ? AppTheme.white
+                                        : AppTheme.purple,
+                                  ),
+                                ),
                               ),
-                            ),
+                              SizedBox(height: 4),
+                              Text(
+                                categories[index].title,
+                                style: TextStyle(
+                                  fontFamily: AppTheme.fontFamily,
+                                  fontSize: 9,
+                                  fontWeight: FontWeight.normal,
+                                  height: 1.5,
+                                  color: AppTheme.dark,
+                                ),
+                              ),
+                            ],
                           ),
-                          SizedBox(height: 4),
-                          Text(
-                            categories[index].title,
-                            style: TextStyle(
-                              fontFamily: AppTheme.fontFamily,
-                              fontSize: 9,
-                              fontWeight: FontWeight.normal,
-                              height: 1.5,
-                              color: AppTheme.dark,
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
+                      index == categories.length - 1
+                          ? SizedBox(width: 8)
+                          : Container(),
+                    ],
                   );
                 },
               ),

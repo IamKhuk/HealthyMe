@@ -63,16 +63,17 @@ class Repository {
     String text,
     int regionId,
     int cityId,
-      int categoryId,
+    int professionId,
   ) =>
       apiProvider.fetchDocList(
         text,
         regionId,
         cityId,
-        categoryId,
+        professionId,
       );
 
-  Future<HttpResult> fetchCategories() => apiProvider.fetchCategories();
+  Future<HttpResult> fetchCategories(String search) =>
+      apiProvider.fetchCategories(search);
 
   Future<HttpResult> fetchMe() => apiProvider.fetchMe();
 

@@ -8,10 +8,12 @@ import 'package:healthy_me/src/defaults/schedules_list.dart';
 import 'package:healthy_me/src/dialog/bottom_dialog.dart';
 import 'package:healthy_me/src/model/api/doctors_list_model.dart';
 import 'package:healthy_me/src/model/doctor_model.dart';
+import 'package:healthy_me/src/model/event_bus/filter_model.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
 import 'package:healthy_me/src/ui/menu/home/doctor/doctor_details_screen.dart';
 import 'package:healthy_me/src/ui/menu/home/doctor/doctors_screen.dart';
 import 'package:healthy_me/src/ui/menu/profile/personal_settings_screen.dart';
+import 'package:healthy_me/src/utils/rx_bus.dart';
 import 'package:healthy_me/src/widgets/doctor_container.dart';
 import 'package:healthy_me/src/widgets/visit_container.dart';
 
@@ -30,7 +32,8 @@ class _HomeScreenState extends State<HomeScreen> {
   int professionId = -1;
   int regionId = -1;
   int cityId = -1;
-
+  bool isLoading = false;
+  int page = 1;
   int ctgIndex = 0;
 
   List<DoctorModel> docs = [
@@ -47,14 +50,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
+    page = 1;
     blocProfile.fetchMe();
+    _registerBus();
+    _getMoreData(page);
     blocHome.fetchDocList(
       search,
       regionId,
       cityId,
       professionId,
     );
-    blocHome.fetchCategories();
     super.initState();
   }
 
@@ -232,7 +237,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(width: 12),
                 GestureDetector(
                   onTap: () {
-                    BottomDialog.showDocFilter(context);
+                    BottomDialog.showDocFilter(
+                      context,
+                      (_regionId, _cityId, _professionId) {
+                        RxBus.post(
+                          FilterModel(
+                            regionId: _regionId,
+                            cityId: _cityId,
+                            professionId: _professionId,
+                          ),
+                        );
+                      },
+                    );
                   },
                   child: Container(
                     height: 48,
@@ -545,5 +561,30 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  void _registerBus() {
+    RxBus.register<FilterModel>(tag: "FILTER").listen(
+      (event) {
+        page = 1;
+        cityId = event.cityId;
+        regionId = event.regionId;
+        professionId = event.professionId;
+        isLoading = false;
+        _getMoreData(1);
+      },
+    );
+  }
+
+  void _getMoreData(int index) async {
+    if (!isLoading) {
+      blocHome.fetchDocList(
+        search,
+        regionId,
+        cityId,
+        professionId,
+      );
+      page++;
+    }
   }
 }

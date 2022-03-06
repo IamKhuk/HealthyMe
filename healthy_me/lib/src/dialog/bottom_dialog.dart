@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:healthy_me/src/model/api/region_model.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
 import 'package:healthy_me/src/ui/auth/login_screen.dart';
+import 'package:healthy_me/src/ui/menu/home/specialty_screen.dart';
+import 'package:healthy_me/src/ui/menu/profile/cities_screen.dart';
+import 'package:healthy_me/src/ui/menu/profile/regions_screen.dart';
 import 'package:healthy_me/src/widgets/picker/custom_date_picker.dart';
 
 class BottomDialog {
@@ -244,8 +248,8 @@ class BottomDialog {
 
   static void showActionFailed(
     BuildContext context,
-      String title,
-      String content,
+    String title,
+    String content,
   ) {
     showModalBottomSheet(
       barrierColor: AppTheme.black.withOpacity(0.45),
@@ -261,7 +265,7 @@ class BottomDialog {
                 children: [
                   Container(
                     height: 306,
-                    width: MediaQuery.of(context).size.width-32,
+                    width: MediaQuery.of(context).size.width - 32,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
                         topRight: Radius.circular(24),
@@ -772,13 +776,24 @@ class BottomDialog {
 
   static void showDocFilter(
     BuildContext context,
+    Function(
+      int _regionId,
+      int _cityId,
+      int _professionId,
+    )
+        onChanged,
   ) {
-    int specialtyIndex = 0;
+    /// region
     int regionIndex = 0;
-    int cityIndex = 0;
-    String specialty = 'Specialty Name';
     String region = 'Region Name';
+
+    /// city
+    int cityIndex = 0;
     String city = 'City Name';
+
+    /// profession / speacialty
+    int professionIndex = 0;
+    String profession = 'Specialty Name';
 
     showModalBottomSheet(
       barrierColor: AppTheme.black.withOpacity(0.45),
@@ -832,10 +847,10 @@ class BottomDialog {
                         'Filter',
                         style: TextStyle(
                           fontFamily: AppTheme.fontFamily,
-                          fontSize: 16,
+                          fontSize: 18,
                           fontWeight: FontWeight.w500,
                           height: 1.5,
-                          color: AppTheme.purple,
+                          color: AppTheme.black,
                         ),
                       ),
                     ],
@@ -852,22 +867,40 @@ class BottomDialog {
                     ),
                   ),
                   SizedBox(height: 8),
-                  Container(
-                    height: 56,
-                    width: MediaQuery.of(context).size.width - 80,
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                    decoration: BoxDecoration(
-                      color: AppTheme.bg,
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: Text(
-                      specialty,
-                      style: TextStyle(
-                        fontFamily: AppTheme.fontFamily,
-                        fontSize: 16,
-                        fontWeight: FontWeight.normal,
-                        height: 1.5,
-                        color: AppTheme.purple,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return SpecialtyScreen(
+                              onChanged: (_id, _name) {
+                                professionIndex = _id;
+                                profession = _name;
+                              },
+                            );
+                          },
+                        ),
+                      );
+                    },
+                    child: Container(
+                      height: 56,
+                      width: MediaQuery.of(context).size.width - 80,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                      decoration: BoxDecoration(
+                        color: AppTheme.bg,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Text(
+                        profession,
+                        style: TextStyle(
+                          fontFamily: AppTheme.fontFamily,
+                          fontSize: 16,
+                          fontWeight: FontWeight.normal,
+                          height: 1.5,
+                          color: AppTheme.purple,
+                        ),
                       ),
                     ),
                   ),
@@ -883,22 +916,50 @@ class BottomDialog {
                     ),
                   ),
                   SizedBox(height: 8),
-                  Container(
-                    height: 56,
-                    width: MediaQuery.of(context).size.width - 80,
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                    decoration: BoxDecoration(
-                      color: AppTheme.bg,
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: Text(
-                      region,
-                      style: TextStyle(
-                        fontFamily: AppTheme.fontFamily,
-                        fontSize: 16,
-                        fontWeight: FontWeight.normal,
-                        height: 1.5,
-                        color: AppTheme.purple,
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return RegionsScreen(
+                              data: RegionsResult(
+                                id: regionIndex,
+                                name: region,
+                              ),
+                              changed: (
+                                  _name,
+                                  _id,
+                                  ) {
+                                setState(
+                                      () {
+                                    region = _name;
+                                    regionIndex = _id;
+                                  },
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      );
+                    },
+                    child: Container(
+                      height: 56,
+                      width: MediaQuery.of(context).size.width - 80,
+                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                      decoration: BoxDecoration(
+                        color: AppTheme.bg,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Text(
+                        region,
+                        style: TextStyle(
+                          fontFamily: AppTheme.fontFamily,
+                          fontSize: 16,
+                          fontWeight: FontWeight.normal,
+                          height: 1.5,
+                          color: AppTheme.purple,
+                        ),
                       ),
                     ),
                   ),
@@ -914,28 +975,62 @@ class BottomDialog {
                     ),
                   ),
                   SizedBox(height: 8),
-                  Container(
-                    height: 56,
-                    width: MediaQuery.of(context).size.width - 80,
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                    decoration: BoxDecoration(
-                      color: AppTheme.bg,
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: Text(
-                      city,
-                      style: TextStyle(
-                        fontFamily: AppTheme.fontFamily,
-                        fontSize: 16,
-                        fontWeight: FontWeight.normal,
-                        height: 1.5,
-                        color: AppTheme.purple,
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return CitiesScreen(
+                              parentId: regionIndex,
+                              data: RegionsResult(
+                                id: cityIndex,
+                                name: city,
+                              ),
+                              changed: (
+                                  _name,
+                                  _id,
+                                  ) {
+                                setState(
+                                      () {
+                                    city = _name;
+                                    cityIndex = _id;
+                                  },
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      );
+                    },
+                    child: Container(
+                      height: 56,
+                      width: MediaQuery.of(context).size.width - 80,
+                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                      decoration: BoxDecoration(
+                        color: AppTheme.bg,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Text(
+                        city,
+                        style: TextStyle(
+                          fontFamily: AppTheme.fontFamily,
+                          fontSize: 16,
+                          fontWeight: FontWeight.normal,
+                          height: 1.5,
+                          color: AppTheme.purple,
+                        ),
                       ),
                     ),
                   ),
                   SizedBox(height: 24),
                   GestureDetector(
                     onTap: () {
+                      onChanged(
+                        regionIndex,
+                        cityIndex,
+                        professionIndex,
+                      );
                       Navigator.pop(context);
                     },
                     child: Container(

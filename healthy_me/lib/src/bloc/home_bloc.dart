@@ -17,13 +17,13 @@ class HomeBloc {
     String text,
     int regionId,
     int cityId,
-    int categoryId,
+    int professionId,
   ) async {
     var response = await _repository.fetchDocList(
       text,
       regionId,
       cityId,
-      categoryId,
+      professionId,
     );
     if (response.isSuccess) {
       DoctorsListModel result = DoctorsListModel.fromJson(response.result);
@@ -31,8 +31,8 @@ class HomeBloc {
     }
   }
 
-  fetchCategories() async {
-    var response = await _repository.fetchRegion();
+  fetchCategories(String search) async {
+    var response = await _repository.fetchCategories(search);
     if (response.isSuccess) {
       ProfessionModel result = ProfessionModel.fromJson(response.result);
       _categoriesFetcher.sink.add(result);

@@ -5,7 +5,9 @@ import 'package:healthy_me/src/defaults/categories_list.dart';
 import 'package:healthy_me/src/defaults/doctors_list.dart';
 import 'package:healthy_me/src/dialog/bottom_dialog.dart';
 import 'package:healthy_me/src/model/doctor_model.dart';
+import 'package:healthy_me/src/model/event_bus/filter_model.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
+import 'package:healthy_me/src/utils/rx_bus.dart';
 import 'package:healthy_me/src/widgets/doctor_container.dart';
 
 class DoctorsScreen extends StatefulWidget {
@@ -368,7 +370,18 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                 SizedBox(width: 12),
                 GestureDetector(
                   onTap: () {
-                    BottomDialog.showDocFilter(context);
+                    BottomDialog.showDocFilter(
+                      context,
+                      (_regionId, _cityId, _professionId) {
+                        RxBus.post(
+                          FilterModel(
+                            regionId: _regionId,
+                            cityId: _cityId,
+                            professionId: _professionId,
+                          ),
+                        );
+                      },
+                    );
                   },
                   child: Container(
                     height: 48,

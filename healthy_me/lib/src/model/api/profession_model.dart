@@ -9,13 +9,13 @@ class ProfessionModel {
   int count;
   String next;
   dynamic previous;
-  List<Result> results;
+  List<ProfessionResult> results;
 
   factory ProfessionModel.fromJson(Map<dynamic, dynamic> json) => ProfessionModel(
     count: json["count"],
     next: json["next"],
     previous: json["previous"],
-    results: List<Result>.from(json["results"].map((x) => Result.fromJson(x))),
+    results: List<ProfessionResult>.from(json["results"].map((x) => ProfessionResult.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -26,8 +26,8 @@ class ProfessionModel {
   };
 }
 
-class Result {
-  Result({
+class ProfessionResult {
+  ProfessionResult({
     required this.id,
     required this.name,
   });
@@ -35,7 +35,7 @@ class Result {
   int id;
   String name;
 
-  factory Result.fromJson(Map<dynamic, dynamic> json) => Result(
+  factory ProfessionResult.fromJson(Map<dynamic, dynamic> json) => ProfessionResult(
     id: json["id"]??0,
     name: json["name"]??'Unnamed',
   );

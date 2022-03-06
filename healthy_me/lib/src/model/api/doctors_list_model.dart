@@ -2,28 +2,20 @@ import 'package:healthy_me/src/model/api/profile_model.dart';
 
 class DoctorsListModel {
   DoctorsListModel({
-    required this.count,
     required this.next,
-    required this.previous,
     required this.results,
   });
 
-  int count;
-  dynamic next;
-  dynamic previous;
+  String next;
   List<DocListResult> results;
 
   factory DoctorsListModel.fromJson(Map<dynamic, dynamic> json) => DoctorsListModel(
-    count: json["count"]??0,
-    next: json["next"]??0,
-    previous: json["previous"]??0,
+    next: json["next"]??"",
     results: List<DocListResult>.from(json["results"].map((x) => DocListResult.fromJson(x))),
   );
 
-  Map<String, dynamic> toJson() => {
-    "count": count,
+  Map<dynamic, dynamic> toJson() => {
     "next": next,
-    "previous": previous,
     "results": List<dynamic>.from(results.map((x) => x.toJson())),
   };
 }
@@ -64,7 +56,7 @@ class DocListResult {
         : City.fromJson(json["city"]),
   );
 
-  Map<String, dynamic> toJson() => {
+  Map<dynamic, dynamic> toJson() => {
     "id": id,
     "fullname": fullName,
     "avatar": avatar,

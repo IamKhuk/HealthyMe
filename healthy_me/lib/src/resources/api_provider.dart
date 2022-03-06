@@ -251,16 +251,16 @@ class ApiProvider {
     String text,
     int regionId,
     int cityId,
-    int categoryId,
+    int professionId,
   ) async {
     String url = baseUrl +
-        "region?region_id=$regionId&city_id=$cityId&category_id=$categoryId&search=$text";
+        "region?region_id=$regionId&city_id=$cityId&profession_id=$professionId&search=$text";
     return await getRequest(url);
   }
 
   /// Categories
-  Future<HttpResult> fetchCategories() async {
-    String url = baseUrl + 'category';
+  Future<HttpResult> fetchCategories(String search) async {
+    String url = baseUrl + 'profession?search=$search';
     return await getRequest(url);
   }
 }

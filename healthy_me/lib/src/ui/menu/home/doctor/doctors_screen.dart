@@ -90,6 +90,10 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
             children: [
               GestureDetector(
                 onTap: () {
+                  FocusScopeNode currentFocus = FocusScope.of(context);
+                  if (!currentFocus.hasPrimaryFocus) {
+                    currentFocus.unfocus();
+                  }
                   _scaffoldKey.currentState!.openEndDrawer();
                 },
                 child: Container(
@@ -175,7 +179,9 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 10),
+                        horizontal: 12,
+                        vertical: 10,
+                      ),
                       child: Row(
                         children: [
                           SvgPicture.asset(
@@ -327,7 +333,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                       fontFamily: AppTheme.fontFamily,
                       color: AppTheme.dark,
                     ),
-                    autofocus: true,
+                    autofocus: false,
                     cursorColor: AppTheme.purple,
                     decoration: InputDecoration(
                       border: InputBorder.none,
@@ -519,7 +525,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
 
   void _registerBus() {
     RxBus.register<FilterModel>(tag: "FILTER").listen(
-          (event) {
+      (event) {
         page = 1;
         cityId = event.cityId;
         regionId = event.regionId;

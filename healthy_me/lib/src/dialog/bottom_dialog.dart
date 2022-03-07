@@ -875,8 +875,10 @@ class BottomDialog {
                           builder: (context) {
                             return SpecialtyScreen(
                               onChanged: (_id, _name) {
-                                professionIndex = _id;
-                                profession = _name;
+                                setState((){
+                                  professionIndex = _id;
+                                  profession = _name;
+                                });
                               },
                             );
                           },

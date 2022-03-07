@@ -4,7 +4,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:healthy_me/src/bloc/home_bloc.dart';
 import 'package:healthy_me/src/model/api/profession_model.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
-import 'dart:io';
 import 'package:healthy_me/src/widgets/specialty_button.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -22,6 +21,12 @@ class _SpecialtyScreenState extends State<SpecialtyScreen> {
   ScrollController _sc = new ScrollController();
 
   int id = 0;
+
+  @override
+  void initState() {
+    blocHome.fetchCategories(_professionController.text);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -191,21 +196,10 @@ class _SpecialtyScreenState extends State<SpecialtyScreen> {
                                       Navigator.pop(context);
                                     },
                                     child: SpecialtyButton(
-                                        data: snapshot.data!.results[index],
-                                        id: id),
+                                      data: snapshot.data!.results[index],
+                                      id: id,
+                                    ),
                                   ),
-                                  index == snapshot.data!.results.length - 1
-                                      ? Container(
-                                          height: Platform.isIOS ? 32 : 24,
-                                        )
-                                      : Container(
-                                          height: 1,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width -
-                                              32,
-                                          color: AppTheme.gray,
-                                        ),
                                 ],
                               );
                             },
@@ -222,116 +216,39 @@ class _SpecialtyScreenState extends State<SpecialtyScreen> {
                     return Column(
                       children: [
                         Container(
-                          height: 80,
-                          margin: EdgeInsets.symmetric(horizontal: 16),
+                          height: 56,
+                          margin: EdgeInsets.only(
+                            left: 16,
+                            right: 16,
+                          ),
                           child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Container(
-                                height: 48,
-                                width: 48,
+                                height: 24,
+                                width: 160,
                                 decoration: BoxDecoration(
                                   color: AppTheme.baseColor,
-                                  borderRadius: BorderRadius.circular(48),
+                                  borderRadius: BorderRadius.circular(24),
                                 ),
                               ),
-                              SizedBox(
-                                width: 12,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    height: 20,
-                                    width: 120,
-                                    decoration: BoxDecoration(
-                                      color: AppTheme.baseColor,
-                                      borderRadius: BorderRadius.circular(24),
-                                    ),
-                                  ),
-                                  SizedBox(height: 8),
-                                  Row(
-                                    children: [
-                                      Container(
-                                        height: 12,
-                                        width: 44,
-                                        decoration: BoxDecoration(
-                                          color: AppTheme.baseColor,
-                                          borderRadius:
-                                              BorderRadius.circular(16),
-                                        ),
-                                      ),
-                                      SizedBox(width: 20),
-                                      Container(
-                                        height: 12,
-                                        width: 52,
-                                        decoration: BoxDecoration(
-                                          color: AppTheme.baseColor,
-                                          borderRadius:
-                                              BorderRadius.circular(16),
-                                        ),
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
                               Spacer(),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    height: 16,
-                                    width: 32,
-                                    decoration: BoxDecoration(
-                                      color: AppTheme.baseColor,
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
-                                  ),
-                                  SizedBox(height: 8),
-                                  Container(
-                                    height: 12,
-                                    width: 36,
-                                    decoration: BoxDecoration(
-                                      color: AppTheme.baseColor,
-                                      borderRadius: BorderRadius.circular(16),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(width: 32),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    height: 16,
-                                    width: 32,
-                                    decoration: BoxDecoration(
-                                      color: AppTheme.baseColor,
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
-                                  ),
-                                  SizedBox(height: 8),
-                                  Container(
-                                    height: 12,
-                                    width: 36,
-                                    decoration: BoxDecoration(
-                                      color: AppTheme.baseColor,
-                                      borderRadius: BorderRadius.circular(16),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                              Container(
+                                height: 16,
+                                width: 16,
+                                decoration: BoxDecoration(
+                                  color: AppTheme.baseColor,
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                              )
                             ],
                           ),
                         ),
                         index == 20
                             ? Container()
                             : Container(
-                                margin: EdgeInsets.symmetric(horizontal: 16),
-                                height: 1,
-                                color: AppTheme.baseColor,
-                              )
+                          height: 1,
+                          color: AppTheme.baseColor,
+                        ),
                       ],
                     );
                   },

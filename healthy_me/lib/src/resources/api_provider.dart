@@ -254,7 +254,7 @@ class ApiProvider {
     int professionId,
   ) async {
     String url = baseUrl +
-        "region?region_id=$regionId&city_id=$cityId&profession_id=$professionId&search=$text";
+        "doctorchoose?region_id=$regionId&city_id=$cityId&profession_id=$professionId&search=$text";
     return await getRequest(url);
   }
 

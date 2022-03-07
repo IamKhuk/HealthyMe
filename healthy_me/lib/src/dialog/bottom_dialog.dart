@@ -804,7 +804,7 @@ class BottomDialog {
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
             return Container(
-              height: 490,
+              height: 493,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
                   topRight: Radius.circular(24),

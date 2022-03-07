@@ -27,6 +27,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   TextEditingController controller = new TextEditingController();
+  ScrollController _sc = new ScrollController();
   bool onChanged = false;
   String search = '';
   int professionId = -1;
@@ -54,12 +55,11 @@ class _HomeScreenState extends State<HomeScreen> {
     blocProfile.fetchMe();
     _registerBus();
     _getMoreData(page);
-    blocHome.fetchDocList(
-      search,
-      regionId,
-      cityId,
-      professionId,
-    );
+    _sc.addListener(() {
+      if (_sc.position.pixels == _sc.position.maxScrollExtent) {
+        _getMoreData(page);
+      }
+    });
     super.initState();
   }
 

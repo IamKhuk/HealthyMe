@@ -39,6 +39,13 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
         _getMoreData(page);
       }
     });
+    controller.addListener(() {
+      if (search != controller.text) {
+        search = controller.text;
+        isLoading = false;
+        _getMoreData(1);
+      }
+    });
     super.initState();
   }
 

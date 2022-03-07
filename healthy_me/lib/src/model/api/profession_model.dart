@@ -1,27 +1,19 @@
 class ProfessionModel {
   ProfessionModel({
     required this.count,
-    required this.next,
-    required this.previous,
     required this.results,
   });
 
   int count;
-  String next;
-  dynamic previous;
   List<ProfessionResult> results;
 
   factory ProfessionModel.fromJson(Map<dynamic, dynamic> json) => ProfessionModel(
     count: json["count"],
-    next: json["next"],
-    previous: json["previous"],
     results: List<ProfessionResult>.from(json["results"].map((x) => ProfessionResult.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
     "count": count,
-    "next": next,
-    "previous": previous,
     "results": List<dynamic>.from(results.map((x) => x.toJson())),
   };
 }

@@ -19,12 +19,20 @@ class SpecialtyScreen extends StatefulWidget {
 class _SpecialtyScreenState extends State<SpecialtyScreen> {
   TextEditingController _professionController = new TextEditingController();
   ScrollController _sc = new ScrollController();
-
+  String obj = '';
   int id = 0;
+  bool isLoading = false;
 
   @override
   void initState() {
     blocHome.fetchCategories(_professionController.text);
+    _professionController.addListener(() {
+      if (obj != _professionController.text) {
+        obj = _professionController.text;
+        isLoading = false;
+        _getMoreData(1);
+      }
+    });
     super.initState();
   }
 
@@ -106,7 +114,7 @@ class _SpecialtyScreenState extends State<SpecialtyScreen> {
                   Container(
                     height: 48,
                     width: MediaQuery.of(context).size.width - 32,
-                    padding: EdgeInsets.symmetric(horizontal: 12),
+                    padding: EdgeInsets.symmetric(horizontal: 20),
                     margin: EdgeInsets.only(
                       left: 16,
                       right: 16,
@@ -121,7 +129,7 @@ class _SpecialtyScreenState extends State<SpecialtyScreen> {
                       controller: _professionController,
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
-                        fontSize: 16,
+                        fontSize: 14,
                         fontFamily: AppTheme.fontFamily,
                         color: AppTheme.black,
                         height: 1.5,
@@ -130,11 +138,11 @@ class _SpecialtyScreenState extends State<SpecialtyScreen> {
                       decoration: InputDecoration(
                         hintText: 'Search for specialty',
                         hintStyle: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16,
+                          fontWeight: FontWeight.normal,
+                          fontSize: 14,
                           fontFamily: AppTheme.fontFamily,
                           color: AppTheme.dark,
-                          height: 1.375,
+                          height: 1.5,
                         ),
                         border: InputBorder.none,
                       ),
@@ -179,8 +187,8 @@ class _SpecialtyScreenState extends State<SpecialtyScreen> {
                       : Expanded(
                           child: ListView.builder(
                             controller: _sc,
-                            padding: EdgeInsets.only(left: 16),
-                            itemCount: snapshot.data!.results.length + 1,
+                            padding: EdgeInsets.only(top: 12, bottom: 24),
+                            itemCount: snapshot.data!.results.length,
                             itemBuilder: (context, index) {
                               return Column(
                                 children: [
@@ -246,9 +254,9 @@ class _SpecialtyScreenState extends State<SpecialtyScreen> {
                         index == 20
                             ? Container()
                             : Container(
-                          height: 1,
-                          color: AppTheme.baseColor,
-                        ),
+                                height: 1,
+                                color: AppTheme.baseColor,
+                              ),
                       ],
                     );
                   },
@@ -261,5 +269,11 @@ class _SpecialtyScreenState extends State<SpecialtyScreen> {
         ),
       ),
     );
+  }
+
+  void _getMoreData(int index) async {
+    if (!isLoading) {
+      blocHome.fetchCategories(obj);
+    }
   }
 }

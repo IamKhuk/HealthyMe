@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:healthy_me/src/bloc/home_bloc.dart';
 import 'package:healthy_me/src/defaults/categories_list.dart';
-import 'package:healthy_me/src/defaults/doctors_list.dart';
 import 'package:healthy_me/src/dialog/bottom_dialog.dart';
-import 'package:healthy_me/src/model/doctor_model.dart';
+import 'package:healthy_me/src/model/api/doctors_list_model.dart';
 import 'package:healthy_me/src/model/event_bus/filter_model.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
 import 'package:healthy_me/src/utils/rx_bus.dart';
@@ -17,23 +17,30 @@ class DoctorsScreen extends StatefulWidget {
 
 class _DoctorsScreenState extends State<DoctorsScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
+  ScrollController _sc = new ScrollController();
 
   TextEditingController controller = new TextEditingController();
   bool onChanged = false;
-
+  String search = '';
+  int professionId = -1;
+  int regionId = -1;
+  int cityId = -1;
+  bool isLoading = false;
+  int page = 1;
   int ctgIndex = 0;
 
-  List<DoctorModel> docs = [
-    doc_01,
-    doc_02,
-    doc_03,
-    doc_04,
-    doc_05,
-    doc_06,
-    doc_07,
-    doc_08,
-    doc_09,
-  ];
+  @override
+  void initState() {
+    page = 1;
+    _registerBus();
+    _getMoreData(page);
+    _sc.addListener(() {
+      if (_sc.position.pixels == _sc.position.maxScrollExtent) {
+        _getMoreData(page);
+      }
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -320,7 +327,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                       fontFamily: AppTheme.fontFamily,
                       color: AppTheme.dark,
                     ),
-                    autofocus: false,
+                    autofocus: true,
                     cursorColor: AppTheme.purple,
                     decoration: InputDecoration(
                       border: InputBorder.none,
@@ -468,39 +475,39 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
               ),
             ),
             SizedBox(height: 16),
-            ListView.builder(
-              itemCount: docs.length,
-              physics: NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              padding: EdgeInsets.symmetric(horizontal: 24),
-              itemBuilder: (context, index) {
-                return categories[ctgIndex].title == 'All'
-                    ? Column(
-                        children: [
-                          SizedBox(height: index == 0 ? 0 : 12),
-                          // DoctorContainer(doc: docs[index]),
-                        ],
-                      )
-                    : categories[ctgIndex].title == 'Other' &&
-                            docs[index].specialty != 'General' &&
-                            docs[index].specialty != 'Dentist' &&
-                            docs[index].specialty != 'Neurosurgeon' &&
-                            docs[index].specialty != 'Pediatrics' &&
-                            docs[index].specialty != 'Gynecologist'
-                        ? Column(
-                            children: [
-                              SizedBox(height: index == 0 ? 0 : 12),
-                              // DoctorContainer(doc: docs[index]),
-                            ],
-                          )
-                        : docs[index].specialty == categories[ctgIndex].title
-                            ? Column(
-                                children: [
-                                  SizedBox(height: index == 0 ? 0 : 12),
-                                  // DoctorContainer(doc: docs[index]),
-                                ],
-                              )
-                            : Container();
+            StreamBuilder(
+              stream: blocHome.getDocs,
+              builder: (context, AsyncSnapshot<DoctorsListModel> snapshot) {
+                if (snapshot.hasData) {
+                  return ListView.builder(
+                    itemCount: snapshot.data!.results.length,
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    padding: EdgeInsets.symmetric(horizontal: 24),
+                    itemBuilder: (context, index) {
+                      return categories[ctgIndex].title == 'All'
+                          ? Column(
+                              children: [
+                                SizedBox(height: index == 0 ? 0 : 12),
+                                DoctorContainer(
+                                    doc: snapshot.data!.results[index]),
+                              ],
+                            )
+                          : categories[ctgIndex].idList.contains(
+                                  snapshot.data!.results[index].profession.id)
+                              ? Column(
+                                  children: [
+                                    SizedBox(height: index == 0 ? 0 : 12),
+                                    DoctorContainer(
+                                        doc: snapshot.data!.results[index]),
+                                  ],
+                                )
+                              : Container();
+                    },
+                  );
+                } else {
+                  return Container();
+                }
               },
             ),
             SizedBox(height: 24),
@@ -508,5 +515,30 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
         ),
       ),
     );
+  }
+
+  void _registerBus() {
+    RxBus.register<FilterModel>(tag: "FILTER").listen(
+          (event) {
+        page = 1;
+        cityId = event.cityId;
+        regionId = event.regionId;
+        professionId = event.professionId;
+        isLoading = false;
+        _getMoreData(1);
+      },
+    );
+  }
+
+  void _getMoreData(int index) async {
+    if (!isLoading) {
+      blocHome.fetchDocList(
+        search,
+        regionId,
+        cityId,
+        professionId,
+      );
+      page++;
+    }
   }
 }

@@ -5,7 +5,6 @@ import 'package:healthy_me/src/bloc/profile_bloc.dart';
 import 'package:healthy_me/src/defaults/categories_list.dart';
 import 'package:healthy_me/src/defaults/doctors_list.dart';
 import 'package:healthy_me/src/defaults/schedules_list.dart';
-import 'package:healthy_me/src/dialog/bottom_dialog.dart';
 import 'package:healthy_me/src/model/api/doctors_list_model.dart';
 import 'package:healthy_me/src/model/doctor_model.dart';
 import 'package:healthy_me/src/model/event_bus/filter_model.dart';
@@ -36,18 +35,6 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isLoading = false;
   int page = 1;
   int ctgIndex = 0;
-
-  List<DoctorModel> docs = [
-    doc_01,
-    doc_02,
-    doc_03,
-    doc_04,
-    doc_05,
-    doc_06,
-    doc_07,
-    doc_08,
-    doc_09,
-  ];
 
   @override
   void initState() {
@@ -166,89 +153,118 @@ class _HomeScreenState extends State<HomeScreen> {
             Row(
               children: [
                 SizedBox(width: 36),
-                Container(
-                  height: 48,
-                  width: MediaQuery.of(context).size.width - 132,
-                  padding: EdgeInsets.only(right: 16),
-                  decoration: BoxDecoration(
-                    color: AppTheme.white,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: TextField(
-                    controller: controller,
-                    onChanged: (_text) {
-                      setState(() {
-                        onChanged = true;
-                      });
-                    },
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 14,
-                      fontFamily: AppTheme.fontFamily,
-                      color: AppTheme.dark,
-                    ),
-                    autofocus: false,
-                    cursorColor: AppTheme.purple,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Search a doctor/ speciality',
-                      hintStyle: TextStyle(
-                        fontWeight: FontWeight.normal,
-                        fontSize: 12,
-                        fontFamily: AppTheme.fontFamily,
-                        color: AppTheme.dark,
+                Stack(
+                  children: [
+                    Container(
+                      height: 48,
+                      width: MediaQuery.of(context).size.width - 132,
+                      padding: EdgeInsets.only(right: 16),
+                      decoration: BoxDecoration(
+                        color: AppTheme.white,
+                        borderRadius: BorderRadius.circular(16),
                       ),
-                      prefixIcon: onChanged == false &&
-                              controller.text.length == 0
-                          ? Container(
-                              padding: EdgeInsets.only(
-                                top: 12,
-                                bottom: 12,
-                                left: 16,
-                                right: 12,
-                              ),
-                              child: SvgPicture.asset(
-                                'assets/icons/search.svg',
-                                fit: BoxFit.contain,
-                              ),
-                            )
-                          : GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  controller.text = '';
-                                  if (controller.text == '') {
-                                    onChanged = false;
-                                  }
-                                });
-                              },
-                              child: Container(
-                                padding: EdgeInsets.only(
-                                  top: 12,
-                                  bottom: 12,
-                                  left: 16,
-                                  right: 12,
+                      child: TextField(
+                        controller: controller,
+                        onChanged: (_text) {
+                          setState(() {
+                            onChanged = true;
+                          });
+                        },
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                          fontFamily: AppTheme.fontFamily,
+                          color: AppTheme.dark,
+                        ),
+                        autofocus: false,
+                        cursorColor: AppTheme.purple,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Search a doctor/ speciality',
+                          hintStyle: TextStyle(
+                            fontWeight: FontWeight.normal,
+                            fontSize: 12,
+                            fontFamily: AppTheme.fontFamily,
+                            color: AppTheme.dark,
+                          ),
+                          prefixIcon: onChanged == false &&
+                                  controller.text.length == 0
+                              ? Container(
+                                  padding: EdgeInsets.only(
+                                    top: 12,
+                                    bottom: 12,
+                                    left: 16,
+                                    right: 12,
+                                  ),
+                                  child: SvgPicture.asset(
+                                    'assets/icons/search.svg',
+                                    fit: BoxFit.contain,
+                                  ),
+                                )
+                              : GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      controller.text = '';
+                                      if (controller.text == '') {
+                                        onChanged = false;
+                                      }
+                                    });
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.only(
+                                      top: 12,
+                                      bottom: 12,
+                                      left: 16,
+                                      right: 12,
+                                    ),
+                                    child: SvgPicture.asset('assets/icons/x.svg'),
+                                  ),
                                 ),
-                                child: SvgPicture.asset('assets/icons/x.svg'),
-                              ),
-                            ),
+                        ),
+                      ),
                     ),
-                  ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return DoctorsScreen();
+                            },
+                          ),
+                        );
+                      },
+                      child: Container(
+                        height: 48,
+                        width: MediaQuery.of(context).size.width-132,
+                        color: Colors.transparent,
+                      ),
+                    ),
+                  ],
                 ),
                 SizedBox(width: 12),
                 GestureDetector(
                   onTap: () {
-                    BottomDialog.showDocFilter(
+                    Navigator.push(
                       context,
-                      (_regionId, _cityId, _professionId) {
-                        RxBus.post(
-                          FilterModel(
-                            regionId: _regionId,
-                            cityId: _cityId,
-                            professionId: _professionId,
-                          ),
-                        );
-                      },
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return DoctorsScreen();
+                        },
+                      ),
                     );
+                    // BottomDialog.showDocFilter(
+                    //   context,
+                    //   (_regionId, _cityId, _professionId) {
+                    //     RxBus.post(
+                    //       FilterModel(
+                    //         regionId: _regionId,
+                    //         cityId: _cityId,
+                    //         professionId: _professionId,
+                    //       ),
+                    //     );
+                    //   },
+                    // );
                   },
                   child: Container(
                     height: 48,
@@ -521,41 +537,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 }
               },
             ),
-            // ListView.builder(
-            //   itemCount: docs.length,
-            //   physics: NeverScrollableScrollPhysics(),
-            //   shrinkWrap: true,
-            //   padding: EdgeInsets.symmetric(horizontal: 24),
-            //   itemBuilder: (context, index) {
-            //     return categories[ctgIndex].title == 'All'
-            //         ? Column(
-            //             children: [
-            //               SizedBox(height: index == 0 ? 0 : 12),
-            //               DoctorContainer(doc: docs[index]),
-            //             ],
-            //           )
-            //         : categories[ctgIndex].title == 'Other' &&
-            //                 docs[index].specialty != 'General' &&
-            //                 docs[index].specialty != 'Dentist' &&
-            //                 docs[index].specialty != 'Neurosurgeon' &&
-            //                 docs[index].specialty != 'Pediatrics' &&
-            //                 docs[index].specialty != 'Gynecologist'
-            //             ? Column(
-            //                 children: [
-            //                   SizedBox(height: index == 0 ? 0 : 12),
-            //                   DoctorContainer(doc: docs[index]),
-            //                 ],
-            //               )
-            //             : docs[index].specialty == categories[ctgIndex].title
-            //                 ? Column(
-            //                     children: [
-            //                       SizedBox(height: index == 0 ? 0 : 12),
-            //                       DoctorContainer(doc: docs[index]),
-            //                     ],
-            //                   )
-            //                 : Container();
-            //   },
-            // ),
             SizedBox(height: 92),
           ],
         ),

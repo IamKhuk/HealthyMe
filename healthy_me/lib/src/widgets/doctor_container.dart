@@ -1,16 +1,17 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:healthy_me/src/model/api/doctors_list_model.dart';
-import 'package:healthy_me/src/model/doctor_model.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
-import 'package:healthy_me/src/ui/menu/home/doctor/doctor_details_screen.dart';
 import 'package:healthy_me/src/widgets/rating_container.dart';
 
 class DoctorContainer extends StatelessWidget {
   final DocListResult doc;
 
   DoctorContainer({required this.doc});
+
+  bool isLoadingImage = false;
 
   @override
   Widget build(BuildContext context) {
@@ -38,10 +39,44 @@ class DoctorContainer extends StatelessWidget {
               width: 60,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(16),
-                child: Image.asset(
-                  doc.avatar,
-                  fit: BoxFit.cover,
-                ),
+                child: isLoadingImage
+                    ? Container(
+                        padding: EdgeInsets.all(16),
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(AppTheme.purple),
+                          ),
+                        ),
+                      )
+                    : CachedNetworkImage(
+                        imageUrl: doc.avatar,
+                        placeholder: (context, url) => Container(
+                          height: 60,
+                          width: 60,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            color: AppTheme.dark,
+                          ),
+                        ),
+                        errorWidget: (context, url, error) => Container(
+                          height: 64,
+                          width: 64,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            color: AppTheme.gray,
+                          ),
+                          child: Center(
+                            child: Icon(
+                              Icons.error,
+                              color: AppTheme.purple,
+                            ),
+                          ),
+                        ),
+                        height: 60,
+                        width: 60,
+                        fit: BoxFit.cover,
+                      ),
               ),
             ),
             SizedBox(width: 14),

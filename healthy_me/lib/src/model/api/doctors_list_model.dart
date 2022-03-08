@@ -48,7 +48,7 @@ class DocListResult {
         fullName: json["fullname"] ?? 'Unnamed',
         avatar: json["avatar"] ?? '',
         reviewAvg:
-            json["review_avg"] == null ? 0 : json["review_avg"].toDouble(),
+            json["review_avg"] == null ? 5 : json["review_avg"].toDouble(),
         reviewCount: json["review_count"] == null? 0 : json["review_count"],
         profession: Profession.fromJson(json["profession"]),
         region: json["region"] == null

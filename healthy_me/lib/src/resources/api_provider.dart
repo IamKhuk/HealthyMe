@@ -258,6 +258,12 @@ class ApiProvider {
     return await getRequest(url);
   }
 
+  /// Doctor Details
+  Future<HttpResult> fetchDocDetails(int doctorId) async {
+    String url = baseUrl + 'doctor-detail?doctor_id=$doctorId';
+    return await getRequest(url);
+  }
+
   /// Categories
   Future<HttpResult> fetchCategories(String search) async {
     String url = baseUrl + 'profession?search=$search';

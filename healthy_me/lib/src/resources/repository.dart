@@ -75,6 +75,9 @@ class Repository {
   Future<HttpResult> fetchCategories(String search) =>
       apiProvider.fetchCategories(search);
 
+  Future<HttpResult> fetchDocDetails(int doctorId) =>
+      apiProvider.fetchDocDetails(doctorId);
+
   Future<HttpResult> fetchMe() => apiProvider.fetchMe();
 
   Future<void> cacheSetMe(ProfileData data) => appCache.saveSetMe(data);

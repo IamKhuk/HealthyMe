@@ -98,15 +98,15 @@ class _ChatScreenState extends State<ChatScreen> {
                       Expanded(
                         child: GestureDetector(
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return DoctorDetailsScreen(
-                                      doc: widget.data.user);
-                                },
-                              ),
-                            );
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) {
+                            //       return DoctorDetailsScreen(
+                            //           doc: widget.data.user);
+                            //     },
+                            //   ),
+                            // );
                           },
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,

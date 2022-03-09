@@ -325,14 +325,14 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 24),
               child: GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return DoctorDetailsScreen(doc: schedules[0].doc);
-                      },
-                    ),
-                  );
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) {
+                  //       return DoctorDetailsScreen(doc: schedules[0].doc);
+                  //     },
+                  //   ),
+                  // );
                 },
                 child: VisitContainer(
                   doc: schedules[0].doc,

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:healthy_me/src/model/api/doctors_list_model.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
+import 'package:healthy_me/src/ui/menu/home/doctor/doctor_details_screen.dart';
 import 'package:healthy_me/src/widgets/rating_container.dart';
 
 class DoctorContainer extends StatelessWidget {
@@ -17,14 +18,14 @@ class DoctorContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) {
-        //       return DoctorDetailsScreen(doc: doc);
-        //     },
-        //   ),
-        // );
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return DoctorDetailsScreen(id: doc.id);
+            },
+          ),
+        );
       },
       child: Container(
         padding: EdgeInsets.all(10),

@@ -33,14 +33,14 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
         children: [
           GestureDetector(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return DoctorDetailsScreen(doc: widget.data.doc);
-                  },
-                ),
-              );
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) {
+              //       return DoctorDetailsScreen(doc: widget.data.doc);
+              //     },
+              //   ),
+              // );
             },
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,

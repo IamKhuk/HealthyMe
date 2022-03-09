@@ -100,7 +100,6 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
         builder: (context, AsyncSnapshot<ProfileData> snapshot) {
           if (snapshot.hasData) {
             if (isFirst) {
-              isFirst = false;
               _nameController.text = snapshot.data!.fullName;
               _userController.text = snapshot.data!.username;
               _emailController.text = snapshot.data!.email;
@@ -110,6 +109,7 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
               city = snapshot.data!.city.name;
               birthDate = snapshot.data!.birthDate;
               gender = snapshot.data!.gender;
+              isFirst = false;
             }
             return Stack(
               children: [

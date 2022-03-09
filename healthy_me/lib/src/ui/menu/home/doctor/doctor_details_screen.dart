@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -28,6 +29,7 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
   GoogleMapController? controller;
   BitmapDescriptor? _markerIcon;
   late LatLng location;
+  bool isLoadingImage = false;
 
   @override
   void initState() {
@@ -325,8 +327,42 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                           width: 106,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(16),
-                            child: Image.asset(
-                              snapshot.data!.user.avatar,
+                            child: isLoadingImage
+                                ? Container(
+                              padding: EdgeInsets.all(16),
+                              child: Center(
+                                child: CircularProgressIndicator(
+                                  valueColor:
+                                  AlwaysStoppedAnimation<Color>(AppTheme.purple),
+                                ),
+                              ),
+                            )
+                                : CachedNetworkImage(
+                              imageUrl: snapshot.data!.user.avatar,
+                              placeholder: (context, url) => Container(
+                                height: 120,
+                                width: 106,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(16),
+                                  color: AppTheme.dark,
+                                ),
+                              ),
+                              errorWidget: (context, url, error) => Container(
+                                height: 120,
+                                width: 106,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(16),
+                                  color: AppTheme.gray,
+                                ),
+                                child: Center(
+                                  child: Icon(
+                                    Icons.error,
+                                    color: AppTheme.purple,
+                                  ),
+                                ),
+                              ),
+                              height: 120,
+                              width: 106,
                               fit: BoxFit.cover,
                             ),
                           ),

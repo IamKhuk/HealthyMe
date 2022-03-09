@@ -2,12 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:healthy_me/src/dialog/bottom_dialog.dart';
 import 'package:healthy_me/src/dialog/center_dialog.dart';
 import 'package:healthy_me/src/model/visit_date_model.dart';
+import 'package:healthy_me/src/resources/repository.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
 import 'package:healthy_me/src/utils/utils.dart';
 
 class AppointmentScreen extends StatefulWidget {
+  final int doctorId;
+
+  AppointmentScreen({required this.doctorId});
+
   @override
   _AppointmentScreenState createState() => _AppointmentScreenState();
 }
@@ -18,12 +24,13 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
   int _selectedDate = 0;
   int _selectedTime = 0;
   int _selectedDay = 0;
-  int _selectedWeek = 0;
+  // int _selectedWeek = 0;
   int _selectedMonth = 0;
   int _selectedYear = 0;
   int _selectedHour = 0;
   int _selectedMinute = 0;
   TextEditingController _controller = new TextEditingController();
+  bool _loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -387,7 +394,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                           setState(() {
                             _selectedDate = index;
                             _selectedDay = dateList[index].day;
-                            _selectedWeek = dateList[index].week;
+                            // _selectedWeek = dateList[index].week;
                             _selectedMonth = dateList[index].month;
                             _selectedYear = dateList[index].year;
                           });
@@ -608,45 +615,120 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                   right: 36,
                   bottom: 24,
                 ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () {},
-                        child: Container(
-                          height: 56,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
-                            color: AppTheme.purple,
-                            boxShadow: [
-                              BoxShadow(
-                                offset: Offset(5, 9),
-                                blurRadius: 15,
-                                spreadRadius: 0,
-                                color: AppTheme.gray,
-                              ),
-                            ],
-                          ),
-                          child: Center(
-                            child: Text(
-                              'Make Appointment',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16,
-                                fontFamily: AppTheme.fontFamily,
-                                height: 1.5,
-                                color: AppTheme.white,
-                              ),
-                            ),
-                          ),
+                child: GestureDetector(
+                  onTap: () async {
+                    DateTime time = DateTime(
+                      _selectedYear,
+                      _selectedMonth,
+                      _selectedDay,
+                      _selectedHour,
+                      _selectedMinute,
+                    );
+                    setState(() {
+                      _loading = true;
+                    });
+
+                    if (_selectedTime != 0) {
+                      var response = await Repository().fetchScheduleSend(
+                        widget.doctorId,
+                        time,
+                        _controller.text,
+                      );
+                      if(response.isSuccess){
+                        setState(() {
+                          _loading = false;
+                        });
+                        int status = response.result["status"] ?? 0;
+                        if (status == 1) {
+                          Navigator.pop(context);
+                        } else {
+                          BottomDialog.showActionFailed(
+                            context,
+                            'Cannot Create Schedule',
+                            response.result["msg"] ?? "Something went wrong, Please try again",
+                          );
+                        }
+                      }else if (response.status == -1) {
+                        setState(() {
+                          _loading = false;
+                        });
+                        BottomDialog.showActionFailed(
+                          context,
+                          'Connection Failed',
+                          "You do not have internet connection, please try again",
+                        );
+                      }else {
+                        setState(() {
+                          _loading = false;
+                        });
+                        BottomDialog.showActionFailed(
+                          context,
+                          'Something went wrong',
+                          response.result["msg"] ?? "Cannot connect to server, Please try again",
+                        );
+                      }
+                    }
+                  },
+                  child: Container(
+                    height: 56,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      color: AppTheme.purple,
+                      boxShadow: [
+                        BoxShadow(
+                          offset: Offset(5, 9),
+                          blurRadius: 15,
+                          spreadRadius: 0,
+                          color: AppTheme.gray,
+                        ),
+                      ],
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Make Appointment',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
+                          fontFamily: AppTheme.fontFamily,
+                          height: 1.5,
+                          color: AppTheme.white,
                         ),
                       ),
                     ),
-                  ],
+                  ),
                 ),
               )
             ],
           ),
+          _loading == true
+              ? Container(
+            color: AppTheme.black.withOpacity(0.45),
+            child: Center(
+              child: Container(
+                height: 96,
+                width: 96,
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.9),
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(0, 5),
+                      blurRadius: 25,
+                      spreadRadius: 0,
+                      color: AppTheme.dark.withOpacity(0.2),
+                    ),
+                  ],
+                ),
+                child: Center(
+                  child: CircularProgressIndicator(
+                    valueColor:
+                    AlwaysStoppedAnimation<Color>(AppTheme.purple),
+                  ),
+                ),
+              ),
+            ),
+          )
+              : Container()
         ],
       ),
     );

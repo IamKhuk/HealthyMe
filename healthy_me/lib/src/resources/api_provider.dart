@@ -269,4 +269,20 @@ class ApiProvider {
     String url = baseUrl + 'profession?search=$search';
     return await getRequest(url);
   }
+
+  /// Schedule Create
+  Future<HttpResult> fetchScheduleSend(
+    int doctorId,
+    DateTime time,
+    String desc,
+  ) async {
+    String url = baseUrl + 'create-schedule';
+    final data = {
+      'doctor': doctorId,
+      'start_datetime': time.toString(),
+      'status': 'upcoming',
+      'desc': desc,
+    };
+    return await postRequest(url, data, true);
+  }
 }

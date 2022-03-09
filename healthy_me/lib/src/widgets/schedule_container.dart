@@ -181,14 +181,14 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
               SizedBox(width: 12),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return AppointmentScreen();
-                      },
-                    ),
-                  );
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) {
+                  //       return AppointmentScreen();
+                  //     },
+                  //   ),
+                  // );
                 },
                 child: Container(
                   height: 38,

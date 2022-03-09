@@ -685,14 +685,14 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                           Expanded(
                             child: GestureDetector(
                               onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) {
-                                      return AppointmentScreen();
-                                    },
-                                  ),
-                                );
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //     builder: (context) {
+                                //       return AppointmentScreen();
+                                //     },
+                                //   ),
+                                // );
                               },
                               child: Container(
                                 height: 56,

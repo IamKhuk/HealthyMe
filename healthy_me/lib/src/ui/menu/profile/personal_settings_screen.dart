@@ -35,6 +35,7 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
   bool isLoading = false;
   int regionId = 0;
   int cityId = 0;
+  bool isFirst = true;
 
   @override
   void initState() {
@@ -97,15 +98,19 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
       body: StreamBuilder(
         stream: blocProfile.getInfoCache,
         builder: (context, AsyncSnapshot<ProfileData> snapshot) {
-          _nameController.text = snapshot.data!.fullName;
-          _userController.text = snapshot.data!.username;
-          _emailController.text = snapshot.data!.email;
-          _phoneController.text = Utils.phoneTextFormat(snapshot.data!.phone);
-          region = snapshot.data!.region.name;
-          city = snapshot.data!.city.name;
-          birthDate = snapshot.data!.birthDate;
-          gender = snapshot.data!.gender;
           if (snapshot.hasData) {
+            if (isFirst) {
+              isFirst = false;
+              _nameController.text = snapshot.data!.fullName;
+              _userController.text = snapshot.data!.username;
+              _emailController.text = snapshot.data!.email;
+              _phoneController.text =
+                  Utils.phoneTextFormat(snapshot.data!.phone);
+              region = snapshot.data!.region.name;
+              city = snapshot.data!.city.name;
+              birthDate = snapshot.data!.birthDate;
+              gender = snapshot.data!.gender;
+            }
             return Stack(
               children: [
                 GestureDetector(
@@ -762,12 +767,19 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                           ),
                           child: Text(
                             (snapshot.data!.birthDate.day.toString().length == 1
-                                    ? '0' + snapshot.data!.birthDate.day.toString()
+                                    ? '0' +
+                                        snapshot.data!.birthDate.day.toString()
                                     : snapshot.data!.birthDate.day.toString()) +
                                 '/' +
-                                (snapshot.data!.birthDate.month.toString().length == 1
-                                    ? '0' + snapshot.data!.birthDate.month.toString()
-                                    : snapshot.data!.birthDate.month.toString()) +
+                                (snapshot.data!.birthDate.month
+                                            .toString()
+                                            .length ==
+                                        1
+                                    ? '0' +
+                                        snapshot.data!.birthDate.month
+                                            .toString()
+                                    : snapshot.data!.birthDate.month
+                                        .toString()) +
                                 '/' +
                                 snapshot.data!.birthDate.year.toString(),
                             style: TextStyle(

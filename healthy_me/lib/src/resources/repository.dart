@@ -76,11 +76,13 @@ class Repository {
       int doctorId,
       DateTime time,
       String desc,
+      int professionId,
       ) =>
       apiProvider.fetchScheduleSend(
         doctorId,
         time,
         desc,
+        professionId,
       );
 
   Future<HttpResult> fetchCategories(String search) =>

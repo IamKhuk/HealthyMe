@@ -693,6 +693,7 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                                     builder: (context) {
                                       return AppointmentScreen(
                                         doctorId: widget.id,
+                                        professionId: snapshot.data!.user.profession.id,
                                       );
                                     },
                                   ),

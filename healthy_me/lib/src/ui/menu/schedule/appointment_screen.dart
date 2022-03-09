@@ -11,8 +11,12 @@ import 'package:healthy_me/src/utils/utils.dart';
 
 class AppointmentScreen extends StatefulWidget {
   final int doctorId;
+  final int professionId;
 
-  AppointmentScreen({required this.doctorId});
+  AppointmentScreen({
+    required this.doctorId,
+    required this.professionId,
+  });
 
   @override
   _AppointmentScreenState createState() => _AppointmentScreenState();
@@ -642,6 +646,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                       widget.doctorId,
                       time,
                       _controller.text,
+                      widget.professionId,
                     );
                     if (response.isSuccess) {
                       setState(() {

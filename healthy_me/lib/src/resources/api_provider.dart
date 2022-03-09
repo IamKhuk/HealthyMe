@@ -278,7 +278,7 @@ class ApiProvider {
   ) async {
     String url = baseUrl + 'create-schedule';
     final data = {
-      'doctor': doctorId,
+      'doctor': doctorId.toString(),
       'start_datetime': time.toString(),
       'status': 'upcoming',
       'desc': desc,

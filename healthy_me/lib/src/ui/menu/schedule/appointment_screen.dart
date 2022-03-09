@@ -24,6 +24,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
   int _selectedDate = 0;
   int _selectedTime = 0;
   int _selectedDay = 0;
+
   // int _selectedWeek = 0;
   int _selectedMonth = 0;
   int _selectedYear = 0;
@@ -31,6 +32,15 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
   int _selectedMinute = 0;
   TextEditingController _controller = new TextEditingController();
   bool _loading = false;
+  late DateTime time;
+
+  @override
+  void initState() {
+    _selectedYear = DateTime.now().year;
+    _selectedMonth = DateTime.now().month;
+    _selectedDay = DateTime.now().day;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -617,7 +627,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                 ),
                 child: GestureDetector(
                   onTap: () async {
-                    DateTime time = DateTime(
+                    time = DateTime(
                       _selectedYear,
                       _selectedMonth,
                       _selectedDay,
@@ -628,45 +638,45 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                       _loading = true;
                     });
 
-                    if (_selectedTime != 0) {
-                      var response = await Repository().fetchScheduleSend(
-                        widget.doctorId,
-                        time,
-                        _controller.text,
-                      );
-                      if(response.isSuccess){
-                        setState(() {
-                          _loading = false;
-                        });
-                        int status = response.result["status"] ?? 0;
-                        if (status == 1) {
-                          Navigator.pop(context);
-                        } else {
-                          BottomDialog.showActionFailed(
-                            context,
-                            'Cannot Create Schedule',
-                            response.result["msg"] ?? "Something went wrong, Please try again",
-                          );
-                        }
-                      }else if (response.status == -1) {
-                        setState(() {
-                          _loading = false;
-                        });
+                    var response = await Repository().fetchScheduleSend(
+                      widget.doctorId,
+                      time,
+                      _controller.text,
+                    );
+                    if (response.isSuccess) {
+                      setState(() {
+                        _loading = false;
+                      });
+                      int status = response.result["status"] ?? 0;
+                      if (status == 1) {
+                        Navigator.pop(context);
+                      } else {
                         BottomDialog.showActionFailed(
                           context,
-                          'Connection Failed',
-                          "You do not have internet connection, please try again",
-                        );
-                      }else {
-                        setState(() {
-                          _loading = false;
-                        });
-                        BottomDialog.showActionFailed(
-                          context,
-                          'Something went wrong',
-                          response.result["msg"] ?? "Cannot connect to server, Please try again",
+                          'Cannot Create Schedule',
+                          response.result["msg"] ??
+                              "Something went wrong, Please try again",
                         );
                       }
+                    } else if (response.status == -1) {
+                      setState(() {
+                        _loading = false;
+                      });
+                      BottomDialog.showActionFailed(
+                        context,
+                        'Connection Failed',
+                        "You do not have internet connection, please try again",
+                      );
+                    } else {
+                      setState(() {
+                        _loading = false;
+                      });
+                      BottomDialog.showActionFailed(
+                        context,
+                        'Something went wrong',
+                        response.result["msg"] ??
+                            "Cannot connect to server, Please try again",
+                      );
                     }
                   },
                   child: Container(
@@ -702,32 +712,32 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
           ),
           _loading == true
               ? Container(
-            color: AppTheme.black.withOpacity(0.45),
-            child: Center(
-              child: Container(
-                height: 96,
-                width: 96,
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.9),
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                      offset: Offset(0, 5),
-                      blurRadius: 25,
-                      spreadRadius: 0,
-                      color: AppTheme.dark.withOpacity(0.2),
+                  color: AppTheme.black.withOpacity(0.45),
+                  child: Center(
+                    child: Container(
+                      height: 96,
+                      width: 96,
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.9),
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [
+                          BoxShadow(
+                            offset: Offset(0, 5),
+                            blurRadius: 25,
+                            spreadRadius: 0,
+                            color: AppTheme.dark.withOpacity(0.2),
+                          ),
+                        ],
+                      ),
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(AppTheme.purple),
+                        ),
+                      ),
                     ),
-                  ],
-                ),
-                child: Center(
-                  child: CircularProgressIndicator(
-                    valueColor:
-                    AlwaysStoppedAnimation<Color>(AppTheme.purple),
                   ),
-                ),
-              ),
-            ),
-          )
+                )
               : Container()
         ],
       ),

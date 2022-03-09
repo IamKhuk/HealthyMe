@@ -329,42 +329,44 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                             borderRadius: BorderRadius.circular(16),
                             child: isLoadingImage
                                 ? Container(
-                              padding: EdgeInsets.all(16),
-                              child: Center(
-                                child: CircularProgressIndicator(
-                                  valueColor:
-                                  AlwaysStoppedAnimation<Color>(AppTheme.purple),
-                                ),
-                              ),
-                            )
+                                    padding: EdgeInsets.all(16),
+                                    child: Center(
+                                      child: CircularProgressIndicator(
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                                AppTheme.purple),
+                                      ),
+                                    ),
+                                  )
                                 : CachedNetworkImage(
-                              imageUrl: snapshot.data!.user.avatar,
-                              placeholder: (context, url) => Container(
-                                height: 120,
-                                width: 106,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(16),
-                                  color: AppTheme.dark,
-                                ),
-                              ),
-                              errorWidget: (context, url, error) => Container(
-                                height: 120,
-                                width: 106,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(16),
-                                  color: AppTheme.gray,
-                                ),
-                                child: Center(
-                                  child: Icon(
-                                    Icons.error,
-                                    color: AppTheme.purple,
+                                    imageUrl: snapshot.data!.user.avatar,
+                                    placeholder: (context, url) => Container(
+                                      height: 120,
+                                      width: 106,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(16),
+                                        color: AppTheme.dark,
+                                      ),
+                                    ),
+                                    errorWidget: (context, url, error) =>
+                                        Container(
+                                      height: 120,
+                                      width: 106,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(16),
+                                        color: AppTheme.gray,
+                                      ),
+                                      child: Center(
+                                        child: Icon(
+                                          Icons.error,
+                                          color: AppTheme.purple,
+                                        ),
+                                      ),
+                                    ),
+                                    height: 120,
+                                    width: 106,
+                                    fit: BoxFit.cover,
                                   ),
-                                ),
-                              ),
-                              height: 120,
-                              width: 106,
-                              fit: BoxFit.cover,
-                            ),
                           ),
                         ),
                         SizedBox(width: 20),
@@ -685,14 +687,16 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                           Expanded(
                             child: GestureDetector(
                               onTap: () {
-                                // Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //     builder: (context) {
-                                //       return AppointmentScreen();
-                                //     },
-                                //   ),
-                                // );
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return AppointmentScreen(
+                                        doctorId: widget.id,
+                                      );
+                                    },
+                                  ),
+                                );
                               },
                               child: Container(
                                 height: 56,

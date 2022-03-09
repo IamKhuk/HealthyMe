@@ -73,7 +73,7 @@ class _RatingContainerState extends State<RatingContainer> {
                       children: [
                         SvgPicture.asset(
                           'assets/icons/star.svg',
-                          color: AppTheme.dark,
+                          color: AppTheme.gray,
                         ),
                         SvgPicture.asset(
                           'assets/icons/star_h.svg',
@@ -109,7 +109,7 @@ class _RatingContainerState extends State<RatingContainer> {
                         SizedBox(width: 4),
                         SvgPicture.asset(
                           'assets/icons/star.svg',
-                          color: AppTheme.dark,
+                          color: AppTheme.gray,
                         ),
                       ],
                     )
@@ -135,7 +135,7 @@ class _RatingContainerState extends State<RatingContainer> {
                               children: [
                                 SvgPicture.asset(
                                   'assets/icons/star.svg',
-                                  color: AppTheme.dark,
+                                  color: AppTheme.gray,
                                 ),
                                 SvgPicture.asset(
                                   'assets/icons/star_h.svg',
@@ -147,7 +147,7 @@ class _RatingContainerState extends State<RatingContainer> {
                             SizedBox(width: 4),
                             SvgPicture.asset(
                               'assets/icons/star.svg',
-                              color: AppTheme.dark,
+                              color: AppTheme.gray,
                             ),
                           ],
                         )
@@ -171,12 +171,12 @@ class _RatingContainerState extends State<RatingContainer> {
                                 SizedBox(width: 4),
                                 SvgPicture.asset(
                                   'assets/icons/star.svg',
-                                  color: AppTheme.dark,
+                                  color: AppTheme.gray,
                                 ),
                                 SizedBox(width: 4),
                                 SvgPicture.asset(
                                   'assets/icons/star.svg',
-                                  color: AppTheme.dark,
+                                  color: AppTheme.gray,
                                 ),
                               ],
                             )
@@ -197,7 +197,7 @@ class _RatingContainerState extends State<RatingContainer> {
                                       children: [
                                         SvgPicture.asset(
                                           'assets/icons/star.svg',
-                                          color: AppTheme.dark,
+                                          color: AppTheme.gray,
                                         ),
                                         SvgPicture.asset(
                                           'assets/icons/star_h.svg',
@@ -209,12 +209,12 @@ class _RatingContainerState extends State<RatingContainer> {
                                     SizedBox(width: 4),
                                     SvgPicture.asset(
                                       'assets/icons/star.svg',
-                                      color: AppTheme.dark,
+                                      color: AppTheme.gray,
                                     ),
                                     SizedBox(width: 4),
                                     SvgPicture.asset(
                                       'assets/icons/star.svg',
-                                      color: AppTheme.dark,
+                                      color: AppTheme.gray,
                                     ),
                                   ],
                                 )
@@ -233,17 +233,17 @@ class _RatingContainerState extends State<RatingContainer> {
                                         SizedBox(width: 4),
                                         SvgPicture.asset(
                                           'assets/icons/star.svg',
-                                          color: AppTheme.dark,
+                                          color: AppTheme.gray,
                                         ),
                                         SizedBox(width: 4),
                                         SvgPicture.asset(
                                           'assets/icons/star.svg',
-                                          color: AppTheme.dark,
+                                          color: AppTheme.gray,
                                         ),
                                         SizedBox(width: 4),
                                         SvgPicture.asset(
                                           'assets/icons/star.svg',
-                                          color: AppTheme.dark,
+                                          color: AppTheme.gray,
                                         ),
                                       ],
                                     )
@@ -259,7 +259,7 @@ class _RatingContainerState extends State<RatingContainer> {
                                               children: [
                                                 SvgPicture.asset(
                                                   'assets/icons/star.svg',
-                                                  color: AppTheme.dark,
+                                                  color: AppTheme.gray,
                                                 ),
                                                 SvgPicture.asset(
                                                   'assets/icons/star_h.svg',
@@ -271,17 +271,17 @@ class _RatingContainerState extends State<RatingContainer> {
                                             SizedBox(width: 4),
                                             SvgPicture.asset(
                                               'assets/icons/star.svg',
-                                              color: AppTheme.dark,
+                                              color: AppTheme.gray,
                                             ),
                                             SizedBox(width: 4),
                                             SvgPicture.asset(
                                               'assets/icons/star.svg',
-                                              color: AppTheme.dark,
+                                              color: AppTheme.gray,
                                             ),
                                             SizedBox(width: 4),
                                             SvgPicture.asset(
                                               'assets/icons/star.svg',
-                                              color: AppTheme.dark,
+                                              color: AppTheme.gray,
                                             ),
                                           ],
                                         )
@@ -295,22 +295,22 @@ class _RatingContainerState extends State<RatingContainer> {
                                                 SizedBox(width: 4),
                                                 SvgPicture.asset(
                                                   'assets/icons/star.svg',
-                                                  color: AppTheme.dark,
+                                                  color: AppTheme.gray,
                                                 ),
                                                 SizedBox(width: 4),
                                                 SvgPicture.asset(
                                                   'assets/icons/star.svg',
-                                                  color: AppTheme.dark,
+                                                  color: AppTheme.gray,
                                                 ),
                                                 SizedBox(width: 4),
                                                 SvgPicture.asset(
                                                   'assets/icons/star.svg',
-                                                  color: AppTheme.dark,
+                                                  color: AppTheme.gray,
                                                 ),
                                                 SizedBox(width: 4),
                                                 SvgPicture.asset(
                                                   'assets/icons/star.svg',
-                                                  color: AppTheme.dark,
+                                                  color: AppTheme.gray,
                                                 ),
                                               ],
                                             )
@@ -322,7 +322,7 @@ class _RatingContainerState extends State<RatingContainer> {
                                                       children: [
                                                         SvgPicture.asset(
                                                           'assets/icons/star.svg',
-                                                          color: AppTheme.dark,
+                                                          color: AppTheme.gray,
                                                         ),
                                                         SvgPicture.asset(
                                                           'assets/icons/star_h.svg',
@@ -335,22 +335,22 @@ class _RatingContainerState extends State<RatingContainer> {
                                                     SizedBox(width: 4),
                                                     SvgPicture.asset(
                                                       'assets/icons/star.svg',
-                                                      color: AppTheme.dark,
+                                                      color: AppTheme.gray,
                                                     ),
                                                     SizedBox(width: 4),
                                                     SvgPicture.asset(
                                                       'assets/icons/star.svg',
-                                                      color: AppTheme.dark,
+                                                      color: AppTheme.gray,
                                                     ),
                                                     SizedBox(width: 4),
                                                     SvgPicture.asset(
                                                       'assets/icons/star.svg',
-                                                      color: AppTheme.dark,
+                                                      color: AppTheme.gray,
                                                     ),
                                                     SizedBox(width: 4),
                                                     SvgPicture.asset(
                                                       'assets/icons/star.svg',
-                                                      color: AppTheme.dark,
+                                                      color: AppTheme.gray,
                                                     ),
                                                   ],
                                                 )
@@ -358,27 +358,27 @@ class _RatingContainerState extends State<RatingContainer> {
                                                   children: [
                                                     SvgPicture.asset(
                                                       'assets/icons/star.svg',
-                                                      color: AppTheme.dark,
+                                                      color: AppTheme.gray,
                                                     ),
                                                     SizedBox(width: 4),
                                                     SvgPicture.asset(
                                                       'assets/icons/star.svg',
-                                                      color: AppTheme.dark,
+                                                      color: AppTheme.gray,
                                                     ),
                                                     SizedBox(width: 4),
                                                     SvgPicture.asset(
                                                       'assets/icons/star.svg',
-                                                      color: AppTheme.dark,
+                                                      color: AppTheme.gray,
                                                     ),
                                                     SizedBox(width: 4),
                                                     SvgPicture.asset(
                                                       'assets/icons/star.svg',
-                                                      color: AppTheme.dark,
+                                                      color: AppTheme.gray,
                                                     ),
                                                     SizedBox(width: 4),
                                                     SvgPicture.asset(
                                                       'assets/icons/star.svg',
-                                                      color: AppTheme.dark,
+                                                      color: AppTheme.gray,
                                                     ),
                                                   ],
                                                 ),

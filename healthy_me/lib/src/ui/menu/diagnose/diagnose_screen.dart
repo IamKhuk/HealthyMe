@@ -7,6 +7,8 @@ import 'package:healthy_me/src/defaults/advices_list.dart';
 import 'package:healthy_me/src/defaults/conditions_list.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
 
+import 'diagnose_result_screen.dart';
+
 class DiagnoseScreen extends StatefulWidget {
   const DiagnoseScreen({Key? key}) : super(key: key);
 
@@ -25,6 +27,7 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
 
   final GlobalKey<TagsState> _tagStateKey = GlobalKey<TagsState>();
   List _items = [];
+  List<int?> _ids = [];
 
   @override
   Widget build(BuildContext context) {
@@ -199,30 +202,52 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
                 ),
               ),
               Spacer(),
-              Container(
-                height: 56,
-                margin: EdgeInsets.symmetric(horizontal: 24),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  color: AppTheme.purple,
-                  boxShadow: [
-                    BoxShadow(
-                      offset: Offset(5, 9),
-                      blurRadius: 15,
-                      spreadRadius: 0,
-                      color: AppTheme.gray,
-                    ),
-                  ],
-                ),
-                child: Center(
-                  child: Text(
-                    'Diagnose',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16,
-                      fontFamily: AppTheme.fontFamily,
-                      height: 1.5,
-                      color: AppTheme.white,
+              GestureDetector(
+                onTap: (){
+                  if (_getSelectedItem()!.length>0) {
+                    for (int i = 0;
+                    i <= _getSelectedItem()!.length - 1;
+                    i++) {
+                      _ids.add(_getSelectedItem()![i].index);
+                    }
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return DiagnoseResultScreen(
+                            items: _getSelectedItem(),
+                            ids: _ids,
+                          );
+                        },
+                      ),
+                    );
+                  }
+                },
+                child: Container(
+                  height: 56,
+                  margin: EdgeInsets.symmetric(horizontal: 24),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
+                    color: AppTheme.purple,
+                    boxShadow: [
+                      BoxShadow(
+                        offset: Offset(5, 9),
+                        blurRadius: 15,
+                        spreadRadius: 0,
+                        color: AppTheme.gray,
+                      ),
+                    ],
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Diagnose',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                        fontFamily: AppTheme.fontFamily,
+                        height: 1.5,
+                        color: AppTheme.white,
+                      ),
                     ),
                   ),
                 ),
@@ -233,5 +258,14 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
         ],
       ),
     );
+  }
+
+  List<Item>? _getSelectedItem() {
+    List<Item>? selected = [];
+    List<Item>? list = _tagStateKey.currentState?.getAllItem;
+    if (list != null)
+      list.where((a) => a.active == true).forEach((a) => print(a.title));
+    selected = list!.where((element) => element.active == true).toList();
+    return selected;
   }
 }

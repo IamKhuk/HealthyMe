@@ -15,12 +15,12 @@ import '../main_screen.dart';
 
 class VerificationScreen extends StatefulWidget {
   final String username;
-  final int phoneNumber;
+  final String email;
   final String password;
 
   VerificationScreen({
     required this.username,
-    required this.phoneNumber,
+    required this.email,
     required this.password,
   });
 

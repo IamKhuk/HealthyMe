@@ -121,14 +121,14 @@ class ApiProvider {
   Future<HttpResult> fetchRegister(
     String username,
     String password,
-    String phone,
+    String email,
   ) async {
     String url = baseUrl + 'register';
 
     final data = {
       "username": username,
       "password": password,
-      "phone": phone,
+      "email": email,
     };
     return await postRequest(url, data, false);
   }

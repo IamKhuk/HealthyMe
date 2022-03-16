@@ -15,7 +15,7 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController _userController = new TextEditingController();
-  TextEditingController _phoneController = new TextEditingController();
+  TextEditingController _emailController = new TextEditingController();
   TextEditingController _passController = new TextEditingController();
 
   Repository _repository = Repository();
@@ -178,7 +178,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 SizedBox(height: 32),
                 Text(
-                  'Phone Number',
+                  'Email Address',
                   style: TextStyle(
                     fontFamily: AppTheme.fontFamily,
                     fontSize: 18,
@@ -210,12 +210,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     child: TextField(
                       enabled: true,
-                      controller: _phoneController,
+                      controller: _emailController,
                       enableSuggestions: true,
                       textAlignVertical: TextAlignVertical.center,
                       cursorColor: AppTheme.purple,
                       enableInteractiveSelection: true,
-                      keyboardType: TextInputType.phone,
+                      keyboardType: TextInputType.emailAddress,
                       style: TextStyle(
                         fontFamily: AppTheme.fontFamily,
                         fontSize: 14,
@@ -226,7 +226,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       autofocus: false,
                       decoration: InputDecoration(
                         border: InputBorder.none,
-                        hintText: 'Enter your phone number',
+                        hintText: 'Enter your email address',
                         hintStyle: TextStyle(
                           fontFamily: AppTheme.fontFamily,
                           fontSize: 14,
@@ -320,9 +320,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 SizedBox(height: 48),
                 GestureDetector(
                   onTap: () async {
+                    String email = _emailController.text.replaceAll(' ', '');
                     if (_userController.text.length > 0) {
-                      if (_phoneController.text.length >= 9) {
-                        phone = int.parse(_phoneController.text);
+                      if (Utils.emailValidator(email) == true) {
                         if (_passController.text.length > 0) {
                           if (Utils.passwordValidator(_passController.text) ==
                               true) {
@@ -332,7 +332,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             var response = await _repository.fetchRegister(
                               _userController.text,
                               _passController.text,
-                              Utils.phoneFormat(_phoneController.text),
+                              email,
                             );
                             var result = RegisterModel.fromJson(
                               response.result,
@@ -348,7 +348,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     builder: (context) {
                                       return VerificationScreen(
                                         password: _passController.text,
-                                        phoneNumber: phone,
+                                        email: email,
                                         username: _userController.text,
                                       );
                                     },
@@ -390,7 +390,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         BottomDialog.showActionFailed(
                           context,
                           'Invalid Phone Number',
-                          'Please enter valid phone number so that we can register you correctly',
+                          'Please enter valid email address so that we can register you correctly',
                         );
                       }
                     } else {

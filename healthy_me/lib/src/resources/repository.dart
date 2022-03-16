@@ -12,12 +12,12 @@ class Repository {
   Future<HttpResult> fetchRegister(
     String username,
     String password,
-    String phone,
+    String email,
   ) =>
       apiProvider.fetchRegister(
         username,
         password,
-        phone,
+        email,
       );
 
   Future<HttpResult> fetchAcceptUser(

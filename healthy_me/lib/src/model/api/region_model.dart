@@ -9,12 +9,12 @@ class RegionModel {
 
   factory RegionModel.fromJson(Map<dynamic, dynamic> json) => RegionModel(
     status: json["status"] == null ? 0 :json["status"],
-    data: List<RegionsResult>.from(json["results"].map((x) => RegionsResult.fromJson(x))),
+    data: List<RegionsResult>.from(json["data"].map((x) => RegionsResult.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
     "status": status,
-    "results": List<dynamic>.from(data.map((x) => x.toJson())),
+    "data": List<dynamic>.from(data.map((x) => x.toJson())),
   };
 }
 

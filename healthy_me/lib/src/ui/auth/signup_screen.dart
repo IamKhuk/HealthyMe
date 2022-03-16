@@ -356,7 +356,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 );
                               } else {
                                 BottomDialog.showActionFailed(
-                                    context, 'Sign Up Failed', result.msg);
+                                  context,
+                                  'Sign Up Failed',
+                                  result.msg,
+                                );
                               }
                             } else {
                               setState(() {

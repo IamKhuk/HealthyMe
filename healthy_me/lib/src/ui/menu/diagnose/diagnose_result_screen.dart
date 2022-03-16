@@ -88,7 +88,7 @@ class _DiagnoseResultScreenState extends State<DiagnoseResultScreen> {
                 child: Center(
                   child: SvgPicture.asset(
                     'assets/icons/left.svg',
-                    color: AppTheme.black,
+                    color: AppTheme.purple,
                   ),
                 ),
               ),
@@ -124,7 +124,7 @@ class _DiagnoseResultScreenState extends State<DiagnoseResultScreen> {
                   ),
                   child: SvgPicture.asset(
                     'assets/icons/help.svg',
-                    color: AppTheme.black,
+                    color: AppTheme.purple,
                   ),
                 ),
               ),
@@ -174,7 +174,7 @@ class _DiagnoseResultScreenState extends State<DiagnoseResultScreen> {
                         vertical: 8,
                         horizontal: 12,
                       ),
-                      activeColor: AppTheme.red,
+                      activeColor: AppTheme.orange,
                       splashColor: AppTheme.purple,
                       colorShowDuplicate: AppTheme.purple,
                       textColor: AppTheme.red,
@@ -182,7 +182,7 @@ class _DiagnoseResultScreenState extends State<DiagnoseResultScreen> {
                       textActiveColor: AppTheme.white,
                       elevation: 0,
                       color: AppTheme.white,
-                      border: Border.all(color: AppTheme.red),
+                      border: Border.all(color: AppTheme.orange),
                       borderRadius: BorderRadius.circular(12),
                       customData: '',
                       textStyle: TextStyle(
@@ -384,7 +384,7 @@ class _DiagnoseResultScreenState extends State<DiagnoseResultScreen> {
                   margin: EdgeInsets.only(left: 24, bottom: 24),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16),
-                    color: AppTheme.red,
+                    color: AppTheme.purple,
                     boxShadow: [
                       BoxShadow(
                         offset: Offset(5, 9),

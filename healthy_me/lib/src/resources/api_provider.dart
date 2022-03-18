@@ -257,7 +257,7 @@ class ApiProvider {
     int professionId,
   ) async {
     String url = baseUrl +
-        "doctorchoose?region_id=$regionId&city_id=$cityId&profession_id=$professionId&search=$text";
+        "doctorchoose?region=$regionId&city=$cityId&profession=$professionId&search=$text";
     return await getRequest(url);
   }
 
@@ -289,5 +289,11 @@ class ApiProvider {
       'profession':profession,
     };
     return await postRequest(url, data, true);
+  }
+
+  /// Categories
+  Future<HttpResult> fetchScheduleGet(String status) async {
+    String url = baseUrl + 'me-schedule?status=$status';
+    return await getRequest(url);
   }
 }

@@ -85,6 +85,9 @@ class Repository {
         professionId,
       );
 
+  Future<HttpResult> fetchScheduleGet(String status) =>
+      apiProvider.fetchScheduleGet(status);
+
   Future<HttpResult> fetchCategories(String search) =>
       apiProvider.fetchCategories(search);
 

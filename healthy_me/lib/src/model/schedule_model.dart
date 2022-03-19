@@ -1,12 +1,12 @@
 import 'package:healthy_me/src/model/doctor_model.dart';
 
-class ScheduleModel {
+class ScheduleNotModel {
   DoctorModel doc;
   List<DateTime> time;
   bool completed;
   bool canceled;
 
-  ScheduleModel({
+  ScheduleNotModel({
     required this.doc,
     required this.time,
     this.completed = false,

@@ -181,7 +181,7 @@ class ApiProvider {
       "fullname": info.fullName,
       "username": info.username,
       "email": info.email,
-      "avatar":info.avatar,
+      "avatar": info.avatar,
       "phone": info.phone,
       "gender": info.gender,
       "birth_date": birthFormat,
@@ -278,15 +278,14 @@ class ApiProvider {
     int doctorId,
     DateTime time,
     String desc,
-      int profession,
+    int profession,
   ) async {
     String url = baseUrl + 'create-schedule';
     final data = {
       'doctor': doctorId.toString(),
       'start_datetime': time.toString(),
-      'status': 'upcoming',
       'desc': desc,
-      'profession':profession,
+      'profession': profession,
     };
     return await postRequest(url, data, true);
   }

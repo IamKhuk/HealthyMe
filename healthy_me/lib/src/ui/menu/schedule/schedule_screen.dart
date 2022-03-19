@@ -11,10 +11,10 @@ class ScheduleScreen extends StatefulWidget {
 }
 
 class _ScheduleScreenState extends State<ScheduleScreen> {
-  late List<ScheduleModel> canceled;
-  late List<ScheduleModel> completed;
+  late List<ScheduleNotModel> canceled;
+  late List<ScheduleNotModel> completed;
   int _index = 0;
-  late List<ScheduleModel> list;
+  late List<ScheduleNotModel> list;
 
   @override
   void initState() {

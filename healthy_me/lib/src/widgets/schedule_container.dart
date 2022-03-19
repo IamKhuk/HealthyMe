@@ -8,7 +8,7 @@ import 'package:healthy_me/src/ui/menu/schedule/appointment_screen.dart';
 import 'package:healthy_me/src/utils/utils.dart';
 
 class ScheduleContainer extends StatefulWidget {
-  final ScheduleModel data;
+  final ScheduleNotModel data;
   final Function(bool cancel) onChanged;
 
   ScheduleContainer({

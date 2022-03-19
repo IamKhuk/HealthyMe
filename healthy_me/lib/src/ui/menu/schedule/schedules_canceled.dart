@@ -5,12 +5,12 @@ import 'package:healthy_me/src/model/api/schedule_model.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
 import 'package:healthy_me/src/widgets/schedule_container.dart';
 
-class CompletedSchedules extends StatefulWidget {
+class CanceledSchedules extends StatefulWidget {
   @override
-  _CompletedSchedulesState createState() => _CompletedSchedulesState();
+  _CanceledSchedulesState createState() => _CanceledSchedulesState();
 }
 
-class _CompletedSchedulesState extends State<CompletedSchedules> {
+class _CanceledSchedulesState extends State<CanceledSchedules> {
   ScrollController _sc = new ScrollController();
   int page = 1;
   bool isLoading = false;

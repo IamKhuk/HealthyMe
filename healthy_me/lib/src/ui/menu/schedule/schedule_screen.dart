@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:healthy_me/src/bloc/schedule_bloc.dart';
-import 'package:healthy_me/src/model/api/schedule_model.dart';
-import 'package:healthy_me/src/model/schedule_model.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
+import 'package:healthy_me/src/ui/menu/schedule/schedules_canceled.dart';
+import 'package:healthy_me/src/ui/menu/schedule/schedules_upcoming.dart';
 
 class ScheduleScreen extends StatefulWidget {
   @override
@@ -12,10 +11,7 @@ class ScheduleScreen extends StatefulWidget {
 
 class _ScheduleScreenState extends State<ScheduleScreen> {
   final PageController _pageController = PageController();
-  late List<ScheduleNotModel> canceled;
-  late List<ScheduleNotModel> completed;
   int _index = 0;
-  late List<ScheduleNotModel> list;
 
   @override
   void initState() {
@@ -55,7 +51,9 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                 controller: _pageController,
                 physics: NeverScrollableScrollPhysics(),
                 children: [
-
+                  UpcomingSchedules(),
+                  CanceledSchedules(),
+                  CanceledSchedules(),
                 ],
               ),
             ],
@@ -89,6 +87,13 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                               setState(() {
                                 _index = 0;
                               });
+                              if (_pageController.hasClients) {
+                                _pageController.animateToPage(
+                                  0,
+                                  duration: const Duration(milliseconds: 400),
+                                  curve: Curves.easeInOut,
+                                );
+                              }
                             },
                             child: AnimatedContainer(
                               duration: Duration(milliseconds: 270),
@@ -123,6 +128,13 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                               setState(() {
                                 _index = 1;
                               });
+                              if (_pageController.hasClients) {
+                                _pageController.animateToPage(
+                                  1,
+                                  duration: const Duration(milliseconds: 400),
+                                  curve: Curves.easeInOut,
+                                );
+                              }
                             },
                             child: AnimatedContainer(
                               duration: Duration(milliseconds: 270),
@@ -157,6 +169,13 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                               setState(() {
                                 _index = 2;
                               });
+                              if (_pageController.hasClients) {
+                                _pageController.animateToPage(
+                                  2,
+                                  duration: const Duration(milliseconds: 400),
+                                  curve: Curves.easeInOut,
+                                );
+                              }
                             },
                             child: AnimatedContainer(
                               duration: Duration(milliseconds: 270),

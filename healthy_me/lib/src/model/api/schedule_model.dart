@@ -28,6 +28,7 @@ class ScheduleModel {
 
 class Schedule {
   Schedule({
+    required this.id,
     required this.user,
     required this.doctor,
     required this.profession,
@@ -35,25 +36,28 @@ class Schedule {
     required this.desc,
   });
 
+  int id;
   int user;
-  Doctor doctor;
+  ScheduleDoctor doctor;
   Profession profession;
   DateTime startDatetime;
   String desc;
 
   factory Schedule.fromJson(Map<dynamic, dynamic> json) => Schedule(
+        id: json['id'] ?? 0,
         user: json["user"] ?? 0,
         doctor: json['doctor'] == null
-            ? Doctor.fromJson({})
-            : Doctor.fromJson(json["doctor"]),
+            ? ScheduleDoctor.fromJson({})
+            : ScheduleDoctor.fromJson(json["doctor"]),
         profession: json['profession'] == null
             ? Profession.fromJson({})
             : Profession.fromJson(json["profession"]),
         startDatetime: DateTime.parse(json["start_datetime"]),
-        desc: json["desc"]??'',
+        desc: json["desc"] ?? '',
       );
 
   Map<dynamic, dynamic> toJson() => {
+        'id': id,
         "user": user,
         "doctor": doctor.toJson(),
         "profession": profession.toJson(),
@@ -62,21 +66,25 @@ class Schedule {
       };
 }
 
-class Doctor {
-  Doctor({
+class ScheduleDoctor {
+  ScheduleDoctor({
+    required this.id,
     required this.fullName,
     required this.avatar,
   });
 
+  int id;
   String fullName;
   String avatar;
 
-  factory Doctor.fromJson(Map<dynamic, dynamic> json) => Doctor(
-        fullName: json["fullname"]??'Unnamed',
+  factory ScheduleDoctor.fromJson(Map<dynamic, dynamic> json) => ScheduleDoctor(
+        id: json['id'] ?? 0,
+        fullName: json["fullname"] ?? 'Unnamed',
         avatar: json["avatar"] == null ? '' : json["avatar"],
       );
 
   Map<dynamic, dynamic> toJson() => {
+        'id': id,
         "fullname": fullName,
         "avatar": avatar,
       };
@@ -93,7 +101,7 @@ class Profession {
 
   factory Profession.fromJson(Map<String, dynamic> json) => Profession(
         id: json["id"] == null ? 0 : json["id"],
-        name: json["name"]??'General',
+        name: json["name"] ?? 'General',
       );
 
   Map<String, dynamic> toJson() => {

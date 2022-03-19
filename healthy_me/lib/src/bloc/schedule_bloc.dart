@@ -9,7 +9,7 @@ class ScheduleBloc {
 
   Stream<ScheduleModel> get getSchedules => _schedulesFetcher.stream;
 
-  fetchDocList(String status) async {
+  fetchSchedules(String status) async {
     var response = await _repository.fetchScheduleGet(status);
     if (response.isSuccess) {
       ScheduleModel result = ScheduleModel.fromJson(response.result);

@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:healthy_me/src/defaults/schedules_list.dart';
+import 'package:healthy_me/src/bloc/schedule_bloc.dart';
+import 'package:healthy_me/src/model/api/schedule_model.dart';
 import 'package:healthy_me/src/model/schedule_model.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
-import 'package:healthy_me/src/widgets/schedule_container.dart';
 
 class ScheduleScreen extends StatefulWidget {
   @override
@@ -55,15 +55,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                 controller: _pageController,
                 physics: NeverScrollableScrollPhysics(),
                 children: [
-                  ListView(
-                    padding: EdgeInsets.only(
-                      top: 76,
-                      bottom: 24,
-                      left: 36,
-                      right: 36,
-                    ),
 
-                  )
                 ],
               ),
             ],

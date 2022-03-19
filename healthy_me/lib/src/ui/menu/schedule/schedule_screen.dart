@@ -11,6 +11,7 @@ class ScheduleScreen extends StatefulWidget {
 }
 
 class _ScheduleScreenState extends State<ScheduleScreen> {
+  final PageController _pageController = PageController();
   late List<ScheduleNotModel> canceled;
   late List<ScheduleNotModel> completed;
   int _index = 0;
@@ -18,18 +19,13 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
 
   @override
   void initState() {
-    schedules.removeAt(0);
-    list = schedules
-        .where((element) =>
-            element.canceled == false &&
-            element.completed == false &&
-            element.time[0].compareTo(DateTime.now()) >= 0)
-        .toList();
-    canceled = schedules.where((element) => element.canceled == true).toList();
-    completed = schedules
-        .where((element) => element.time[0].compareTo(DateTime.now()) < 0)
-        .toList();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 
   @override
@@ -55,131 +51,21 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
         children: [
           Column(
             children: [
-              Expanded(
-                child: list.length > 0
-                    ? ListView(
-                        padding: EdgeInsets.only(
-                          left: 36,
-                          right: 36,
-                          top: 76,
-                          bottom: 12,
-                        ),
-                        children: [
-                          _index == 0
-                              ? Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Nearest Visit',
-                                      style: TextStyle(
-                                        fontFamily: AppTheme.fontFamily,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.normal,
-                                        height: 1.5,
-                                        color: AppTheme.black,
-                                      ),
-                                    ),
-                                    SizedBox(height: 12),
-                                    ScheduleContainer(
-                                      data: schedules.firstWhere(
-                                        (element) =>
-                                            element.canceled == false &&
-                                            element.completed == false &&
-                                            element.time[0].compareTo(
-                                                    DateTime.now()) >=
-                                                0,
-                                      ),
-                                      onChanged: (cancel) {
-                                        setState(() {
-                                          list[0].canceled = cancel;
-                                          if (list[0].canceled == true) {
-                                            canceled.add(list[0]);
-                                            list.removeAt(0);
-                                          }
-                                        });
-                                      },
-                                    ),
-                                    SizedBox(height: 24),
-                                    Text(
-                                      'Future Visits',
-                                      style: TextStyle(
-                                        fontFamily: AppTheme.fontFamily,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.normal,
-                                        height: 1.5,
-                                        color: AppTheme.black,
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              : Container(),
-                          ListView.builder(
-                            itemCount: _index == 0
-                                ? list.length
-                                : _index == 1
-                                    ? completed.length
-                                    : canceled.length,
-                            physics: NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) {
-                              return _index == 0
-                                  ? Column(
-                                      children: [
-                                        SizedBox(height: 16),
-                                        ScheduleContainer(
-                                          data: list[index],
-                                          onChanged: (cancel) {
-                                            setState(() {
-                                              list[index].canceled = true;
-                                              if (list[index].canceled ==
-                                                  true) {
-                                                canceled.add(list[index]);
-                                                list.removeAt(index);
-                                              }
-                                            });
-                                          },
-                                        ),
-                                        index == list.length - 1
-                                            ? SizedBox(height: 88)
-                                            : Container(),
-                                      ],
-                                    )
-                                  : _index == 1
-                                      ? Column(
-                                          children: [
-                                            SizedBox(height: 16),
-                                            ScheduleContainer(
-                                              data: completed[index],
-                                              onChanged: (cancel) {},
-                                            ),
-                                            index == completed.length - 1
-                                                ? SizedBox(height: 88)
-                                                : Container(),
-                                          ],
-                                        )
-                                      : _index == 2
-                                          ? Column(
-                                              children: [
-                                                SizedBox(height: 16),
-                                                ScheduleContainer(
-                                                  data: canceled[index],
-                                                  onChanged: (cancel) {},
-                                                ),
-                                                index == canceled.length - 1
-                                                    ? SizedBox(height: 88)
-                                                    : Container(),
-                                              ],
-                                            )
-                                          : Container();
-                            },
-                          ),
-                        ],
-                      )
-                    : Center(
-                        child: Text('There is no visits'),
-                      ),
+              PageView(
+                controller: _pageController,
+                physics: NeverScrollableScrollPhysics(),
+                children: [
+                  ListView(
+                    padding: EdgeInsets.only(
+                      top: 76,
+                      bottom: 24,
+                      left: 36,
+                      right: 36,
+                    ),
+
+                  )
+                ],
               ),
-              SizedBox(height: 1),
             ],
           ),
           Column(
@@ -213,7 +99,8 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                               });
                             },
                             child: AnimatedContainer(
-                              duration: Duration(milliseconds: 130),
+                              duration: Duration(milliseconds: 270),
+                              curve: Curves.easeInOut,
                               decoration: BoxDecoration(
                                 color: _index == 0
                                     ? AppTheme.orange
@@ -246,7 +133,8 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                               });
                             },
                             child: AnimatedContainer(
-                              duration: Duration(milliseconds: 130),
+                              duration: Duration(milliseconds: 270),
+                              curve: Curves.easeInOut,
                               decoration: BoxDecoration(
                                 color: _index == 1
                                     ? AppTheme.orange
@@ -279,7 +167,8 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                               });
                             },
                             child: AnimatedContainer(
-                              duration: Duration(milliseconds: 130),
+                              duration: Duration(milliseconds: 270),
+                              curve: Curves.easeInOut,
                               decoration: BoxDecoration(
                                 color: _index == 2
                                     ? AppTheme.orange

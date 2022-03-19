@@ -75,7 +75,31 @@ class _UpcomingSchedulesState extends State<UpcomingSchedules> {
                                   ),
                                 ),
                                 SizedBox(height: 12),
-
+                                ListView.builder(
+                                  itemCount: snapshot.data!.schedule.length - 1,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  padding: EdgeInsets.only(bottom: 96),
+                                  itemBuilder: (context, index) {
+                                    List<Schedule> _schedules = [];
+                                    _schedules.insertAll(
+                                      0,
+                                      snapshot.data!.schedule.getRange(
+                                          1, snapshot.data!.schedule.length),
+                                    );
+                                    return Column(
+                                      children: [
+                                        ScheduleContainer(
+                                          data: _schedules[index],
+                                          canceled: false,
+                                          onChanged: (_cancel) {},
+                                        ),
+                                        index == _schedules.length - 1
+                                            ? Container()
+                                            : SizedBox(height: 16),
+                                      ],
+                                    );
+                                  },
+                                ),
                               ],
                             )
                           : Container(),

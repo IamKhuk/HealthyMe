@@ -49,7 +49,7 @@ class _CompletedSchedulesState extends State<CompletedSchedules> {
                         children: [
                           ScheduleContainer(
                             data: snapshot.data!.schedule[index],
-                            canceled: false,
+                            canceled: true,
                             onChanged: (_cancel) {},
                           ),
                           index == snapshot.data!.schedule.length - 1
@@ -71,7 +71,7 @@ class _CompletedSchedulesState extends State<CompletedSchedules> {
   void _getMoreData(int index) async {
     if (!isLoading) {
       blocSchedule.fetchSchedules(
-        'completed',
+        'canceled',
       );
       page++;
     }

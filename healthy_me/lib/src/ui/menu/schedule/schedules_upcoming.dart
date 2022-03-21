@@ -64,20 +64,25 @@ class _UpcomingSchedulesState extends State<UpcomingSchedules> {
                       snapshot.data!.schedule.length > 1
                           ? Column(
                               children: [
-                                Text(
-                                  'Future Visits',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontFamily: AppTheme.fontFamily,
-                                    fontWeight: FontWeight.normal,
-                                    height: 1.5,
-                                    color: AppTheme.black,
-                                  ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      'Future Visits',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontFamily: AppTheme.fontFamily,
+                                        fontWeight: FontWeight.normal,
+                                        height: 1.5,
+                                        color: AppTheme.black,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                                 SizedBox(height: 12),
                                 ListView.builder(
                                   itemCount: snapshot.data!.schedule.length - 1,
                                   physics: NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
                                   padding: EdgeInsets.only(bottom: 96),
                                   itemBuilder: (context, index) {
                                     List<Schedule> _schedules = [];

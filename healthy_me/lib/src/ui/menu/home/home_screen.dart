@@ -3,20 +3,16 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:healthy_me/src/bloc/home_bloc.dart';
 import 'package:healthy_me/src/bloc/profile_bloc.dart';
 import 'package:healthy_me/src/defaults/categories_list.dart';
-import 'package:healthy_me/src/defaults/doctors_list.dart';
 import 'package:healthy_me/src/defaults/schedules_list.dart';
 import 'package:healthy_me/src/model/api/doctors_list_model.dart';
-import 'package:healthy_me/src/model/doctor_model.dart';
 import 'package:healthy_me/src/model/event_bus/filter_model.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
-import 'package:healthy_me/src/ui/menu/home/doctor/doctor_details_screen.dart';
 import 'package:healthy_me/src/ui/menu/home/doctor/doctors_screen.dart';
 import 'package:healthy_me/src/ui/menu/profile/personal_settings_screen.dart';
+import 'package:healthy_me/src/ui/menu/schedule/upcoming_schedules.dart';
 import 'package:healthy_me/src/utils/rx_bus.dart';
 import 'package:healthy_me/src/widgets/doctor_container.dart';
 import 'package:healthy_me/src/widgets/visit_container.dart';
-
-import '../../main_screen.dart';
 import 'advices/advices_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -217,7 +213,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                       left: 16,
                                       right: 12,
                                     ),
-                                    child: SvgPicture.asset('assets/icons/x.svg'),
+                                    child:
+                                        SvgPicture.asset('assets/icons/x.svg'),
                                   ),
                                 ),
                         ),
@@ -236,7 +233,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                       child: Container(
                         height: 48,
-                        width: MediaQuery.of(context).size.width-132,
+                        width: MediaQuery.of(context).size.width - 132,
                         color: Colors.transparent,
                       ),
                     ),
@@ -299,9 +296,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    setState(() {
-                      selectedIndex = 1;
-                    });
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return SchedulesUpcoming();
+                        },
+                      ),
+                    );
                   },
                   child: Container(
                     color: Colors.transparent,

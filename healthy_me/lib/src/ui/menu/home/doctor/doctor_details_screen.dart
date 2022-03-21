@@ -13,6 +13,8 @@ import 'package:healthy_me/src/ui/menu/schedule/appointment_screen.dart';
 import 'package:healthy_me/src/widgets/map_style.dart';
 import 'package:healthy_me/src/widgets/rating_container.dart';
 
+import 'doctor_map.dart';
+
 class DoctorDetailsScreen extends StatefulWidget {
   final int id;
 
@@ -567,15 +569,16 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                                       ),
                                       GestureDetector(
                                         onTap: () {
-                                          // Navigator.push(
-                                          //   context,
-                                          //   MaterialPageRoute(
-                                          //     builder: (context) {
-                                          //       return DoctorMapScreen(
-                                          //           doc: widget.doc);
-                                          //     },
-                                          //   ),
-                                          // );
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) {
+                                                return DoctorMapScreen(
+                                                  doc: snapshot.data!.user,
+                                                );
+                                              },
+                                            ),
+                                          );
                                         },
                                         child: Container(
                                           height: 136,
@@ -693,7 +696,8 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                                     builder: (context) {
                                       return AppointmentScreen(
                                         doctorId: widget.id,
-                                        professionId: snapshot.data!.user.profession.id,
+                                        professionId:
+                                            snapshot.data!.user.profession.id,
                                       );
                                     },
                                   ),

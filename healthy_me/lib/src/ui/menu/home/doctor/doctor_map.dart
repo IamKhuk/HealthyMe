@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:healthy_me/src/model/doctor_model.dart';
+import 'package:healthy_me/src/model/api/doctor_model.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
 import 'package:healthy_me/src/widgets/map_style.dart';
 
 class DoctorMapScreen extends StatefulWidget {
-  final DoctorModel doc;
+  final DoctorAPI doc;
 
   DoctorMapScreen({required this.doc});
 
@@ -17,6 +17,13 @@ class DoctorMapScreen extends StatefulWidget {
 class _DoctorMapScreenState extends State<DoctorMapScreen> {
   GoogleMapController? controller;
   BitmapDescriptor? _markerIcon;
+  late LatLng location;
+
+  @override
+  void initState() {
+    location = LatLng(widget.doc.latitude, widget.doc.langtude);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +37,7 @@ class _DoctorMapScreenState extends State<DoctorMapScreen> {
             mapType: MapType.normal,
             scrollGesturesEnabled: true,
             initialCameraPosition: CameraPosition(
-              target: widget.doc.location,
+              target: location,
               zoom: 16,
             ),
             zoomControlsEnabled: false,
@@ -92,13 +99,13 @@ class _DoctorMapScreenState extends State<DoctorMapScreen> {
     if (_markerIcon != null) {
       return Marker(
         markerId: MarkerId("marker_1"),
-        position: widget.doc.location,
+        position: location,
         icon: _markerIcon!,
       );
     } else {
       return Marker(
         markerId: MarkerId("marker_1"),
-        position: widget.doc.location,
+        position: location,
       );
     }
   }

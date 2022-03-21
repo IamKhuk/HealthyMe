@@ -12,11 +12,11 @@ class DoctorApiModel {
   });
 
   int status;
-  User user;
+  DoctorAPI user;
 
   factory DoctorApiModel.fromJson(Map<String, dynamic> json) => DoctorApiModel(
         status: json["status"] ?? 0,
-        user: User.fromJson(json["user"]),
+        user: DoctorAPI.fromJson(json["user"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -25,8 +25,8 @@ class DoctorApiModel {
       };
 }
 
-class User {
-  User({
+class DoctorAPI {
+  DoctorAPI({
     required this.fullname,
     required this.avatar,
     required this.gender,
@@ -52,7 +52,7 @@ class User {
   City region;
   City city;
 
-  factory User.fromJson(Map<dynamic, dynamic> json) => User(
+  factory DoctorAPI.fromJson(Map<dynamic, dynamic> json) => DoctorAPI(
         fullname: json["fullname"] ?? 'Noname',
         avatar: json["avatar"] ?? '',
         gender: json["gender"] ?? 'man',

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
 import 'package:healthy_me/src/ui/menu/schedule/schedules_canceled.dart';
+import 'package:healthy_me/src/ui/menu/schedule/schedules_completed.dart';
 import 'package:healthy_me/src/ui/menu/schedule/schedules_upcoming.dart';
 
 class ScheduleScreen extends StatefulWidget {
@@ -46,15 +47,20 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
       body: Stack(
         children: [
           Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              PageView(
-                controller: _pageController,
-                physics: NeverScrollableScrollPhysics(),
-                children: [
-                  UpcomingSchedules(),
-                  CanceledSchedules(),
-                  CanceledSchedules(),
-                ],
+              Container(
+                height: MediaQuery.of(context).size.height-84,
+                child: PageView(
+                  controller: _pageController,
+                  physics: NeverScrollableScrollPhysics(),
+
+                  children: [
+                    UpcomingSchedules(),
+                    CompletedSchedules(),
+                    CanceledSchedules(),
+                  ],
+                ),
               ),
             ],
           ),

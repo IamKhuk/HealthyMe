@@ -145,7 +145,12 @@ List<ConditionsModel> conditions = [
     text:
         'See a General Practitioner if: the pain gets much worse quickly, the pain or bloating will not go away or keeps coming back, you have stomach pain and problems with swallowing food, you\'re losing weight without trying to, you suddenly pee more often or less often, peeing is suddenly painful, you bleed from your bottom or vagina, or have abnormal discharge from your vagina, your diarrhoea does not go away after a few days',
   ),
-  ConditionsModel(id: 21, name: 'Heartburn', intro: '', text: ''),
+  ConditionsModel(
+    id: 21,
+    name: 'Heartburn',
+    intro: '',
+    text: '',
+  ),
   ConditionsModel(
     id: 22,
     name: 'Ear pain',

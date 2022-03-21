@@ -257,7 +257,7 @@ class ApiProvider {
     int professionId,
   ) async {
     String url = baseUrl +
-        "doctorchoose?region=$regionId&city=$cityId&profession=$professionId&search=$text";
+        "doctorchoose?is_doctor=true&region_id=$regionId&city_id=$cityId&profession_id=$professionId&search=$text";
     return await getRequest(url);
   }
 
@@ -285,7 +285,7 @@ class ApiProvider {
       'doctor': doctorId.toString(),
       'start_datetime': time.toString(),
       'desc': desc,
-      'profession': profession,
+      'profession': profession.toString(),
     };
     return await postRequest(url, data, true);
   }

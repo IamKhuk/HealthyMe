@@ -53,9 +53,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           Column(
             children: [
               SizedBox(height: 40),
-              SvgPicture.asset(
-                'assets/images/elements.svg',
-                color: AppTheme.orange,
+              Image.asset(
+                'assets/images/logo.png',
+                height: 51,
+                width: 51,
               ),
               Spacer(),
               Container(
@@ -139,7 +140,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                             height: 64,
                             width: 64,
                             decoration: BoxDecoration(
-                              color: AppTheme.red,
+                              color: AppTheme.orange,
                               shape: BoxShape.circle,
                             ),
                             child: Center(

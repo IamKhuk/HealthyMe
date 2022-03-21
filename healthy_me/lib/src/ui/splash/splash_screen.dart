@@ -65,19 +65,7 @@ class _SplashScreenState extends State<SplashScreen>
             children: [
               Spacer(),
               Spacer(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SlideTransition(
-                    position: offset!,
-                    child: SvgPicture.asset(
-                      "assets/icons/logo.svg",
-                      height: 112,
-                      width: 112,
-                    ),
-                  ),
-                ],
-              ),
+              Spacer(),
               Spacer(),
               Spacer(),
               Expanded(
@@ -99,6 +87,16 @@ class _SplashScreenState extends State<SplashScreen>
               ),
             ],
           ),
+          Center(
+            child: SlideTransition(
+              position: offset!,
+              child: Image.asset(
+                'assets/images/logo.png',
+                height: 108,
+                width: 108,
+              ),
+            ),
+          )
         ],
       ),
     );

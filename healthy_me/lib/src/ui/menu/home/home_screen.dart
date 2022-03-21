@@ -13,6 +13,7 @@ import 'package:healthy_me/src/ui/menu/schedule/upcoming_schedules.dart';
 import 'package:healthy_me/src/utils/rx_bus.dart';
 import 'package:healthy_me/src/widgets/doctor_container.dart';
 import 'package:healthy_me/src/widgets/visit_container.dart';
+import 'package:shimmer/shimmer.dart';
 import 'advices/advices_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -535,7 +536,109 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                   );
                 } else {
-                  return Container();
+                  return Shimmer.fromColors(
+                    child: ListView.builder(
+                      itemCount: 10,
+                      padding: EdgeInsets.only(
+                        left: 24,
+                        right: 24,
+                        bottom: 96,
+                      ),
+                      itemBuilder: (context, index) {
+                        return Column(
+                          children: [
+                            Container(
+                              height: 80,
+                              padding: EdgeInsets.only(
+                                left: 12,
+                                top: 10,
+                                bottom: 10,
+                                right: 20,
+                              ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(24),
+                                border: Border.all(
+                                  color: AppTheme.baseColor,
+                                  width: 2,
+                                ),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    height: 60,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(16),
+                                      color: AppTheme.baseColor,
+                                    ),
+                                  ),
+                                  SizedBox(width: 14),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        height: 16,
+                                        width: 120,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(4),
+                                          color: AppTheme.baseColor,
+                                        ),
+                                      ),
+                                      SizedBox(height: 8),
+                                      Container(
+                                        height: 12,
+                                        width: 88,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(4),
+                                          color: AppTheme.baseColor,
+                                        ),
+                                      ),
+                                      SizedBox(height: 8),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                            height: 8,
+                                            width: 56,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(4),
+                                              color: AppTheme.baseColor,
+                                            ),
+                                          ),
+                                          Container(
+                                            height: 8,
+                                            width: 60,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(4),
+                                              color: AppTheme.baseColor,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  Spacer(),
+                                  SvgPicture.asset(
+                                    'assets/icons/left.svg',
+                                    color: AppTheme.baseColor,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            index == 9 ? Container() : SizedBox(height: 12),
+                          ],
+                        );
+                      },
+                    ),
+                    baseColor: AppTheme.baseColor,
+                    highlightColor: AppTheme.highlightColor,
+                  );
                 }
               },
             ),

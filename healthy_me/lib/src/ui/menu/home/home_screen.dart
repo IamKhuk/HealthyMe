@@ -539,6 +539,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   return Shimmer.fromColors(
                     child: ListView.builder(
                       itemCount: 10,
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
                       padding: EdgeInsets.only(
                         left: 24,
                         right: 24,
@@ -567,6 +569,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 children: [
                                   Container(
                                     height: 60,
+                                    width: 60,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(16),
                                       color: AppTheme.baseColor,
@@ -578,7 +581,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Container(
-                                        height: 16,
+                                        height: 14,
                                         width: 120,
                                         decoration: BoxDecoration(
                                           borderRadius:
@@ -588,7 +591,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                       SizedBox(height: 8),
                                       Container(
-                                        height: 12,
+                                        height: 10,
                                         width: 88,
                                         decoration: BoxDecoration(
                                           borderRadius:
@@ -596,7 +599,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           color: AppTheme.baseColor,
                                         ),
                                       ),
-                                      SizedBox(height: 8),
+                                      SizedBox(height: 10),
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
@@ -610,6 +613,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               color: AppTheme.baseColor,
                                             ),
                                           ),
+                                          SizedBox(width: 12),
                                           Container(
                                             height: 8,
                                             width: 60,
@@ -625,7 +629,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                   Spacer(),
                                   SvgPicture.asset(
-                                    'assets/icons/left.svg',
+                                    'assets/icons/right.svg',
+                                    height: 20,
                                     color: AppTheme.baseColor,
                                   ),
                                 ],

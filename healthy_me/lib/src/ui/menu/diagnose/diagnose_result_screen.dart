@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_tags_x/flutter_tags_x.dart';
+import 'package:healthy_me/src/model/api/diagnose_model.dart';
 import 'package:healthy_me/src/model/diseases_probability.dart';
 import 'package:healthy_me/src/model/drugs_model.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
@@ -13,10 +14,12 @@ import 'package:healthy_me/src/widgets/percentage_rich_text.dart';
 class DiagnoseResultScreen extends StatefulWidget {
   final List<Item>? items;
   final List<int?> ids;
+  final List<Diagnostic> data;
 
   DiagnoseResultScreen({
     required this.items,
     required this.ids,
+    required this.data,
   });
 
   @override
@@ -29,8 +32,8 @@ class _DiagnoseResultScreenState extends State<DiagnoseResultScreen> {
     _items = widget.items!;
     _list = percentages(widget.ids);
     List<DrugsModel> drugs = [];
-    for (int i = 0; i <= _list.length - 1; i++) {
-      if (_list[i].percentage > 75) {
+    for (int i = 0; i <= widget.data.length - 1; i++) {
+      if (widget.data[i].percent > 75) {
         _listBool.add(true);
       } else {
         _listBool.add(false);
@@ -41,12 +44,13 @@ class _DiagnoseResultScreenState extends State<DiagnoseResultScreen> {
     }
     _drugs = drugs;
     if (_listBool.contains(true)) {
-      _diagnose = _list[_listBool.indexOf(true)].diagnose;
+      List<String> _data = widget.data[_listBool.indexOf(true)].text.split('\r\n\r\n').toList();
+      _diagnose = _data;
       onDiagnose = true;
     } else {
       List<String> recList = [];
       for (int i = 0; i <= _listBool.length - 1; i++) {
-        recList.add(_list[i].rec);
+        recList.add(widget.data[i].suggestion);
       }
       onDiagnose = false;
       _diagnose = recList;

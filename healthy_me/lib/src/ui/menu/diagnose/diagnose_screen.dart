@@ -5,6 +5,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_tags_x/flutter_tags_x.dart';
 import 'package:healthy_me/src/defaults/advices_list.dart';
 import 'package:healthy_me/src/defaults/conditions_list.dart';
+import 'package:healthy_me/src/dialog/bottom_dialog.dart';
+import 'package:healthy_me/src/model/api/diagnose_model.dart';
+import 'package:healthy_me/src/resources/repository.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
 
 import 'diagnose_result_screen.dart';
@@ -28,6 +31,8 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
   final GlobalKey<TagsState> _tagStateKey = GlobalKey<TagsState>();
   List _items = [];
   List<int?> _ids = [];
+  bool isLoading = false;
+  late List<Diagnostic> data;
 
   @override
   Widget build(BuildContext context) {
@@ -203,23 +208,65 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
               ),
               Spacer(),
               GestureDetector(
-                onTap: (){
-                  if (_getSelectedItem()!.length>0) {
-                    for (int i = 0;
-                    i <= _getSelectedItem()!.length - 1;
-                    i++) {
+                onTap: () async {
+                  if (_getSelectedItem()!.length > 0) {
+                    for (int i = 0; i <= _getSelectedItem()!.length - 1; i++) {
                       _ids.add(_getSelectedItem()![i].index);
                     }
-                    Navigator.push(
+                    setState(() {
+                      isLoading = true;
+                    });
+                    var response = await Repository().fetchDiagnose(_ids);
+                    if (response.isSuccess){
+                      setState(() {
+                        isLoading = false;
+                      });
+                      var result = DiagnoseApiModel.fromJson(response.result);
+                      if(result.status == 1){
+                        data = result.diagnostics;
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return DiagnoseResultScreen(
+                                items: _getSelectedItem(),
+                                ids: _ids,
+                                data: data,
+                              );
+                            },
+                          ),
+                        );
+                        _ids = [];
+                      }else{
+                        BottomDialog.showActionFailed(
+                          context,
+                          'Something went wrong',
+                          'Please try again after some time',
+                        );
+                      }
+                    }else {
+                      setState(() {
+                        isLoading = false;
+                      });
+                      if (response.status == -1) {
+                        BottomDialog.showActionFailed(
+                          context,
+                          'Connection Failed',
+                          'You do not have internet connection, please try again',
+                        );
+                      } else {
+                        BottomDialog.showActionFailed(
+                          context,
+                          'Server error',
+                          'Something went wrong, Please try again after some time',
+                        );
+                      }
+                    }
+                  }else{
+                    BottomDialog.showActionFailed(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return DiagnoseResultScreen(
-                            items: _getSelectedItem(),
-                            ids: _ids,
-                          );
-                        },
-                      ),
+                      'Action Failed',
+                      'Please choose at least one condition to continue',
                     );
                   }
                 },

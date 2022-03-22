@@ -290,9 +290,20 @@ class ApiProvider {
     return await postRequest(url, data, true);
   }
 
-  /// Categories
+  /// Schedules Get
   Future<HttpResult> fetchScheduleGet(String status) async {
     String url = baseUrl + 'me-schedule?status=$status';
     return await getRequest(url);
+  }
+
+  /// Diagnose Result
+  Future<HttpResult> fetchDiagnose(
+    List<int?> ids,
+  ) async {
+    String url = baseUrl + 'get-result';
+    final data = {
+      'disease_ids': ids.toString(),
+    };
+    return await postRequest(url, data, true);
   }
 }

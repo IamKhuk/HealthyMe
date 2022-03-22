@@ -36,6 +36,7 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
   int regionId = 0;
   int cityId = 0;
   bool isFirst = true;
+  String avatar = '';
 
   @override
   void initState() {
@@ -103,6 +104,7 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
               _nameController.text = snapshot.data!.fullName;
               _userController.text = snapshot.data!.username;
               _emailController.text = snapshot.data!.email;
+              avatar = snapshot.data!.avatar;
               _phoneController.text =
                   Utils.phoneTextFormat(snapshot.data!.phone);
               region = snapshot.data!.region.name;
@@ -147,7 +149,7 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                                       ),
                                     )
                                   : CachedNetworkImage(
-                                      imageUrl: snapshot.data!.avatar,
+                                      imageUrl: avatar,
                                       placeholder: (context, url) => Container(
                                         height: 64,
                                         width: 64,
@@ -221,6 +223,7 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                                                 isLoadingImage = false;
                                                 snapshot.data!.avatar =
                                                     result.user.avatar;
+                                                avatar = result.user.avatar;
                                               });
                                               SharedPreferences prefs =
                                                   await SharedPreferences
@@ -266,6 +269,7 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                                                 isLoadingImage = false;
                                                 snapshot.data!.avatar =
                                                     result.user.avatar;
+                                                avatar = result.user.avatar;
                                               });
                                               SharedPreferences prefs =
                                                   await SharedPreferences

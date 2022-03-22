@@ -42,12 +42,12 @@ class Diagnostic {
   String suggestion;
 
   factory Diagnostic.fromJson(Map<dynamic, dynamic> json) => Diagnostic(
-    id: json["id"],
-    name: json["name"],
-    text: json["text"],
-    percent: json["persent"].toDouble(),
-    introduction: json["introdaction"],
-    suggestion: json["suggestion"],
+    id: json["id"]??0,
+    name: json["name"]??'',
+    text: json["text"]??'',
+    percent: json["persent"].toDouble()??0,
+    introduction: json["introdaction"]??'',
+    suggestion: json["suggestion"]??'',
   );
 
   Map<String, dynamic> toJson() => {

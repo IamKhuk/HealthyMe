@@ -41,6 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     page = 1;
     blocProfile.fetchMe();
+    blocProfile.fetchMeCache();
     _registerBus();
     _getMoreData(page);
     _sc.addListener(() {

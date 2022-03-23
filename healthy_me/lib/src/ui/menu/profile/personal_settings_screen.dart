@@ -904,6 +904,7 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                                       () {
                                         snapshot.data!.city.name = _name;
                                         city = _name;
+                                        cityId = _id;
                                         snapshot.data!.city.id = _id;
                                       },
                                     );
@@ -962,7 +963,11 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                         });
                         snapshot.data!.fullName = _nameController.text;
                         snapshot.data!.gender = gender;
+                        snapshot.data!.phone = Utils.phoneFormat(_phoneController.text);
                         snapshot.data!.username = _userController.text;
+                        snapshot.data!.city = City(id: cityId, name: city);
+                        snapshot.data!.region =
+                            City(id: regionId, name: region);
                         var response = await Repository()
                             .fetchUpdateProfile(snapshot.data!);
                         if (response.isSuccess) {

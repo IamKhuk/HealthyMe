@@ -34,16 +34,11 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isLoading = false;
   int page = 1;
   int ctgIndex = 0;
-  String _meImage = '';
+  String _myImage = '';
   String _cityName = '';
 
   @override
-  Future<void> initState() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String img = prefs.getString('avatar') ?? "";
-    String city = prefs.getString('city')??'';
-    _meImage = img;
-    _cityName = city;
+  void initState() {
     page = 1;
     blocProfile.fetchMe();
     _registerBus();
@@ -53,6 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
         _getMoreData(page);
       }
     });
+    _getInfo();
     super.initState();
   }
 
@@ -98,7 +94,9 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             SizedBox(height: 4),
             Text(
-              _cityName==''?'Could not find': _cityName,
+              _cityName == ''
+                  ? 'Could not find'
+                  : _cityName,
               style: TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 14,
@@ -134,7 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
                     child: CachedNetworkImage(
-                      imageUrl: _meImage,
+                      imageUrl: _myImage,
                       placeholder: (context, url) => Container(
                         height: 40,
                         width: 40,
@@ -143,21 +141,20 @@ class _HomeScreenState extends State<HomeScreen> {
                           color: AppTheme.gray,
                         ),
                       ),
-                      errorWidget: (context, url, error) =>
-                          Container(
-                            height: 40,
-                            width: 40,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16),
-                              color: AppTheme.gray,
-                            ),
-                            child: Center(
-                              child: Icon(
-                                Icons.error,
-                                color: AppTheme.purple,
-                              ),
-                            ),
+                      errorWidget: (context, url, error) => Container(
+                        height: 40,
+                        width: 40,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          color: AppTheme.gray,
+                        ),
+                        child: Center(
+                          child: Icon(
+                            Icons.error,
+                            color: AppTheme.purple,
                           ),
+                        ),
+                      ),
                       height: 40,
                       width: 40,
                       fit: BoxFit.cover,
@@ -711,5 +708,11 @@ class _HomeScreenState extends State<HomeScreen> {
       );
       page++;
     }
+  }
+
+  Future<void> _getInfo() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _myImage = prefs.getString('avatar') ?? '';
+    _cityName = prefs.getString('city') ?? '';
   }
 }

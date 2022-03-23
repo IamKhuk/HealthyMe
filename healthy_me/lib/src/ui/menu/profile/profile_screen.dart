@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:healthy_me/src/defaults/me.dart';
@@ -5,6 +6,7 @@ import 'package:healthy_me/src/dialog/bottom_dialog.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
 import 'package:healthy_me/src/ui/menu/profile/personal_settings_screen.dart';
 import 'package:healthy_me/src/widgets/settings_container.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -15,6 +17,13 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   int _index = 0;
+  String _myImage = '';
+
+  @override
+  void initState() {
+    _getInfo();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +57,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     width: 100,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(24),
-                      child: Image.asset(
-                        me.pfp,
+                      child: CachedNetworkImage(
+                        imageUrl: _myImage,
+                        placeholder: (context, url) => Container(
+                          height: 100,
+                          width: 100,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(24),
+                            color: AppTheme.gray,
+                          ),
+                        ),
+                        errorWidget: (context, url, error) => Container(
+                          height: 100,
+                          width: 100,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(24),
+                            color: AppTheme.gray,
+                          ),
+                          child: Center(
+                            child: Icon(
+                              Icons.error,
+                              color: AppTheme.purple,
+                            ),
+                          ),
+                        ),
+                        height: 100,
+                        width: 100,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -237,7 +270,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                           SizedBox(height: 8),
                           GestureDetector(
-                            onTap: (){
+                            onTap: () {
                               BottomDialog.showLogOut(context);
                             },
                             child: SettingsContainer(
@@ -257,5 +290,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ],
       ),
     );
+  }
+
+  Future<void> _getInfo()async {
+    SharedPreferences vr = await SharedPreferences.getInstance();
+    _myImage = vr.getString('avatar')??'';
   }
 }

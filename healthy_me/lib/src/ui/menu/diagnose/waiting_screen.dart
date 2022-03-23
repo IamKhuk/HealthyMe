@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
+
+import 'map_screen.dart';
 String timerSecText = "";
 String timerMinText = "";
 
@@ -64,7 +66,7 @@ class _WaitingScreenState extends State<WaitingScreen>
                 child: Center(
                   child: SvgPicture.asset(
                     'assets/icons/left.svg',
-                    color: AppTheme.black,
+                    color: AppTheme.purple,
                   ),
                 ),
               ),
@@ -100,7 +102,7 @@ class _WaitingScreenState extends State<WaitingScreen>
                   ),
                   child: SvgPicture.asset(
                     'assets/icons/help.svg',
-                    color: AppTheme.black,
+                    color: AppTheme.purple,
                   ),
                 ),
               ),
@@ -138,11 +140,8 @@ class _WaitingScreenState extends State<WaitingScreen>
                   Container(
                     height: 216,
                     width: 216,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: AppTheme.white,
-                    ),
                     child: Stack(
+                      alignment: Alignment.center,
                       children: [
                         SizedBox(
                           height: 216,
@@ -159,6 +158,10 @@ class _WaitingScreenState extends State<WaitingScreen>
                         Container(
                           height: 210,
                           width: 210,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: AppTheme.white,
+                          ),
                           child: Center(
                             child: CountSecDown(
                               animation: StepTween(
@@ -180,14 +183,14 @@ class _WaitingScreenState extends State<WaitingScreen>
               Spacer(),
               GestureDetector(
                 onTap: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) {
-                  //       return MapScreen();
-                  //     },
-                  //   ),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return MapScreen();
+                      },
+                    ),
+                  );
                 },
                 child: Container(
                   height: 56,

@@ -7,11 +7,14 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:healthy_me/src/bloc/doctor_bloc.dart';
 import 'package:healthy_me/src/model/api/doctor_model.dart';
 import 'package:healthy_me/src/model/chat_model.dart';
+import 'package:healthy_me/src/model/doctor_model.dart';
+import 'package:healthy_me/src/model/msg_model.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
 import 'package:healthy_me/src/ui/menu/home/chat_screen.dart';
 import 'package:healthy_me/src/ui/menu/schedule/appointment_screen.dart';
 import 'package:healthy_me/src/widgets/map_style.dart';
 import 'package:healthy_me/src/widgets/rating_container.dart';
+import 'package:shimmer/shimmer.dart';
 
 import 'doctor_map.dart';
 
@@ -35,14 +38,6 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
 
   @override
   void initState() {
-    // _chat = ChatModel(
-    //   user: widget.doc,
-    //   msg: [
-    //     MsgModel(msg: 'Hey dude', time: DateTime.now()),
-    //     MsgModel(msg: "How are you doing", time: DateTime.now()),
-    //   ],
-    //   isRead: true,
-    // );
     blocDoctor.fetchDocList(widget.id);
     super.initState();
   }
@@ -314,6 +309,20 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
             location = LatLng(
               snapshot.data!.user.latitude,
               snapshot.data!.user.langtude,
+            );
+            _chat = ChatModel(
+              user: DoctorModel(
+                name: snapshot.data!.user.fullname,
+                pfp: snapshot.data!.user.avatar,
+                specialty: snapshot.data!.user.profession.name,
+                star: snapshot.data!.user.reviewAvg,
+                location: location,
+              ),
+              msg: [
+                MsgModel(msg: 'Hey dude', time: DateTime.now()),
+                MsgModel(msg: "How are you doing", time: DateTime.now()),
+              ],
+              isRead: true,
             );
             return Stack(
               children: [
@@ -740,7 +749,181 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
               ],
             );
           } else {
-            return Container();
+            return Shimmer.fromColors(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(width: 36),
+                      Container(
+                        height: 120,
+                        width: 106,
+                        decoration: BoxDecoration(
+                          color: AppTheme.baseColor,
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                      ),
+                      SizedBox(width: 20),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            height: 22,
+                            width: 140,
+                            decoration: BoxDecoration(
+                              color: AppTheme.baseColor,
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Container(
+                            height: 16,
+                            width: 92,
+                            decoration: BoxDecoration(
+                              color: AppTheme.baseColor,
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                          ),
+                          SizedBox(height: 18),
+                          Row(
+                            children: [
+                              Container(
+                                height: 8,
+                                width: 70,
+                                decoration: BoxDecoration(
+                                  color: AppTheme.baseColor,
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                              ),
+                              SizedBox(width: 12),
+                              Container(
+                                height: 8,
+                                width: 66,
+                                decoration: BoxDecoration(
+                                  color: AppTheme.baseColor,
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      SizedBox(width: 36),
+                    ],
+                  ),
+                  SizedBox(height: 28),
+                  Expanded(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: EdgeInsets.symmetric(horizontal: 36),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: AppTheme.baseColor, width: 4),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(32),
+                          topRight: Radius.circular(32),
+                        ),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                height: 5,
+                                width: 60,
+                                decoration: BoxDecoration(
+                                  color: AppTheme.baseColor,
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 32),
+                          Container(
+                            height: 18,
+                            width: 72,
+                            decoration: BoxDecoration(
+                              color: AppTheme.baseColor,
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                          ),
+                          SizedBox(height: 18),
+                          Container(
+                            height: 14,
+                            width: MediaQuery.of(context).size.width - 72,
+                            decoration: BoxDecoration(
+                              color: AppTheme.baseColor,
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                          ),
+                          SizedBox(height: 4),
+                          Container(
+                            height: 14,
+                            width: MediaQuery.of(context).size.width - 72,
+                            decoration: BoxDecoration(
+                              color: AppTheme.baseColor,
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                          ),
+                          SizedBox(height: 4),
+                          Container(
+                            height: 14,
+                            width: MediaQuery.of(context).size.width - 72,
+                            decoration: BoxDecoration(
+                              color: AppTheme.baseColor,
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                          ),
+                          SizedBox(height: 24),
+                          Container(
+                            height: 18,
+                            width: 60,
+                            decoration: BoxDecoration(
+                              color: AppTheme.baseColor,
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                          ),
+                          SizedBox(height: 18),
+                          Container(
+                            height: 136,
+                            width: MediaQuery.of(context).size.width - 72,
+                            decoration: BoxDecoration(
+                              color: AppTheme.baseColor,
+                              borderRadius: BorderRadius.circular(24),
+                            ),
+                          ),
+                          SizedBox(height: 24),
+                          Container(
+                            height: 18,
+                            width: 66,
+                            decoration: BoxDecoration(
+                              color: AppTheme.baseColor,
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                          ),
+                          SizedBox(height: 18),
+                          Container(
+                            height: 52,
+                            width: MediaQuery.of(context).size.width - 72,
+                            decoration: BoxDecoration(
+                              color: AppTheme.baseColor,
+                              borderRadius: BorderRadius.circular(24),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              baseColor: AppTheme.baseColor,
+              highlightColor: AppTheme.highlightColor,
+            );
           }
         },
       ),

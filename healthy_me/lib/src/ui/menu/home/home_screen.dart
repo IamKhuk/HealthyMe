@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:healthy_me/src/bloc/home_bloc.dart';
@@ -13,6 +14,7 @@ import 'package:healthy_me/src/ui/menu/schedule/upcoming_schedules.dart';
 import 'package:healthy_me/src/utils/rx_bus.dart';
 import 'package:healthy_me/src/widgets/doctor_container.dart';
 import 'package:healthy_me/src/widgets/visit_container.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 import 'advices/advices_screen.dart';
 
@@ -32,9 +34,16 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isLoading = false;
   int page = 1;
   int ctgIndex = 0;
+  String _meImage = '';
+  String _cityName = '';
 
   @override
-  void initState() {
+  Future<void> initState() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String img = prefs.getString('avatar') ?? "";
+    String city = prefs.getString('city')??'';
+    _meImage = img;
+    _cityName = city;
     page = 1;
     blocProfile.fetchMe();
     _registerBus();
@@ -89,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             SizedBox(height: 4),
             Text(
-              'Samarkand City',
+              _cityName==''?'Could not find': _cityName,
               style: TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 14,
@@ -124,8 +133,33 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child: Image.asset(
-                      'assets/images/pfp.jpg',
+                    child: CachedNetworkImage(
+                      imageUrl: _meImage,
+                      placeholder: (context, url) => Container(
+                        height: 40,
+                        width: 40,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          color: AppTheme.gray,
+                        ),
+                      ),
+                      errorWidget: (context, url, error) =>
+                          Container(
+                            height: 40,
+                            width: 40,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16),
+                              color: AppTheme.gray,
+                            ),
+                            child: Center(
+                              child: Icon(
+                                Icons.error,
+                                color: AppTheme.purple,
+                              ),
+                            ),
+                          ),
+                      height: 40,
+                      width: 40,
                       fit: BoxFit.cover,
                     ),
                   ),

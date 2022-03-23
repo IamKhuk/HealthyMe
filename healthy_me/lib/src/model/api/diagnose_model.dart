@@ -13,7 +13,7 @@ class DiagnoseApiModel {
   int status;
   List<Diagnostic> diagnostics;
 
-  factory DiagnoseApiModel.fromJson(Map<dynamic, dynamic> json) => DiagnoseApiModel(
+  factory DiagnoseApiModel.fromJson(Map<String, dynamic> json) => DiagnoseApiModel(
     status: json["status"],
     diagnostics: List<Diagnostic>.from(json["diagnostics"].map((x) => Diagnostic.fromJson(x))),
   );
@@ -29,33 +29,77 @@ class Diagnostic {
     required this.id,
     required this.name,
     required this.text,
-    required this.percent,
-    required this.introduction,
+    required this.percentage,
+    required this.intro,
     required this.suggestion,
+    required this.disease,
   });
 
   int id;
   String name;
   String text;
-  double percent;
-  String introduction;
+  double percentage;
+  String intro;
   String suggestion;
+  List<Disease> disease;
 
   factory Diagnostic.fromJson(Map<dynamic, dynamic> json) => Diagnostic(
     id: json["id"]??0,
     name: json["name"]??'',
     text: json["text"]??'',
-    percent: json["persent"].toDouble()??0,
-    introduction: json["introdaction"]??'',
+    percentage: json["persent"]??0,
+    intro: json["introdaction"]??'',
     suggestion: json["suggestion"]??'',
+    disease: List<Disease>.from(json["disease"].map((x) => Disease.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
     "name": name,
     "text": text,
-    "persent": percent,
-    "introdaction": introduction,
+    "persent": percentage,
+    "introdaction": intro,
     "suggestion": suggestion,
+    "disease": List<dynamic>.from(disease.map((x) => x.toJson())),
+  };
+}
+
+class Disease {
+  Disease({
+    required this.drugs,
+  });
+
+  List<Drug> drugs;
+
+  factory Disease.fromJson(Map<dynamic, dynamic> json) => Disease(
+    drugs: List<Drug>.from(json["drugs"].map((x) => Drug.fromJson(x))),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "drugs": List<dynamic>.from(drugs.map((x) => x.toJson())),
+  };
+}
+
+class Drug {
+  Drug({
+    required this.id,
+    required this.name,
+    required this.image,
+  });
+
+  int id;
+  String name;
+  String image;
+
+  factory Drug.fromJson(Map<dynamic, dynamic> json) => Drug(
+    id: json["id"]??0,
+    name: json["name"]??'',
+    image: json["image"]??'',
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "name": name,
+    "image": image,
   };
 }

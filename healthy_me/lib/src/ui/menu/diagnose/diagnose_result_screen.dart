@@ -7,7 +7,7 @@ import 'package:healthy_me/src/model/diseases_probability.dart';
 import 'package:healthy_me/src/model/drugs_model.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
 import 'package:healthy_me/src/ui/menu/diagnose/waiting_screen.dart';
-import 'package:healthy_me/src/utils/percentages_function.dart';
+import 'package:healthy_me/src/utils/utils.dart';
 import 'package:healthy_me/src/widgets/drugs_container.dart';
 import 'package:healthy_me/src/widgets/percentage_rich_text.dart';
 
@@ -30,21 +30,29 @@ class _DiagnoseResultScreenState extends State<DiagnoseResultScreen> {
   @override
   void initState() {
     _items = widget.items!;
-    _list = percentages(widget.ids);
+    _list = Utils.probabilityList(widget.data);
     List<DrugsModel> drugs = [];
     for (int i = 0; i <= widget.data.length - 1; i++) {
-      if (widget.data[i].percent > 75) {
+      if (widget.data[i].percentage > 75) {
         _listBool.add(true);
       } else {
         _listBool.add(false);
       }
-      for (int j = 0; j <= _list[i].drugs.length - 1; j++) {
-        drugs.add(_list[i].drugs[j]);
+      for (int j = 0; j <= widget.data[i].disease.length - 1; j++) {
+        for (int k = 0; k <= widget.data[i].disease[j].drugs.length - 1; k++) {
+          drugs.add(
+            DrugsModel(
+              img: widget.data[i].disease[j].drugs[k].image,
+              title: widget.data[i].disease[j].drugs[k].name,
+            ),
+          );
+        }
       }
     }
     _drugs = drugs;
     if (_listBool.contains(true)) {
-      List<String> _data = widget.data[_listBool.indexOf(true)].text.split('\r\n\r\n').toList();
+      List<String> _data =
+          widget.data[_listBool.indexOf(true)].text.split('\r\n\r\n').toList();
       _diagnose = _data;
       onDiagnose = true;
     } else {

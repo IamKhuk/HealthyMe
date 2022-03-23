@@ -302,7 +302,7 @@ class ApiProvider {
   ) async {
     String url = baseUrl + 'get-result';
     final data = {
-      'disease_ids': ids.toString(),
+      'disease_ids': ids.join(', '),
     };
     return await postRequest(url, data, true);
   }

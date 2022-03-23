@@ -156,7 +156,7 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                                         decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(64),
-                                          color: AppTheme.dark,
+                                          color: AppTheme.gray,
                                         ),
                                       ),
                                       errorWidget: (context, url, error) =>

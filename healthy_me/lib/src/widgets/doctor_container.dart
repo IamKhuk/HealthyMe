@@ -57,7 +57,7 @@ class DoctorContainer extends StatelessWidget {
                           width: 60,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16),
-                            color: AppTheme.dark,
+                            color: AppTheme.gray,
                           ),
                         ),
                         errorWidget: (context, url, error) => Container(

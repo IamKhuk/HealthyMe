@@ -347,7 +347,7 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                                       width: 106,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(16),
-                                        color: AppTheme.dark,
+                                        color: AppTheme.gray,
                                       ),
                                     ),
                                     errorWidget: (context, url, error) =>

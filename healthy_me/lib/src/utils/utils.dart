@@ -1,3 +1,5 @@
+import 'package:healthy_me/src/model/api/diagnose_model.dart';
+import 'package:healthy_me/src/model/diseases_probability.dart';
 import 'package:healthy_me/src/model/visit_date_model.dart';
 
 class Utils {
@@ -310,10 +312,25 @@ class Utils {
       return k;
     }
   }
+
   static String percentageFormat(double number){
     List list = number.toString().split('.').toList();
     List listTwo = list[1].toString().split('').toList();
     return list[0]+'.'+listTwo[0];
+  }
+
+  static List<DiseaseProbability> probabilityList (List<Diagnostic> data){
+    List<DiseaseProbability> list = [];
+    for (int i = 0; i <= data.length - 1; i++){
+      list.add(
+        DiseaseProbability(
+          percentage: data[i].percentage,
+          disease: data[i].name,
+          text: data[i].intro,
+        ),
+      );
+    }
+    return list;
   }
 }
 

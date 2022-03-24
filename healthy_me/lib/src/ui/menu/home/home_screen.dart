@@ -515,6 +515,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            SizedBox(width:24),
                             Container(
                               height: 22,
                               width: 180,
@@ -531,12 +532,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                 borderRadius: BorderRadius.circular(4),
                               ),
                             ),
+                            SizedBox(width:24),
                           ],
                         ),
                         SizedBox(height: 16),
                         Container(
                           height: 162,
                           width: MediaQuery.of(context).size.width - 48,
+                          margin: EdgeInsets.symmetric(horizontal: 24),
                           padding: EdgeInsets.only(
                             top: 24,
                             left: 12,
@@ -557,6 +560,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
+                                  SizedBox(width:8),
                                   Container(
                                     height: 50,
                                     width: 50,
@@ -593,6 +597,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               Container(
                                 height: 56,
                                 width: MediaQuery.of(context).size.width-72,
+                                margin: EdgeInsets.symmetric(horizontal: 36),
                                 decoration: BoxDecoration(
                                   color: AppTheme.baseColor,
                                   borderRadius: BorderRadius.circular(16),
@@ -605,6 +610,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Container(
                           height: 64,
                           width: MediaQuery.of(context).size.width - 48,
+                          margin: EdgeInsets.symmetric(horizontal: 24),
                           decoration: BoxDecoration(
                             border: Border.all(
                               color: AppTheme.baseColor,
@@ -627,6 +633,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            SizedBox(width: 24),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
@@ -814,6 +821,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            SizedBox(width: 24),
                             Container(
                               height: 22,
                               width: 180,
@@ -830,6 +838,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 borderRadius: BorderRadius.circular(4),
                               ),
                             ),
+                            SizedBox(width: 24),
                           ],
                         ),
                         SizedBox(height: 12),

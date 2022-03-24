@@ -97,6 +97,9 @@ class Repository {
   Future<HttpResult> fetchDocDetails(int doctorId) =>
       apiProvider.fetchDocDetails(doctorId);
 
+  Future<HttpResult> fetchScheduleCancel(int id) =>
+      apiProvider.fetchScheduleCancel(id);
+
   Future<HttpResult> fetchMe() => apiProvider.fetchMe();
 
   Future<void> cacheSetMe(ProfileData data) => appCache.saveSetMe(data);

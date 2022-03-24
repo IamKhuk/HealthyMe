@@ -328,24 +328,30 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         );
                       } else {
-                        BottomDialog.showActionFailed(
-                            context, 'Login Failed', result.msg);
+                        BottomDialog.showAction(
+                          context,
+                          'Login Failed',
+                          result.msg,
+                          'assets/icons/alert.svg',
+                        );
                       }
                     } else {
                       setState(() {
                         onLoading = false;
                       });
                       if (response.status == -1) {
-                        BottomDialog.showActionFailed(
+                        BottomDialog.showAction(
                           context,
                           'Connection Failed',
                           'You do not have internet connection, please try again',
+                          'assets/icons/alert.svg',
                         );
                       } else {
-                        BottomDialog.showActionFailed(
+                        BottomDialog.showAction(
                           context,
                           'Login Failed',
                           result.msg,
+                          'assets/icons/alert.svg',
                         );
                       }
                     }
@@ -383,8 +389,8 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           onLoading == true
               ? Container(
-            color: AppTheme.black.withOpacity(0.45),
-                child: Center(
+                  color: AppTheme.black.withOpacity(0.45),
+                  child: Center(
                     child: Container(
                       height: 96,
                       width: 96,
@@ -408,7 +414,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
-              )
+                )
               : Container()
         ],
       ),

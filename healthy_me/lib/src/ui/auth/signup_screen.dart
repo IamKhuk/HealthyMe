@@ -355,10 +355,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   ),
                                 );
                               } else {
-                                BottomDialog.showActionFailed(
+                                BottomDialog.showAction(
                                   context,
                                   'Sign Up Failed',
                                   result.msg,
+                                  'assets/icons/alert.svg',
                                 );
                               }
                             } else {
@@ -366,16 +367,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 onLoading = false;
                               });
                               if (response.status == -1) {
-                                BottomDialog.showActionFailed(
+                                BottomDialog.showAction(
                                   context,
                                   'Connection Failed',
                                   'You do not have internet connection, please try again',
+                                  'assets/icons/alert.svg',
                                 );
                               } else {
-                                BottomDialog.showActionFailed(
+                                BottomDialog.showAction(
                                   context,
                                   'Login Failed',
                                   result.msg,
+                                  'assets/icons/alert.svg',
                                 );
                               }
                             }
@@ -383,24 +386,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             BottomDialog.showPassFailed(context);
                           }
                         } else {
-                          BottomDialog.showActionFailed(
+                          BottomDialog.showAction(
                             context,
                             'Invalid Password',
                             'Password is required and cannot be empty',
+                            'assets/icons/alert.svg',
                           );
                         }
                       } else {
-                        BottomDialog.showActionFailed(
+                        BottomDialog.showAction(
                           context,
                           'Invalid Phone Number',
                           'Please enter valid email address so that we can register you correctly',
+                          'assets/icons/alert.svg',
                         );
                       }
                     } else {
-                      BottomDialog.showActionFailed(
+                      BottomDialog.showAction(
                         context,
                         'Invalid Username',
                         'Please enter valid username that contains more than 2 characters',
+                        'assets/icons/alert.svg',
                       );
                     }
                   },

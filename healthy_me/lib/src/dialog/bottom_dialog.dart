@@ -246,10 +246,11 @@ class BottomDialog {
     );
   }
 
-  static void showActionFailed(
+  static void showAction(
     BuildContext context,
     String title,
     String content,
+      String icon,
   ) {
     showModalBottomSheet(
       barrierColor: AppTheme.black.withOpacity(0.45),
@@ -295,7 +296,7 @@ class BottomDialog {
                         ),
                         SizedBox(height: 30),
                         SvgPicture.asset(
-                          'assets/icons/alert.svg',
+                          icon,
                           color: AppTheme.red,
                         ),
                         SizedBox(height: 24),

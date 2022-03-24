@@ -32,6 +32,7 @@ class Schedule {
     required this.user,
     required this.doctor,
     required this.profession,
+    required this.status,
     required this.startDatetime,
     required this.desc,
   });
@@ -40,6 +41,7 @@ class Schedule {
   int user;
   ScheduleDoctor doctor;
   Profession profession;
+  String status;
   DateTime startDatetime;
   String desc;
 
@@ -52,6 +54,7 @@ class Schedule {
         profession: json['profession'] == null
             ? Profession.fromJson({})
             : Profession.fromJson(json["profession"]),
+        status: json['status'] ?? 'upcoming',
         startDatetime: DateTime.parse(json["start_datetime"]),
         desc: json["desc"] ?? '',
       );
@@ -61,6 +64,7 @@ class Schedule {
         "user": user,
         "doctor": doctor.toJson(),
         "profession": profession.toJson(),
+        "status": status,
         "start_datetime": startDatetime.toIso8601String(),
         "desc": desc,
       };

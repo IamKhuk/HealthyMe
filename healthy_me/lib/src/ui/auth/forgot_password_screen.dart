@@ -162,11 +162,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             SizedBox(height: 44),
             GestureDetector(
               onTap: () {
-                _phoneController.text.length<9
-                    ? BottomDialog.showActionFailed(
+                _phoneController.text.length < 9
+                    ? BottomDialog.showAction(
                         context,
                         'Invalid Phone Number',
                         'Please enter valid phone number so that we can register you correctly',
+                        'assets/icons/alert.svg',
                       )
                     : Navigator.push(
                         context,

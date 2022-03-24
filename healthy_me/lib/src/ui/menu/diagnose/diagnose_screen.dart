@@ -217,12 +217,12 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
                       isLoading = true;
                     });
                     var response = await Repository().fetchDiagnose(_ids);
-                    if (response.isSuccess){
+                    if (response.isSuccess) {
                       setState(() {
                         isLoading = false;
                       });
                       var result = DiagnoseApiModel.fromJson(response.result);
-                      if(result.status == 1){
+                      if (result.status == 1) {
                         data = result.diagnostics;
                         Navigator.push(
                           context,
@@ -237,36 +237,40 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
                           ),
                         );
                         _ids = [];
-                      }else{
-                        BottomDialog.showActionFailed(
+                      } else {
+                        BottomDialog.showAction(
                           context,
                           'Something went wrong',
                           'Please try again after some time',
+                          'assets/icons/alert.svg',
                         );
                       }
-                    }else {
+                    } else {
                       setState(() {
                         isLoading = false;
                       });
                       if (response.status == -1) {
-                        BottomDialog.showActionFailed(
+                        BottomDialog.showAction(
                           context,
                           'Connection Failed',
                           'You do not have internet connection, please try again',
+                          'assets/icons/alert.svg',
                         );
                       } else {
-                        BottomDialog.showActionFailed(
+                        BottomDialog.showAction(
                           context,
                           'Server error',
                           'Something went wrong, Please try again after some time',
+                          'assets/icons/alert.svg',
                         );
                       }
                     }
-                  }else{
-                    BottomDialog.showActionFailed(
+                  } else {
+                    BottomDialog.showAction(
                       context,
                       'Action Failed',
                       'Please choose at least one condition to continue',
+                      'assets/icons/alert.svg',
                     );
                   }
                 },

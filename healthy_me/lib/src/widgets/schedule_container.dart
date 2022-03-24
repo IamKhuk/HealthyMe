@@ -24,7 +24,6 @@ class ScheduleContainer extends StatefulWidget {
 }
 
 class _ScheduleContainerState extends State<ScheduleContainer> {
-  bool isLoadingImage = false;
   late DateTime second;
 
   @override
@@ -69,17 +68,7 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
                   width: 50,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(16),
-                    child: isLoadingImage
-                        ? Container(
-                            padding: EdgeInsets.all(16),
-                            child: Center(
-                              child: CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                    AppTheme.purple),
-                              ),
-                            ),
-                          )
-                        : CachedNetworkImage(
+                    child: CachedNetworkImage(
                             imageUrl: widget.data.doctor.avatar,
                             placeholder: (context, url) => Container(
                               height: 60,
@@ -203,8 +192,8 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
                   ? GestureDetector(
                       onTap: () {
                         if (widget.data.startDatetime
-                                .compareTo(DateTime.now()) >=
-                            0) {
+                            .isBefore(DateTime.now()) ==
+                            false) {
                           widget.onChanged(true);
                         }
                       },
@@ -218,8 +207,8 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
                         child: Center(
                           child: Text(
                             widget.data.startDatetime
-                                        .compareTo(DateTime.now()) <
-                                    0
+                                        .isBefore(DateTime.now()) ==
+                                    true
                                 ? 'Completed'
                                 : 'Cancel',
                             style: TextStyle(
@@ -234,25 +223,25 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
                       ),
                     )
                   : Container(
-                      height: 38,
-                      width: (MediaQuery.of(context).size.width - 116) / 2,
-                      decoration: BoxDecoration(
-                        color: AppTheme.gray,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Canceled',
-                          style: TextStyle(
-                            fontWeight: FontWeight.normal,
-                            fontSize: 12,
-                            fontFamily: AppTheme.fontFamily,
-                            height: 1.5,
-                            color: AppTheme.purple,
-                          ),
+                    height: 38,
+                    width: (MediaQuery.of(context).size.width - 116) / 2,
+                    decoration: BoxDecoration(
+                      color: AppTheme.gray,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Canceled',
+                        style: TextStyle(
+                          fontWeight: FontWeight.normal,
+                          fontSize: 12,
+                          fontFamily: AppTheme.fontFamily,
+                          height: 1.5,
+                          color: AppTheme.purple,
                         ),
                       ),
                     ),
+                  ),
               SizedBox(width: 12),
               GestureDetector(
                 onTap: () {

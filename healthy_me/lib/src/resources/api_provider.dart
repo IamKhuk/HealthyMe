@@ -306,4 +306,16 @@ class ApiProvider {
     };
     return await postRequest(url, data, true);
   }
+
+  /// Schedule Cancel
+  Future<HttpResult> fetchScheduleCancel(
+      int id,
+      ) async {
+    String url = baseUrl + 'set-status';
+    final data = {
+      'id': id,
+      'status': 'canceled'
+    };
+    return await postRequest(url, data, true);
+  }
 }

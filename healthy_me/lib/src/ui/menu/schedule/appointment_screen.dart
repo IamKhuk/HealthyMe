@@ -656,31 +656,34 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                       if (status == 1) {
                         Navigator.pop(context);
                       } else {
-                        BottomDialog.showActionFailed(
+                        BottomDialog.showAction(
                           context,
                           'Cannot Create Schedule',
                           response.result["msg"] ??
                               "Something went wrong, Please try again",
+                          'assets/icons/alert.svg',
                         );
                       }
                     } else if (response.status == -1) {
                       setState(() {
                         _loading = false;
                       });
-                      BottomDialog.showActionFailed(
+                      BottomDialog.showAction(
                         context,
                         'Connection Failed',
                         "You do not have internet connection, please try again",
+                        'assets/icons/alert.svg',
                       );
                     } else {
                       setState(() {
                         _loading = false;
                       });
-                      BottomDialog.showActionFailed(
+                      BottomDialog.showAction(
                         context,
                         'Something went wrong',
                         response.result["msg"] ??
                             "Cannot connect to server, Please try again",
+                        'assets/icons/alert.svg',
                       );
                     }
                   },

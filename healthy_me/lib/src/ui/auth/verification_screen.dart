@@ -350,10 +350,11 @@ class _VerificationScreenState extends State<VerificationScreen>
           ),
         );
       } else {
-        BottomDialog.showActionFailed(
+        BottomDialog.showAction(
           context,
           'Verification failed',
           result.msg,
+          'assets/icons/alert.svg',
         );
         print(result.msg);
       }
@@ -361,12 +362,13 @@ class _VerificationScreenState extends State<VerificationScreen>
       setState(() {
         _isLoading = false;
       });
-      BottomDialog.showActionFailed(
+      BottomDialog.showAction(
         context,
         'No Internet',
         response.status == -1
             ? 'Connection Failed'
             : 'You do not have internet connection, please try again',
+        'assets/icons/alert.svg',
       );
     }
   }

@@ -237,10 +237,11 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                                                 isLoadingImage = false;
                                               });
                                             } else {
-                                              BottomDialog.showActionFailed(
+                                              BottomDialog.showAction(
                                                 context,
                                                 'Action Failed',
                                                 'Could not upload the image, please try again',
+                                                'assets/icons/alert.svg',
                                               );
                                               setState(() {
                                                 isLoadingImage = false;
@@ -280,10 +281,11 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                                               );
                                               blocProfile.fetchMe();
                                             } else {
-                                              BottomDialog.showActionFailed(
+                                              BottomDialog.showAction(
                                                 context,
                                                 'Action Failed',
                                                 'Could not upload the image, please try again',
+                                                'assets/icons/alert.svg',
                                               );
                                             }
                                           }
@@ -963,7 +965,8 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                         });
                         snapshot.data!.fullName = _nameController.text;
                         snapshot.data!.gender = gender;
-                        snapshot.data!.phone = Utils.phoneFormat(_phoneController.text);
+                        snapshot.data!.phone =
+                            Utils.phoneFormat(_phoneController.text);
                         snapshot.data!.username = _userController.text;
                         snapshot.data!.city = City(id: cityId, name: city);
                         snapshot.data!.region =
@@ -980,29 +983,32 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                             blocProfile.fetchUpdateInfo(data);
                             Navigator.pop(context);
                           } else {
-                            BottomDialog.showActionFailed(
+                            BottomDialog.showAction(
                               context,
                               'Something went wrong',
                               response.result["msg"] ?? "Please try again",
+                              'assets/icons/alert.svg',
                             );
                           }
                         } else if (response.status == -1) {
                           setState(() {
                             isLoading = false;
                           });
-                          BottomDialog.showActionFailed(
+                          BottomDialog.showAction(
                             context,
                             'Connection Failed',
                             'You do not have internet connection, please try again',
+                            'assets/icons/alert.svg',
                           );
                         } else {
                           setState(() {
                             isLoading = false;
                           });
-                          BottomDialog.showActionFailed(
+                          BottomDialog.showAction(
                             context,
                             'Something went wrong',
                             response.result["msg"] ?? "Please try again",
+                            'assets/icons/alert.svg',
                           );
                         }
                       },

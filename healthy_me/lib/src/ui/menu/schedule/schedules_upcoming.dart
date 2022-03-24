@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:healthy_me/src/bloc/schedule_bloc.dart';
+import 'package:healthy_me/src/dialog/bottom_dialog.dart';
 import 'package:healthy_me/src/model/api/schedule_model.dart';
+import 'package:healthy_me/src/model/api/schedule_result_model.dart';
+import 'package:healthy_me/src/resources/repository.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
 import 'package:healthy_me/src/widgets/schedule_container.dart';
 import 'package:shimmer/shimmer.dart';
@@ -15,6 +18,7 @@ class _UpcomingSchedulesState extends State<UpcomingSchedules> {
   ScrollController _sc = new ScrollController();
   int page = 1;
   bool isLoading = false;
+  bool onLoading = false;
 
   @override
   void initState() {
@@ -58,7 +62,63 @@ class _UpcomingSchedulesState extends State<UpcomingSchedules> {
                       SizedBox(height: 12),
                       ScheduleContainer(
                         data: snapshot.data!.schedule[0],
-                        onChanged: (_cancel) {},
+                        onChanged: (_cancel) async {
+                          if (_cancel == true) {
+                            setState(() {
+                              onLoading = true;
+                            });
+                            var response = await Repository()
+                                .fetchScheduleCancel(
+                                    snapshot.data!.schedule[0].id);
+                            if (response.isSuccess) {
+                              setState(() {
+                                isLoading = false;
+                              });
+                              if (response.isSuccess) {
+                                setState(() {
+                                  isLoading = false;
+                                });
+                                var result = ScheduleResultModel.fromJson(
+                                    response.result);
+                                if (result.status == 1) {
+                                  _getMoreData(page);
+                                  BottomDialog.showAction(
+                                    context,
+                                    'Successfully Deleted',
+                                    'Selected Schedule canceled',
+                                    'assets/icons/success.svg',
+                                  );
+                                } else {
+                                  BottomDialog.showAction(
+                                    context,
+                                    'Something went wrong',
+                                    'Please try again after some time',
+                                    'assets/icons/alert.svg',
+                                  );
+                                }
+                              } else {
+                                setState(() {
+                                  isLoading = false;
+                                });
+                                if (response.status == -1) {
+                                  BottomDialog.showAction(
+                                    context,
+                                    'Connection Failed',
+                                    'You do not have internet connection, please try again',
+                                    'assets/icons/alert.svg',
+                                  );
+                                } else {
+                                  BottomDialog.showAction(
+                                    context,
+                                    'Server error',
+                                    'Something went wrong, Please try again after some time',
+                                    'assets/icons/alert.svg',
+                                  );
+                                }
+                              }
+                            }
+                          }
+                        },
                         canceled: false,
                       ),
                       SizedBox(height: 24),
@@ -97,7 +157,65 @@ class _UpcomingSchedulesState extends State<UpcomingSchedules> {
                                         ScheduleContainer(
                                           data: _schedules[index],
                                           canceled: false,
-                                          onChanged: (_cancel) {},
+                                          onChanged: (_cancel) async {
+                                            if (_cancel == true) {
+                                              setState(() {
+                                                onLoading = true;
+                                              });
+                                              var response = await Repository()
+                                                  .fetchScheduleCancel(
+                                                      _schedules[index].id);
+                                              if (response.isSuccess) {
+                                                setState(() {
+                                                  isLoading = false;
+                                                });
+                                                if (response.isSuccess) {
+                                                  setState(() {
+                                                    isLoading = false;
+                                                  });
+                                                  var result =
+                                                      ScheduleResultModel
+                                                          .fromJson(
+                                                              response.result);
+                                                  if (result.status == 1) {
+                                                    _getMoreData(page);
+                                                    BottomDialog.showAction(
+                                                      context,
+                                                      'Successfully Deleted',
+                                                      'Selected Schedule canceled',
+                                                      'assets/icons/success.svg',
+                                                    );
+                                                  } else {
+                                                    BottomDialog.showAction(
+                                                      context,
+                                                      'Something went wrong',
+                                                      'Please try again after some time',
+                                                      'assets/icons/alert.svg',
+                                                    );
+                                                  }
+                                                } else {
+                                                  setState(() {
+                                                    isLoading = false;
+                                                  });
+                                                  if (response.status == -1) {
+                                                    BottomDialog.showAction(
+                                                      context,
+                                                      'Connection Failed',
+                                                      'You do not have internet connection, please try again',
+                                                      'assets/icons/alert.svg',
+                                                    );
+                                                  } else {
+                                                    BottomDialog.showAction(
+                                                      context,
+                                                      'Server error',
+                                                      'Something went wrong, Please try again after some time',
+                                                      'assets/icons/alert.svg',
+                                                    );
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          },
                                         ),
                                         index == _schedules.length - 1
                                             ? Container()
@@ -130,7 +248,7 @@ class _UpcomingSchedulesState extends State<UpcomingSchedules> {
                         padding: EdgeInsets.all(16),
                         decoration: BoxDecoration(
                           border:
-                          Border.all(color: AppTheme.baseColor, width: 2),
+                              Border.all(color: AppTheme.baseColor, width: 2),
                           borderRadius: BorderRadius.circular(24),
                         ),
                         child: Column(
@@ -216,7 +334,7 @@ class _UpcomingSchedulesState extends State<UpcomingSchedules> {
                                 Container(
                                   height: 38,
                                   width: (MediaQuery.of(context).size.width -
-                                      116) /
+                                          116) /
                                       2,
                                   decoration: BoxDecoration(
                                     color: AppTheme.baseColor,
@@ -226,7 +344,7 @@ class _UpcomingSchedulesState extends State<UpcomingSchedules> {
                                 Container(
                                   height: 38,
                                   width: (MediaQuery.of(context).size.width -
-                                      116) /
+                                          116) /
                                       2,
                                   decoration: BoxDecoration(
                                     color: AppTheme.baseColor,

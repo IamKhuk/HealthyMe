@@ -129,6 +129,125 @@ class BottomDialog {
     );
   }
 
+  static void showDeleteSchedule(
+    BuildContext context,
+    Function(bool isDelete) delete,
+  ) {
+    showModalBottomSheet(
+      barrierColor: AppTheme.black.withOpacity(0.45),
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return Container(
+              height: 412,
+              child: Column(
+                children: [
+                  Container(
+                    height: 316,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(24),
+                        topLeft: Radius.circular(24),
+                        bottomRight: Radius.circular(16),
+                        bottomLeft: Radius.circular(16),
+                      ),
+                      color: AppTheme.white,
+                    ),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 24,
+                      vertical: 16,
+                    ),
+                    margin: EdgeInsets.only(
+                      left: 16,
+                      right: 16,
+                    ),
+                    child: Column(
+                      children: [
+                        Container(
+                          height: 5,
+                          width: 80,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: AppTheme.gray,
+                          ),
+                        ),
+                        SizedBox(height: 30),
+                        SvgPicture.asset(
+                          'assets/icons/alert.svg',
+                          color: AppTheme.red,
+                        ),
+                        SizedBox(height: 24),
+                        Text(
+                          'Cancel Schedule?',
+                          style: TextStyle(
+                            fontFamily: AppTheme.fontFamily,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            height: 1.72,
+                            color: AppTheme.dark,
+                          ),
+                        ),
+                        SizedBox(height: 12),
+                        Expanded(
+                          child: Text(
+                            'You are going to cancel the appointment, are you sure?',
+                            style: TextStyle(
+                              fontFamily: AppTheme.fontFamily,
+                              fontSize: 16,
+                              fontWeight: FontWeight.normal,
+                              height: 1.72,
+                              color: AppTheme.dark.withOpacity(0.8),
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  GestureDetector(
+                    onTap: () {
+                      delete(true);
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      height: 56,
+                      margin: EdgeInsets.only(
+                        left: 16,
+                        right: 16,
+                        bottom: 24,
+                      ),
+                      decoration: BoxDecoration(
+                        color: AppTheme.white,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Cancel Appointment',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                            fontFamily: AppTheme.fontFamily,
+                            height: 1.5,
+                            color: AppTheme.purple,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
   static void showPassFailed(
     BuildContext context,
   ) {
@@ -250,7 +369,7 @@ class BottomDialog {
     BuildContext context,
     String title,
     String content,
-      String icon,
+    String icon,
   ) {
     showModalBottomSheet(
       barrierColor: AppTheme.black.withOpacity(0.45),
@@ -297,7 +416,9 @@ class BottomDialog {
                         SizedBox(height: 30),
                         SvgPicture.asset(
                           icon,
-                          color: AppTheme.red,
+                          color: icon == 'assets/icons/success.svg'
+                              ? AppTheme.green
+                              : AppTheme.red,
                         ),
                         SizedBox(height: 24),
                         Text(
@@ -876,7 +997,7 @@ class BottomDialog {
                           builder: (context) {
                             return SpecialtyScreen(
                               onChanged: (_id, _name) {
-                                setState((){
+                                setState(() {
                                   professionIndex = _id;
                                   profession = _name;
                                 });
@@ -920,7 +1041,7 @@ class BottomDialog {
                   ),
                   SizedBox(height: 8),
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -931,11 +1052,11 @@ class BottomDialog {
                                 name: region,
                               ),
                               changed: (
-                                  _name,
-                                  _id,
-                                  ) {
+                                _name,
+                                _id,
+                              ) {
                                 setState(
-                                      () {
+                                  () {
                                     region = _name;
                                     regionIndex = _id;
                                   },
@@ -949,7 +1070,8 @@ class BottomDialog {
                     child: Container(
                       height: 56,
                       width: MediaQuery.of(context).size.width - 80,
-                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                       decoration: BoxDecoration(
                         color: AppTheme.bg,
                         borderRadius: BorderRadius.circular(16),
@@ -979,7 +1101,7 @@ class BottomDialog {
                   ),
                   SizedBox(height: 8),
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -991,11 +1113,11 @@ class BottomDialog {
                                 name: city,
                               ),
                               changed: (
-                                  _name,
-                                  _id,
-                                  ) {
+                                _name,
+                                _id,
+                              ) {
                                 setState(
-                                      () {
+                                  () {
                                     city = _name;
                                     cityIndex = _id;
                                   },
@@ -1009,7 +1131,8 @@ class BottomDialog {
                     child: Container(
                       height: 56,
                       width: MediaQuery.of(context).size.width - 80,
-                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                       decoration: BoxDecoration(
                         color: AppTheme.bg,
                         borderRadius: BorderRadius.circular(16),

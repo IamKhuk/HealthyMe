@@ -36,336 +36,385 @@ class _UpcomingSchedulesState extends State<UpcomingSchedules> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppTheme.bg,
-      body: StreamBuilder(
-        stream: blocSchedule.getSchedules,
-        builder: (context, AsyncSnapshot<ScheduleModel> snapshot) {
-          if (snapshot.hasData) {
-            return snapshot.data!.schedule.length > 0
-                ? ListView(
+      body: Stack(
+        children: [
+          StreamBuilder(
+            stream: blocSchedule.getSchedules,
+            builder: (context, AsyncSnapshot<ScheduleModel> snapshot) {
+              if (snapshot.hasData) {
+                return snapshot.data!.schedule.length > 0
+                    ? ListView(
+                        padding: EdgeInsets.only(
+                          top: 76,
+                          bottom: 24,
+                          left: 36,
+                          right: 36,
+                        ),
+                        children: [
+                          Text(
+                            'Nearest Visit',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontFamily: AppTheme.fontFamily,
+                              fontWeight: FontWeight.normal,
+                              height: 1.5,
+                              color: AppTheme.black,
+                            ),
+                          ),
+                          SizedBox(height: 12),
+                          ScheduleContainer(
+                            data: snapshot.data!.schedule[0],
+                            onChanged: (_cancel) async {
+                              if (_cancel == true) {
+                                setState(() {
+                                  onLoading = true;
+                                });
+                                var response = await Repository()
+                                    .fetchScheduleCancel(
+                                    snapshot.data!.schedule[0].id);
+                                if (response.isSuccess) {
+                                  setState(() {
+                                    onLoading = false;
+                                  });
+                                  if (response.isSuccess) {
+                                    setState(() {
+                                      onLoading = false;
+                                    });
+                                    var result = ScheduleResultModel.fromJson(
+                                        response.result);
+                                    if (result.status == 1) {
+                                      blocSchedule.fetchSchedules(
+                                        'upcoming',
+                                      );
+                                      BottomDialog.showAction(
+                                        context,
+                                        'Successfully Deleted',
+                                        'Selected Schedule canceled',
+                                        'assets/icons/success.svg',
+                                      );
+                                    } else {
+                                      BottomDialog.showAction(
+                                        context,
+                                        'Something went wrong',
+                                        'Please try again after some time',
+                                        'assets/icons/alert.svg',
+                                      );
+                                    }
+                                  } else {
+                                    setState(() {
+                                      onLoading = false;
+                                    });
+                                    if (response.status == -1) {
+                                      BottomDialog.showAction(
+                                        context,
+                                        'Connection Failed',
+                                        'You do not have internet connection, please try again',
+                                        'assets/icons/alert.svg',
+                                      );
+                                    } else {
+                                      BottomDialog.showAction(
+                                        context,
+                                        'Server error',
+                                        'Something went wrong, Please try again after some time',
+                                        'assets/icons/alert.svg',
+                                      );
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            canceled: false,
+                          ),
+                          SizedBox(height: 24),
+                          snapshot.data!.schedule.length > 1
+                              ? Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text(
+                                          'Future Visits',
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            fontFamily: AppTheme.fontFamily,
+                                            fontWeight: FontWeight.normal,
+                                            height: 1.5,
+                                            color: AppTheme.black,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(height: 12),
+                                    ListView.builder(
+                                      itemCount:
+                                          snapshot.data!.schedule.length - 1,
+                                      physics: NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      padding: EdgeInsets.only(bottom: 96),
+                                      itemBuilder: (context, index) {
+                                        List<Schedule> _schedules = [];
+                                        _schedules.insertAll(
+                                          0,
+                                          snapshot.data!.schedule.getRange(1,
+                                              snapshot.data!.schedule.length),
+                                        );
+                                        return Column(
+                                          children: [
+                                            ScheduleContainer(
+                                              data: _schedules[index],
+                                              canceled: false,
+                                              onChanged: (_cancel) async {
+                                                if (_cancel == true) {
+                                                  setState(() {
+                                                    onLoading = true;
+                                                  });
+                                                  var response =
+                                                      await Repository()
+                                                          .fetchScheduleCancel(
+                                                              _schedules[index]
+                                                                  .id);
+                                                  if (response.isSuccess) {
+                                                    setState(() {
+                                                      isLoading = false;
+                                                    });
+                                                    if (response.isSuccess) {
+                                                      setState(() {
+                                                        isLoading = false;
+                                                      });
+                                                      var result =
+                                                          ScheduleResultModel
+                                                              .fromJson(response
+                                                                  .result);
+                                                      if (result.status == 1) {
+                                                        blocSchedule
+                                                            .fetchSchedules(
+                                                          'upcoming',
+                                                        );
+                                                        BottomDialog.showAction(
+                                                          context,
+                                                          'Successfully Deleted',
+                                                          'Selected Schedule canceled',
+                                                          'assets/icons/success.svg',
+                                                        );
+                                                      } else {
+                                                        BottomDialog.showAction(
+                                                          context,
+                                                          'Something went wrong',
+                                                          'Please try again after some time',
+                                                          'assets/icons/alert.svg',
+                                                        );
+                                                      }
+                                                    } else {
+                                                      setState(() {
+                                                        isLoading = false;
+                                                      });
+                                                      if (response.status ==
+                                                          -1) {
+                                                        BottomDialog.showAction(
+                                                          context,
+                                                          'Connection Failed',
+                                                          'You do not have internet connection, please try again',
+                                                          'assets/icons/alert.svg',
+                                                        );
+                                                      } else {
+                                                        BottomDialog.showAction(
+                                                          context,
+                                                          'Server error',
+                                                          'Something went wrong, Please try again after some time',
+                                                          'assets/icons/alert.svg',
+                                                        );
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                            ),
+                                            index == _schedules.length - 1
+                                                ? Container()
+                                                : SizedBox(height: 16),
+                                          ],
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                )
+                              : Container(),
+                        ],
+                      )
+                    : Container();
+              } else {
+                return Shimmer.fromColors(
+                  child: ListView.builder(
+                    itemCount: 10,
                     padding: EdgeInsets.only(
+                      bottom: 96,
                       top: 76,
-                      bottom: 24,
                       left: 36,
                       right: 36,
                     ),
-                    children: [
-                      Text(
-                        'Nearest Visit',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontFamily: AppTheme.fontFamily,
-                          fontWeight: FontWeight.normal,
-                          height: 1.5,
-                          color: AppTheme.black,
-                        ),
-                      ),
-                      SizedBox(height: 12),
-                      ScheduleContainer(
-                        data: snapshot.data!.schedule[0],
-                        onChanged: (_cancel) async {
-                          if (_cancel == true) {
-                            setState(() {
-                              onLoading = true;
-                            });
-                            var response = await Repository()
-                                .fetchScheduleCancel(
-                                    snapshot.data!.schedule[0].id);
-                            if (response.isSuccess) {
-                              setState(() {
-                                isLoading = false;
-                              });
-                              if (response.isSuccess) {
-                                setState(() {
-                                  isLoading = false;
-                                });
-                                var result = ScheduleResultModel.fromJson(
-                                    response.result);
-                                if (result.status == 1) {
-                                  _getMoreData(page);
-                                  BottomDialog.showAction(
-                                    context,
-                                    'Successfully Deleted',
-                                    'Selected Schedule canceled',
-                                    'assets/icons/success.svg',
-                                  );
-                                } else {
-                                  BottomDialog.showAction(
-                                    context,
-                                    'Something went wrong',
-                                    'Please try again after some time',
-                                    'assets/icons/alert.svg',
-                                  );
-                                }
-                              } else {
-                                setState(() {
-                                  isLoading = false;
-                                });
-                                if (response.status == -1) {
-                                  BottomDialog.showAction(
-                                    context,
-                                    'Connection Failed',
-                                    'You do not have internet connection, please try again',
-                                    'assets/icons/alert.svg',
-                                  );
-                                } else {
-                                  BottomDialog.showAction(
-                                    context,
-                                    'Server error',
-                                    'Something went wrong, Please try again after some time',
-                                    'assets/icons/alert.svg',
-                                  );
-                                }
-                              }
-                            }
-                          }
-                        },
-                        canceled: false,
-                      ),
-                      SizedBox(height: 24),
-                      snapshot.data!.schedule.length > 1
-                          ? Column(
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          Container(
+                            height: 168,
+                            padding: EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: AppTheme.baseColor, width: 2),
+                              borderRadius: BorderRadius.circular(24),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Row(
                                   children: [
-                                    Text(
-                                      'Future Visits',
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                        fontFamily: AppTheme.fontFamily,
-                                        fontWeight: FontWeight.normal,
-                                        height: 1.5,
-                                        color: AppTheme.black,
+                                    Container(
+                                      height: 50,
+                                      width: 50,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(16),
+                                        color: AppTheme.baseColor,
                                       ),
+                                    ),
+                                    SizedBox(width: 14),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          height: 16,
+                                          width: 120,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            color: AppTheme.baseColor,
+                                          ),
+                                        ),
+                                        SizedBox(height: 8),
+                                        Container(
+                                          height: 12,
+                                          width: 88,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            color: AppTheme.baseColor,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
-                                SizedBox(height: 12),
-                                ListView.builder(
-                                  itemCount: snapshot.data!.schedule.length - 1,
-                                  physics: NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  padding: EdgeInsets.only(bottom: 96),
-                                  itemBuilder: (context, index) {
-                                    List<Schedule> _schedules = [];
-                                    _schedules.insertAll(
-                                      0,
-                                      snapshot.data!.schedule.getRange(
-                                          1, snapshot.data!.schedule.length),
-                                    );
-                                    return Column(
-                                      children: [
-                                        ScheduleContainer(
-                                          data: _schedules[index],
-                                          canceled: false,
-                                          onChanged: (_cancel) async {
-                                            if (_cancel == true) {
-                                              setState(() {
-                                                onLoading = true;
-                                              });
-                                              var response = await Repository()
-                                                  .fetchScheduleCancel(
-                                                      _schedules[index].id);
-                                              if (response.isSuccess) {
-                                                setState(() {
-                                                  isLoading = false;
-                                                });
-                                                if (response.isSuccess) {
-                                                  setState(() {
-                                                    isLoading = false;
-                                                  });
-                                                  var result =
-                                                      ScheduleResultModel
-                                                          .fromJson(
-                                                              response.result);
-                                                  if (result.status == 1) {
-                                                    _getMoreData(page);
-                                                    BottomDialog.showAction(
-                                                      context,
-                                                      'Successfully Deleted',
-                                                      'Selected Schedule canceled',
-                                                      'assets/icons/success.svg',
-                                                    );
-                                                  } else {
-                                                    BottomDialog.showAction(
-                                                      context,
-                                                      'Something went wrong',
-                                                      'Please try again after some time',
-                                                      'assets/icons/alert.svg',
-                                                    );
-                                                  }
-                                                } else {
-                                                  setState(() {
-                                                    isLoading = false;
-                                                  });
-                                                  if (response.status == -1) {
-                                                    BottomDialog.showAction(
-                                                      context,
-                                                      'Connection Failed',
-                                                      'You do not have internet connection, please try again',
-                                                      'assets/icons/alert.svg',
-                                                    );
-                                                  } else {
-                                                    BottomDialog.showAction(
-                                                      context,
-                                                      'Server error',
-                                                      'Something went wrong, Please try again after some time',
-                                                      'assets/icons/alert.svg',
-                                                    );
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          },
-                                        ),
-                                        index == _schedules.length - 1
-                                            ? Container()
-                                            : SizedBox(height: 16),
-                                      ],
-                                    );
-                                  },
-                                ),
-                              ],
-                            )
-                          : Container(),
-                    ],
-                  )
-                : Container();
-          } else {
-            return Shimmer.fromColors(
-              child: ListView.builder(
-                itemCount: 10,
-                padding: EdgeInsets.only(
-                  bottom: 96,
-                  top: 76,
-                  left: 36,
-                  right: 36,
-                ),
-                itemBuilder: (context, index) {
-                  return Column(
-                    children: [
-                      Container(
-                        height: 168,
-                        padding: EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          border:
-                              Border.all(color: AppTheme.baseColor, width: 2),
-                          borderRadius: BorderRadius.circular(24),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Container(
-                                  height: 50,
-                                  width: 50,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(16),
-                                    color: AppTheme.baseColor,
-                                  ),
-                                ),
-                                SizedBox(width: 14),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                SizedBox(height: 16),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(
-                                      height: 16,
-                                      width: 120,
+                                      height: 12,
+                                      width: 12,
                                       decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(8),
+                                        borderRadius: BorderRadius.circular(4),
                                         color: AppTheme.baseColor,
                                       ),
                                     ),
-                                    SizedBox(height: 8),
                                     Container(
                                       height: 12,
-                                      width: 88,
+                                      width: 120,
                                       decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(8),
+                                        borderRadius: BorderRadius.circular(4),
                                         color: AppTheme.baseColor,
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 12,
+                                      width: 12,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(4),
+                                        color: AppTheme.baseColor,
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 12,
+                                      width: 72,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(4),
+                                        color: AppTheme.baseColor,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 16),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      height: 38,
+                                      width:
+                                          (MediaQuery.of(context).size.width -
+                                                  116) /
+                                              2,
+                                      decoration: BoxDecoration(
+                                        color: AppTheme.baseColor,
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 38,
+                                      width:
+                                          (MediaQuery.of(context).size.width -
+                                                  116) /
+                                              2,
+                                      decoration: BoxDecoration(
+                                        color: AppTheme.baseColor,
+                                        borderRadius: BorderRadius.circular(12),
                                       ),
                                     ),
                                   ],
                                 ),
                               ],
                             ),
-                            SizedBox(height: 16),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  height: 12,
-                                  width: 12,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(4),
-                                    color: AppTheme.baseColor,
-                                  ),
-                                ),
-                                Container(
-                                  height: 12,
-                                  width: 120,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(4),
-                                    color: AppTheme.baseColor,
-                                  ),
-                                ),
-                                Container(
-                                  height: 12,
-                                  width: 12,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(4),
-                                    color: AppTheme.baseColor,
-                                  ),
-                                ),
-                                Container(
-                                  height: 12,
-                                  width: 72,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(4),
-                                    color: AppTheme.baseColor,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 16),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  height: 38,
-                                  width: (MediaQuery.of(context).size.width -
-                                          116) /
-                                      2,
-                                  decoration: BoxDecoration(
-                                    color: AppTheme.baseColor,
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                ),
-                                Container(
-                                  height: 38,
-                                  width: (MediaQuery.of(context).size.width -
-                                          116) /
-                                      2,
-                                  decoration: BoxDecoration(
-                                    color: AppTheme.baseColor,
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
+                          ),
+                          index == 9 ? Container() : SizedBox(height: 16),
+                        ],
+                      );
+                    },
+                  ),
+                  baseColor: AppTheme.baseColor,
+                  highlightColor: AppTheme.highlightColor,
+                );
+              }
+            },
+          ),
+          onLoading == true
+              ? Container(
+                  color: AppTheme.black.withOpacity(0.45),
+                  child: Center(
+                    child: Container(
+                      height: 96,
+                      width: 96,
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.9),
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [
+                          BoxShadow(
+                            offset: Offset(0, 5),
+                            blurRadius: 25,
+                            spreadRadius: 0,
+                            color: AppTheme.dark.withOpacity(0.2),
+                          ),
+                        ],
+                      ),
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(AppTheme.purple),
                         ),
                       ),
-                      index == 9 ? Container() : SizedBox(height: 16),
-                    ],
-                  );
-                },
-              ),
-              baseColor: AppTheme.baseColor,
-              highlightColor: AppTheme.highlightColor,
-            );
-          }
-        },
+                    ),
+                  ),
+                )
+              : Container()
+        ],
       ),
     );
   }

@@ -313,7 +313,7 @@ class ApiProvider {
       ) async {
     String url = baseUrl + 'set-status';
     final data = {
-      'id': id,
+      'id': id.toString(),
       'status': 'canceled'
     };
     return await postRequest(url, data, true);

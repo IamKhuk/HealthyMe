@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:healthy_me/src/dialog/bottom_dialog.dart';
 import 'package:healthy_me/src/model/api/schedule_model.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
 import 'package:healthy_me/src/ui/menu/home/doctor/doctor_details_screen.dart';
@@ -69,33 +70,33 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(16),
                     child: CachedNetworkImage(
-                            imageUrl: widget.data.doctor.avatar,
-                            placeholder: (context, url) => Container(
-                              height: 60,
-                              width: 60,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16),
-                                color: AppTheme.gray,
-                              ),
-                            ),
-                            errorWidget: (context, url, error) => Container(
-                              height: 64,
-                              width: 64,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16),
-                                color: AppTheme.gray,
-                              ),
-                              child: Center(
-                                child: Icon(
-                                  Icons.error,
-                                  color: AppTheme.purple,
-                                ),
-                              ),
-                            ),
-                            height: 60,
-                            width: 60,
-                            fit: BoxFit.cover,
+                      imageUrl: widget.data.doctor.avatar,
+                      placeholder: (context, url) => Container(
+                        height: 60,
+                        width: 60,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          color: AppTheme.gray,
+                        ),
+                      ),
+                      errorWidget: (context, url, error) => Container(
+                        height: 64,
+                        width: 64,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          color: AppTheme.gray,
+                        ),
+                        child: Center(
+                          child: Icon(
+                            Icons.error,
+                            color: AppTheme.purple,
                           ),
+                        ),
+                      ),
+                      height: 60,
+                      width: 60,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 SizedBox(width: 14),
@@ -192,9 +193,14 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
                   ? GestureDetector(
                       onTap: () {
                         if (widget.data.startDatetime
-                            .isBefore(DateTime.now()) ==
+                                .isBefore(DateTime.now()) ==
                             false) {
-                          widget.onChanged(true);
+                          BottomDialog.showDeleteSchedule(
+                            context,
+                            (_canceled) {
+                              widget.onChanged(_canceled);
+                            },
+                          );
                         }
                       },
                       child: Container(
@@ -223,25 +229,25 @@ class _ScheduleContainerState extends State<ScheduleContainer> {
                       ),
                     )
                   : Container(
-                    height: 38,
-                    width: (MediaQuery.of(context).size.width - 116) / 2,
-                    decoration: BoxDecoration(
-                      color: AppTheme.gray,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Canceled',
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: 12,
-                          fontFamily: AppTheme.fontFamily,
-                          height: 1.5,
-                          color: AppTheme.purple,
+                      height: 38,
+                      width: (MediaQuery.of(context).size.width - 116) / 2,
+                      decoration: BoxDecoration(
+                        color: AppTheme.gray,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Canceled',
+                          style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                            fontSize: 12,
+                            fontFamily: AppTheme.fontFamily,
+                            height: 1.5,
+                            color: AppTheme.purple,
+                          ),
                         ),
                       ),
                     ),
-                  ),
               SizedBox(width: 12),
               GestureDetector(
                 onTap: () {

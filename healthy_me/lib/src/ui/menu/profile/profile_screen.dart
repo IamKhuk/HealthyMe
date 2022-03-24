@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:healthy_me/src/defaults/me.dart';
 import 'package:healthy_me/src/dialog/bottom_dialog.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
 import 'package:healthy_me/src/ui/menu/profile/personal_settings_screen.dart';
@@ -18,6 +17,8 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   int _index = 0;
   String _myImage = '';
+  String _myName = '';
+  String _myEmail = '';
 
   @override
   void initState() {
@@ -92,7 +93,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               SizedBox(height: 16),
               Text(
-                me.name,
+                _myName,
                 style: TextStyle(
                   fontWeight: FontWeight.normal,
                   fontSize: 24,
@@ -102,7 +103,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
               Text(
-                me.email,
+                _myEmail,
                 style: TextStyle(
                   fontWeight: FontWeight.normal,
                   fontSize: 14,
@@ -292,8 +293,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Future<void> _getInfo()async {
+  Future<void> _getInfo() async {
     SharedPreferences vr = await SharedPreferences.getInstance();
-    _myImage = vr.getString('avatar')??'';
+    _myImage = vr.getString('avatar') ?? '';
+    _myName = vr.getString('fullname') ?? '';
+    _myEmail = vr.getString('email') ?? '';
   }
 }

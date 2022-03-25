@@ -105,7 +105,8 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
             ],
           ),
           SizedBox(width: 36),
-        ], systemOverlayStyle: SystemUiOverlayStyle.dark,
+        ],
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
       endDrawerEnableOpenDragGesture: false,
       endDrawer: Container(
@@ -316,10 +317,7 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                 star: snapshot.data!.user.reviewAvg,
                 location: location,
               ),
-              msg: [
-                MsgModel(msg: 'Hey dude', time: DateTime.now()),
-                MsgModel(msg: "How are you doing", time: DateTime.now()),
-              ],
+              msg: [],
               isRead: true,
             );
             return Stack(

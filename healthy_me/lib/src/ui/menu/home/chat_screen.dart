@@ -1,11 +1,10 @@
-import 'package:flutter/cupertino.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:healthy_me/src/model/chat_model.dart';
 import 'package:healthy_me/src/model/msg_model.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
-import 'package:healthy_me/src/ui/menu/home/doctor/doctor_details_screen.dart';
 
 class ChatScreen extends StatefulWidget {
   final ChatModel data;
@@ -87,7 +86,35 @@ class _ChatScreenState extends State<ChatScreen> {
                           width: 40,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(12),
-                            child: Image.asset(
+                            child: widget.data.user.pfp.contains('http')? CachedNetworkImage(
+                              imageUrl: widget.data.user.pfp,
+                              placeholder: (context, url) => Container(
+                                height: 40,
+                                width: 40,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                  color: AppTheme.gray,
+                                ),
+                              ),
+                              errorWidget: (context, url, error) =>
+                                  Container(
+                                    height: 40,
+                                    width: 40,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(12),
+                                      color: AppTheme.gray,
+                                    ),
+                                    child: Center(
+                                      child: Icon(
+                                        Icons.error,
+                                        color: AppTheme.purple,
+                                      ),
+                                    ),
+                                  ),
+                              height: 40,
+                              width: 40,
+                              fit: BoxFit.cover,
+                            ): Image.asset(
                               widget.data.user.pfp,
                               fit: BoxFit.cover,
                             ),
@@ -155,26 +182,8 @@ class _ChatScreenState extends State<ChatScreen> {
                               ),
                             ),
                           ),
-                          InkWell(
-                            borderRadius: BorderRadius.circular(40),
-                            onTap: () {},
-                            child: Container(
-                              color: Colors.transparent,
-                              width: 24,
-                              height: 40,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Icon(
-                                    Icons.more_vert_sharp,
-                                    color: AppTheme.white,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
                         ],
-                      )
+                      ),
                     ],
                   ),
                 ],

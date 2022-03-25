@@ -12,11 +12,6 @@ class Cache {
 
   Future<void> saveSetMe(ProfileData data) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String birthFormat = data.birthDate.year.toString() +
-        "-" +
-        data.birthDate.month.toString() +
-        "-" +
-        data.birthDate.day.toString();
     prefs.setString("fullname", data.fullName);
     prefs.setString("username", data.username);
     prefs.setString("phone", data.phone);
@@ -28,7 +23,7 @@ class Cache {
     prefs.setString("region", data.region.name);
     prefs.setInt('regionId', data.region.id);
     prefs.setInt('cityId', data.city.id);
-    prefs.setString("birth_date", birthFormat);
+    prefs.setString("birth_date", data.birthDate.toString());
   }
 
   Future<ProfileData> cacheGetMe() async {

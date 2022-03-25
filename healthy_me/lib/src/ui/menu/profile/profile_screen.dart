@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:healthy_me/src/dialog/bottom_dialog.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
 import 'package:healthy_me/src/ui/menu/profile/personal_settings_screen.dart';
@@ -32,7 +32,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: AppTheme.bg,
-        brightness: Brightness.light,
         title: Text(
           'My Profile',
           style: TextStyle(
@@ -43,7 +42,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             color: AppTheme.black,
           ),
         ),
-        centerTitle: true,
+        centerTitle: true, systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
       body: Stack(
         children: [
@@ -294,9 +293,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Future<void> _getInfo() async {
-    SharedPreferences vr = await SharedPreferences.getInstance();
-    _myImage = vr.getString('avatar') ?? '';
-    _myName = vr.getString('fullname') ?? '';
-    _myEmail = vr.getString('email') ?? '';
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _myImage = prefs.getString('avatar') ?? '';
+      _myName = prefs.getString('fullname') ?? 'No nome';
+      _myEmail = prefs.getString('email') ?? 'healthymeuser@gmail.com';
+    });
   }
 }

@@ -988,7 +988,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> _getInfo() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    _myImage = prefs.getString('avatar') ?? '';
-    _cityName = prefs.getString('city') ?? '';
+    setState(() {
+      _myImage = prefs.getString('avatar') ?? '';
+      _cityName = prefs.getString('city') ?? '';
+    });
   }
 }

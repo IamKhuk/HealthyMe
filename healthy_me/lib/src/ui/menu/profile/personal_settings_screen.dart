@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:healthy_me/src/bloc/profile_bloc.dart';
 import 'package:healthy_me/src/dialog/bottom_dialog.dart';
@@ -51,7 +51,6 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        brightness: Brightness.light,
         leadingWidth: 76,
         leading: Row(
           children: [
@@ -94,7 +93,7 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
             height: 1.5,
             color: AppTheme.black,
           ),
-        ),
+        ), systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
       body: StreamBuilder(
         stream: blocProfile.getInfoCache,
@@ -153,7 +152,7 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                                       ),
                                     )
                                   : CachedNetworkImage(
-                                      imageUrl: avatar,
+                                      imageUrl: snapshot.data!.avatar,
                                       placeholder: (context, url) => Container(
                                         height: 64,
                                         width: 64,
@@ -988,7 +987,7 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                             BottomDialog.showAction(
                               context,
                               'Something went wrong',
-                              response.result["msg"] ?? "Please try again",
+                              response.result["msg"] ?? "Error occurred, Please try again",
                               'assets/icons/alert.svg',
                             );
                           }

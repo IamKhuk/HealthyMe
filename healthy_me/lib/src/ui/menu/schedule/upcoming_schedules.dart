@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:healthy_me/src/bloc/schedule_bloc.dart';
 import 'package:healthy_me/src/model/api/schedule_model.dart';
@@ -13,6 +13,7 @@ class SchedulesUpcoming extends StatefulWidget {
 }
 
 class _SchedulesUpcomingState extends State<SchedulesUpcoming> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
   ScrollController _sc = new ScrollController();
   int page = 1;
   bool isLoading = false;
@@ -32,11 +33,11 @@ class _SchedulesUpcomingState extends State<SchedulesUpcoming> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: AppTheme.bg,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        brightness: Brightness.light,
         leadingWidth: 76,
         leading: Row(
           children: [
@@ -76,7 +77,7 @@ class _SchedulesUpcomingState extends State<SchedulesUpcoming> {
             children: [
               GestureDetector(
                 onTap: () {
-                  // _scaffoldKey.currentState!.openEndDrawer();
+                  _scaffoldKey.currentState!.openEndDrawer();
                 },
                 child: Container(
                   height: 40,
@@ -93,6 +94,88 @@ class _SchedulesUpcomingState extends State<SchedulesUpcoming> {
           ),
           SizedBox(width: 36),
         ],
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
+      ),
+      endDrawer: Container(
+        width: MediaQuery.of(context).size.width - 36,
+        color: AppTheme.white,
+        child: Drawer(
+          elevation: 0,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              ListView(
+                padding: EdgeInsets.all(24),
+                children: [
+                  SizedBox(height: 24),
+                  Text(
+                    'What can I do in this page?',
+                    style: TextStyle(
+                      fontFamily: AppTheme.fontFamily,
+                      fontSize: 18,
+                      fontWeight: FontWeight.normal,
+                      height: 1.5,
+                      color: AppTheme.black,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'You can get the list of upcoming appointments and detailed information about these appointments such as time and information about the doctor',
+                          style: TextStyle(
+                            fontFamily: AppTheme.fontFamily,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w300,
+                            height: 1.8,
+                            color: AppTheme.dark,
+                          ),
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      height: 61,
+                      width: 61,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: AppTheme.white,
+                        boxShadow: [
+                          BoxShadow(
+                            offset: Offset(5, 9),
+                            blurRadius: 15,
+                            spreadRadius: 0,
+                            color: AppTheme.gray,
+                          ),
+                        ],
+                      ),
+                      child: Center(
+                        child: SvgPicture.asset(
+                          'assets/icons/x.svg',
+                          color: AppTheme.purple,
+                          height: 28,
+                          width: 28,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 32),
+                ],
+              ),
+            ],
+          ),
+        ),
       ),
       body: StreamBuilder(
         stream: blocSchedule.getSchedules,

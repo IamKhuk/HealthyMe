@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -51,7 +50,6 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        brightness: Brightness.light,
         leadingWidth: 76,
         leading: Row(
           children: [
@@ -107,7 +105,7 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
             ],
           ),
           SizedBox(width: 36),
-        ],
+        ], systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
       endDrawerEnableOpenDragGesture: false,
       endDrawer: Container(

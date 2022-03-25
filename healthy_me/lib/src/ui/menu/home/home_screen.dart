@@ -13,6 +13,7 @@ import 'package:healthy_me/src/ui/menu/home/doctor/doctors_screen.dart';
 import 'package:healthy_me/src/ui/menu/profile/personal_settings_screen.dart';
 import 'package:healthy_me/src/ui/menu/schedule/upcoming_schedules.dart';
 import 'package:healthy_me/src/widgets/doctor_container.dart';
+import 'package:healthy_me/src/widgets/drawer/home_drawer.dart';
 import 'package:healthy_me/src/widgets/visit_container.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
@@ -25,6 +26,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
   TextEditingController controller = new TextEditingController();
   ScrollController _sc = new ScrollController();
   bool onChanged = false;
@@ -37,6 +39,8 @@ class _HomeScreenState extends State<HomeScreen> {
   int ctgIndex = 0;
   String _myImage = '';
   String _cityName = '';
+  String _myName = '';
+  String _myEmail = '';
 
   @override
   void initState() {
@@ -59,6 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -67,7 +72,9 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             SizedBox(width: 36),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                _scaffoldKey.currentState!.openDrawer();
+              },
               child: Container(
                 height: 40,
                 width: 40,
@@ -166,8 +173,11 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
           SizedBox(width: 36),
-        ], systemOverlayStyle: SystemUiOverlayStyle.dark,
+        ],
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
+      drawer: HomeDrawer(name: _myName, email: _myEmail, img: _myImage),
+      drawerEnableOpenDragGesture: false,
       body: GestureDetector(
         onTap: () {
           FocusScopeNode currentFocus = FocusScope.of(context);
@@ -283,18 +293,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                       ),
                     );
-                    // BottomDialog.showDocFilter(
-                    //   context,
-                    //   (_regionId, _cityId, _professionId) {
-                    //     RxBus.post(
-                    //       FilterModel(
-                    //         regionId: _regionId,
-                    //         cityId: _cityId,
-                    //         professionId: _professionId,
-                    //       ),
-                    //     );
-                    //   },
-                    // );
                   },
                   child: Container(
                     height: 48,
@@ -512,7 +510,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            SizedBox(width:24),
+                            SizedBox(width: 24),
                             Container(
                               height: 22,
                               width: 180,
@@ -529,7 +527,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 borderRadius: BorderRadius.circular(4),
                               ),
                             ),
-                            SizedBox(width:24),
+                            SizedBox(width: 24),
                           ],
                         ),
                         SizedBox(height: 16),
@@ -557,7 +555,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  SizedBox(width:8),
+                                  SizedBox(width: 8),
                                   Container(
                                     height: 50,
                                     width: 50,
@@ -568,14 +566,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                   SizedBox(width: 14),
                                   Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Container(
                                         height: 16,
                                         width: 112,
                                         decoration: BoxDecoration(
                                           color: AppTheme.baseColor,
-                                          borderRadius: BorderRadius.circular(4),
+                                          borderRadius:
+                                              BorderRadius.circular(4),
                                         ),
                                       ),
                                       SizedBox(height: 10),
@@ -584,7 +584,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                         width: 92,
                                         decoration: BoxDecoration(
                                           color: AppTheme.baseColor,
-                                          borderRadius: BorderRadius.circular(4),
+                                          borderRadius:
+                                              BorderRadius.circular(4),
                                         ),
                                       ),
                                     ],
@@ -593,7 +594,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               Container(
                                 height: 56,
-                                width: MediaQuery.of(context).size.width-72,
+                                width: MediaQuery.of(context).size.width - 72,
                                 margin: EdgeInsets.symmetric(horizontal: 36),
                                 decoration: BoxDecoration(
                                   color: AppTheme.baseColor,
@@ -630,7 +631,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            SizedBox(width: 24),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
@@ -797,8 +797,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                         doc: snapshot.data!.results[index]),
                                   ],
                                 )
-                              : categories[ctgIndex].idList.contains(
-                                      snapshot.data!.results[index].profession.id)
+                              : categories[ctgIndex].idList.contains(snapshot
+                                      .data!.results[index].profession.id)
                                   ? Column(
                                       children: [
                                         SizedBox(height: index == 0 ? 0 : 12),
@@ -873,7 +873,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                         height: 60,
                                         width: 60,
                                         decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(16),
+                                          borderRadius:
+                                              BorderRadius.circular(16),
                                           color: AppTheme.baseColor,
                                         ),
                                       ),
@@ -975,6 +976,8 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       _myImage = prefs.getString('avatar') ?? '';
       _cityName = prefs.getString('city') ?? '';
+      _myName = prefs.getString('fullname') ?? 'No nome';
+      _myEmail = prefs.getString('email') ?? 'healthymeuser@gmail.com';
     });
   }
 }

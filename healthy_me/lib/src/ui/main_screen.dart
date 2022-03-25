@@ -1,10 +1,19 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:healthy_me/src/resources/repository.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
 import 'package:healthy_me/src/ui/menu/diagnose/diagnose_screen.dart';
 import 'package:healthy_me/src/ui/menu/profile/profile_screen.dart';
 import 'package:healthy_me/src/ui/menu/schedule/schedule_screen.dart';
+import 'package:package_info/package_info.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../main.dart';
 import 'menu/chats/chats_screen.dart';
 import 'menu/home/home_screen.dart';
 
@@ -15,6 +24,8 @@ class MainScreen extends StatefulWidget {
   _MainScreenState createState() => _MainScreenState();
 }
 
+bool location = true;
+
 class _MainScreenState extends State<MainScreen> {
   List<Widget> data = [
     HomeScreen(),
@@ -23,6 +34,51 @@ class _MainScreenState extends State<MainScreen> {
     ChatsScreen(),
     ProfileScreen(),
   ];
+
+  @override
+  void initState() {
+    _sendLocation();
+    _notificationFirebase();
+    super.initState();
+  }
+
+  void _notificationFirebase() {
+    FirebaseMessaging.instance.getInitialMessage().then(
+          (RemoteMessage? message) {},
+    );
+    FirebaseMessaging.onMessage.listen((RemoteMessage? message) {
+      RemoteNotification? notification = message!.notification;
+      AndroidNotification? android = message.notification?.android;
+      if (notification != null && android != null && !kIsWeb) {
+        flutterLocalNotifications!.show(
+          notification.hashCode,
+          notification.title,
+          notification.body,
+          NotificationDetails(
+            android: AndroidNotificationDetails(
+              channel!.id,
+              channel!.name,
+              icon: '@mipmap/ic_launcher',
+            ),
+          ),
+        );
+      }
+    });
+    FirebaseMessaging.onMessageOpenedApp.listen(
+          (RemoteMessage message) {},
+    );
+    FirebaseMessaging.instance.getToken().then((value) {
+      _initPackageInfo(value!);
+    });
+  }
+
+  Future<void> _initPackageInfo(String token) async {
+    final PackageInfo info = await PackageInfo.fromPlatform();
+    Repository().fetchCheckVersion(
+      info.buildNumber,
+      token,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -287,6 +343,31 @@ class _MainScreenState extends State<MainScreen> {
         ],
       ),
     );
+  }
+
+
+  Future<void> _sendLocation() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    location = prefs.getBool("location_send") ?? true;
+    if (location) {
+      if (await Permission.locationWhenInUse.request().isGranted) {
+        var position = await Geolocator.getCurrentPosition();
+        Repository().fetchSendMyLocation(
+          position.latitude,
+          position.longitude,
+        );
+      } else {
+        Repository().fetchSendMyLocation(
+          0.0,
+          0.0,
+        );
+      }
+    } else {
+      Repository().fetchSendMyLocation(
+        0.0,
+        0.0,
+      );
+    }
   }
 }
 

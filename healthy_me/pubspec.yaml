@@ -27,11 +27,15 @@ dependencies:
   url_launcher: ^6.0.10
   cached_network_image: ^3.2.0
   flutter_cache_manager: ^3.3.0
+  permission_handler: ^8.1.6
+  geolocator: ^7.7.1
+  firebase_messaging: ^11.1.0
   sms_autofill: ^2.2.0
   shimmer: ^2.0.0
   dio: ^4.0.1
   package_info: ^2.0.2
   flutter_tags_x: ^1.0.0
+  flutter_local_notifications: ^9.0.0
 
 dev_dependencies:
   flutter_test:

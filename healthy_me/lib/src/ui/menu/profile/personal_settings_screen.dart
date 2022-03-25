@@ -105,12 +105,16 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
               _userController.text = snapshot.data!.username;
               _emailController.text = snapshot.data!.email;
               avatar = snapshot.data!.avatar;
-              _phoneController.text =
-                  Utils.phoneTextFormat(snapshot.data!.phone);
+              snapshot.data!.phone == '0'
+                  ? _phoneController.text = ''
+                  : _phoneController.text =
+                      Utils.phoneTextFormat(snapshot.data!.phone);
               region = snapshot.data!.region.name;
               city = snapshot.data!.city.name;
               birthDate = snapshot.data!.birthDate;
               gender = snapshot.data!.gender;
+              regionId = snapshot.data!.region.id;
+              cityId = snapshot.data!.city.id;
               isFirst = false;
             }
             return Stack(
@@ -155,7 +159,7 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                                         width: 64,
                                         decoration: BoxDecoration(
                                           borderRadius:
-                                              BorderRadius.circular(64),
+                                              BorderRadius.circular(20),
                                           color: AppTheme.gray,
                                         ),
                                       ),
@@ -165,7 +169,7 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                                         width: 64,
                                         decoration: BoxDecoration(
                                           borderRadius:
-                                              BorderRadius.circular(64),
+                                              BorderRadius.circular(20),
                                           color: AppTheme.gray,
                                         ),
                                         child: Center(
@@ -708,6 +712,7 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                             // initialValue: snapshot.data!.phone,
                             cursorColor: AppTheme.purple,
                             enableInteractiveSelection: true,
+                            keyboardType: TextInputType.phone,
                             style: TextStyle(
                               fontFamily: AppTheme.fontFamily,
                               fontSize: 16,
@@ -962,15 +967,12 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                       onTap: () async {
                         setState(() {
                           isLoading = true;
+                          snapshot.data!.fullName = _nameController.text;
+                          snapshot.data!.gender = gender;
+                          snapshot.data!.phone =
+                              Utils.phoneFormat(_phoneController.text);
+                          snapshot.data!.username = _userController.text;
                         });
-                        snapshot.data!.fullName = _nameController.text;
-                        snapshot.data!.gender = gender;
-                        snapshot.data!.phone =
-                            Utils.phoneFormat(_phoneController.text);
-                        snapshot.data!.username = _userController.text;
-                        snapshot.data!.city = City(id: cityId, name: city);
-                        snapshot.data!.region =
-                            City(id: regionId, name: region);
                         var response = await Repository()
                             .fetchUpdateProfile(snapshot.data!);
                         if (response.isSuccess) {

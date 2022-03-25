@@ -171,7 +171,7 @@ class ApiProvider {
   Future<HttpResult> fetchUpdateProfile(
     ProfileData info,
   ) async {
-    String url = baseUrl + 'profil';
+    String url = baseUrl + 'profil/';
     String birthFormat = info.birthDate.year.toString() +
         "-" +
         info.birthDate.month.toString() +
@@ -181,7 +181,6 @@ class ApiProvider {
       "fullname": info.fullName,
       "username": info.username,
       "email": info.email,
-      "avatar": info.avatar,
       "phone": info.phone,
       "gender": info.gender,
       "birth_date": birthFormat,
@@ -195,7 +194,7 @@ class ApiProvider {
   Future<HttpResult> fetchProfileImageSend(
     String path,
   ) async {
-    String url = baseUrl + 'update-profil-img';
+    String url = baseUrl + 'update-profil-img/';
     Dio dio = new Dio();
     final dynamic headers = await _getReqHeader();
 
@@ -233,6 +232,19 @@ class ApiProvider {
       status: -1,
       result: {},
     );
+  }
+
+  /// Send my location
+  Future<HttpResult> fetchSendMyLocation(
+      double lat,
+      double lng,
+      ) async {
+    String url = baseUrl + 'send-location/';
+    final data = {
+      "lat": lat.toString(),
+      "lng": lng.toString(),
+    };
+    return await postRequest(url, data, true);
   }
 
   /// Regions
@@ -315,6 +327,20 @@ class ApiProvider {
     final data = {
       'id': id.toString(),
       'status': 'canceled'
+    };
+    return await postRequest(url, data, true);
+  }
+
+  ///Check version
+  Future<HttpResult> fetchCheckVersion(
+      String version,
+      String token,
+      ) async {
+    String url = baseUrl + 'check-version/';
+    final data = {
+      "version": version,
+      "fctoken": token,
+      "device": Platform.isIOS ? "ios" : "android",
     };
     return await postRequest(url, data, true);
   }

@@ -85,6 +85,24 @@ class Repository {
         professionId,
       );
 
+  Future<HttpResult> fetchSendMyLocation(
+      double lat,
+      double lng,
+      ) =>
+      apiProvider.fetchSendMyLocation(
+        lat,
+        lng,
+      );
+
+  Future<HttpResult> fetchCheckVersion(
+      String version,
+      String token,
+      ) =>
+      apiProvider.fetchCheckVersion(
+        version,
+        token,
+      );
+
   Future<HttpResult> fetchDiagnose(List<int?> ids) =>
       apiProvider.fetchDiagnose(ids);
 

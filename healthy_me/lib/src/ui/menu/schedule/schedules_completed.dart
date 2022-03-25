@@ -36,6 +36,8 @@ class _CompletedSchedulesState extends State<CompletedSchedules> {
         stream: blocSchedule.getSchedules,
         builder: (context, AsyncSnapshot<ScheduleModel> snapshot) {
           if (snapshot.hasData) {
+            snapshot.data!.schedule
+                .sort((a, b) => a.startDatetime.compareTo(b.startDatetime));
             return snapshot.data!.schedule.length > 0
                 ? ListView.builder(
                     itemCount: snapshot.data!.schedule.length,
@@ -60,7 +62,18 @@ class _CompletedSchedulesState extends State<CompletedSchedules> {
                       );
                     },
                   )
-                : Container();
+                : Center(
+                    child: Text(
+                      'There is no completed appointments',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontFamily: AppTheme.fontFamily,
+                        fontSize: 18,
+                        height: 1.5,
+                        color: AppTheme.black,
+                      ),
+                    ),
+                  );
           } else {
             return Shimmer.fromColors(
               child: ListView.builder(
@@ -79,7 +92,7 @@ class _CompletedSchedulesState extends State<CompletedSchedules> {
                         padding: EdgeInsets.all(16),
                         decoration: BoxDecoration(
                           border:
-                          Border.all(color: AppTheme.baseColor, width: 2),
+                              Border.all(color: AppTheme.baseColor, width: 2),
                           borderRadius: BorderRadius.circular(24),
                         ),
                         child: Column(
@@ -165,7 +178,7 @@ class _CompletedSchedulesState extends State<CompletedSchedules> {
                                 Container(
                                   height: 38,
                                   width: (MediaQuery.of(context).size.width -
-                                      116) /
+                                          116) /
                                       2,
                                   decoration: BoxDecoration(
                                     color: AppTheme.baseColor,
@@ -175,7 +188,7 @@ class _CompletedSchedulesState extends State<CompletedSchedules> {
                                 Container(
                                   height: 38,
                                   width: (MediaQuery.of(context).size.width -
-                                      116) /
+                                          116) /
                                       2,
                                   decoration: BoxDecoration(
                                     color: AppTheme.baseColor,

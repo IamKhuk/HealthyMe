@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:healthy_me/src/bloc/home_bloc.dart';
 import 'package:healthy_me/src/bloc/profile_bloc.dart';
@@ -7,12 +8,10 @@ import 'package:healthy_me/src/bloc/schedule_bloc.dart';
 import 'package:healthy_me/src/defaults/categories_list.dart';
 import 'package:healthy_me/src/model/api/doctors_list_model.dart';
 import 'package:healthy_me/src/model/api/schedule_model.dart';
-import 'package:healthy_me/src/model/event_bus/filter_model.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
 import 'package:healthy_me/src/ui/menu/home/doctor/doctors_screen.dart';
 import 'package:healthy_me/src/ui/menu/profile/personal_settings_screen.dart';
 import 'package:healthy_me/src/ui/menu/schedule/upcoming_schedules.dart';
-import 'package:healthy_me/src/utils/rx_bus.dart';
 import 'package:healthy_me/src/widgets/doctor_container.dart';
 import 'package:healthy_me/src/widgets/visit_container.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -47,7 +46,6 @@ class _HomeScreenState extends State<HomeScreen> {
     blocSchedule.fetchSchedules(
       'upcoming',
     );
-    _registerBus();
     _getMoreData(page);
     _sc.addListener(() {
       if (_sc.position.pixels == _sc.position.maxScrollExtent) {
@@ -64,7 +62,6 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        brightness: Brightness.light,
         leadingWidth: 76,
         leading: Row(
           children: [
@@ -169,7 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
           SizedBox(width: 36),
-        ],
+        ], systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
       body: GestureDetector(
         onTap: () {
@@ -958,19 +955,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-    );
-  }
-
-  void _registerBus() {
-    RxBus.register<FilterModel>(tag: "FILTER").listen(
-      (event) {
-        page = 1;
-        cityId = event.cityId;
-        regionId = event.regionId;
-        professionId = event.professionId;
-        isLoading = false;
-        _getMoreData(1);
-      },
     );
   }
 

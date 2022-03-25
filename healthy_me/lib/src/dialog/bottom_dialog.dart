@@ -906,15 +906,15 @@ class BottomDialog {
         onChanged,
   ) {
     /// region
-    int regionIndex = 0;
+    int regionIndex = -1;
     String region = 'Region Name';
 
     /// city
-    int cityIndex = 0;
+    int cityIndex = -1;
     String city = 'City Name';
 
     /// profession / speacialty
-    int professionIndex = 0;
+    int professionIndex = -1;
     String profession = 'Specialty Name';
 
     showModalBottomSheet(

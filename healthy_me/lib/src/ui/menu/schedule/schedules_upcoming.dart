@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:healthy_me/src/bloc/schedule_bloc.dart';
 import 'package:healthy_me/src/dialog/bottom_dialog.dart';
@@ -42,6 +41,8 @@ class _UpcomingSchedulesState extends State<UpcomingSchedules> {
             stream: blocSchedule.getSchedules,
             builder: (context, AsyncSnapshot<ScheduleModel> snapshot) {
               if (snapshot.hasData) {
+                snapshot.data!.schedule
+                    .sort((a, b) => a.startDatetime.compareTo(b.startDatetime));
                 return snapshot.data!.schedule.length > 0
                     ? ListView(
                         padding: EdgeInsets.only(
@@ -71,7 +72,7 @@ class _UpcomingSchedulesState extends State<UpcomingSchedules> {
                                 });
                                 var response = await Repository()
                                     .fetchScheduleCancel(
-                                    snapshot.data!.schedule[0].id);
+                                        snapshot.data!.schedule[0].id);
                                 if (response.isSuccess) {
                                   setState(() {
                                     onLoading = false;
@@ -240,7 +241,18 @@ class _UpcomingSchedulesState extends State<UpcomingSchedules> {
                               : Container(),
                         ],
                       )
-                    : Container();
+                    : Center(
+                        child: Text(
+                          'There is upcoming appointments',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontFamily: AppTheme.fontFamily,
+                            fontSize: 18,
+                            height: 1.5,
+                            color: AppTheme.black,
+                          ),
+                        ),
+                      );
               } else {
                 return Shimmer.fromColors(
                   child: ListView.builder(

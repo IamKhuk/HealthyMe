@@ -964,6 +964,7 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                   children: [
                     GestureDetector(
                       onTap: () async {
+                        _phoneController.text.replaceAll(' ', '');
                         setState(() {
                           isLoading = true;
                           snapshot.data!.fullName = _nameController.text;

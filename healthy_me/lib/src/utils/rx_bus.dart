@@ -1,6 +1,6 @@
 import 'package:rxdart/rxdart.dart';
 
-const String _DEFAULT_IDENTIFIER = "eventbus_in_game";
+const String _DEFAULT_IDENTIFIER = "eventbus";
 
 class Bus {
   PublishSubject _subjects = PublishSubject();

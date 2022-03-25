@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:healthy_me/src/bloc/home_bloc.dart';
 import 'package:healthy_me/src/defaults/categories_list.dart';
@@ -51,6 +51,13 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
   }
 
   @override
+  void dispose() {
+    _sc.dispose();
+    RxBus.destroy();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
@@ -58,7 +65,6 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        brightness: Brightness.light,
         leadingWidth: 76,
         leading: Row(
           children: [
@@ -119,6 +125,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
           ),
           SizedBox(width: 36),
         ],
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
       endDrawer: Container(
         width: MediaQuery.of(context).size.width - 36,
@@ -394,12 +401,14 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                     BottomDialog.showDocFilter(
                       context,
                       (_regionId, _cityId, _professionId) {
+                        String key = 'FILTER';
                         RxBus.post(
                           FilterModel(
                             regionId: _regionId,
                             cityId: _cityId,
                             professionId: _professionId,
                           ),
+                          tag: key,
                         );
                       },
                     );
@@ -562,14 +571,14 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                                   SizedBox(width: 14),
                                   Column(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Container(
                                         height: 14,
                                         width: 120,
                                         decoration: BoxDecoration(
                                           borderRadius:
-                                          BorderRadius.circular(4),
+                                              BorderRadius.circular(4),
                                           color: AppTheme.baseColor,
                                         ),
                                       ),
@@ -579,21 +588,21 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                                         width: 88,
                                         decoration: BoxDecoration(
                                           borderRadius:
-                                          BorderRadius.circular(4),
+                                              BorderRadius.circular(4),
                                           color: AppTheme.baseColor,
                                         ),
                                       ),
                                       SizedBox(height: 10),
                                       Row(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.start,
+                                            MainAxisAlignment.start,
                                         children: [
                                           Container(
                                             height: 8,
                                             width: 56,
                                             decoration: BoxDecoration(
                                               borderRadius:
-                                              BorderRadius.circular(4),
+                                                  BorderRadius.circular(4),
                                               color: AppTheme.baseColor,
                                             ),
                                           ),
@@ -603,7 +612,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
                                             width: 60,
                                             decoration: BoxDecoration(
                                               borderRadius:
-                                              BorderRadius.circular(4),
+                                                  BorderRadius.circular(4),
                                               color: AppTheme.baseColor,
                                             ),
                                           )
@@ -638,6 +647,18 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
     );
   }
 
+  void _getMoreData(int index) async {
+    if (!isLoading) {
+      blocHome.fetchDocList(
+        search,
+        regionId,
+        cityId,
+        professionId,
+      );
+      page++;
+    }
+  }
+
   void _registerBus() {
     RxBus.register<FilterModel>(tag: "FILTER").listen(
       (event) {
@@ -649,17 +670,5 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
         _getMoreData(1);
       },
     );
-  }
-
-  void _getMoreData(int index) async {
-    if (!isLoading) {
-      blocHome.fetchDocList(
-        search,
-        regionId,
-        cityId,
-        professionId,
-      );
-      page++;
-    }
   }
 }

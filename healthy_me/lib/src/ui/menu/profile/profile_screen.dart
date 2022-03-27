@@ -1,11 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:healthy_me/src/bloc/schedule_bloc.dart';
 import 'package:healthy_me/src/dialog/bottom_dialog.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
 import 'package:healthy_me/src/ui/menu/profile/personal_settings_screen.dart';
+import 'package:healthy_me/src/widgets/schedule_history.dart';
 import 'package:healthy_me/src/widgets/settings_container.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shimmer/shimmer.dart';
+
+import '../../../model/api/schedule_model.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -19,10 +24,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String _myImage = '';
   String _myName = '';
   String _myEmail = '';
+  int page = 1;
+  bool isLoading = false;
 
   @override
   void initState() {
     _getInfo();
+    _getMoreData(page);
     super.initState();
   }
 
@@ -42,7 +50,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             color: AppTheme.black,
           ),
         ),
-        centerTitle: true, systemOverlayStyle: SystemUiOverlayStyle.dark,
+        centerTitle: true,
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
       body: Stack(
         children: [
@@ -211,77 +220,111 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ],
                     ),
                     SizedBox(height: 24),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      padding: EdgeInsets.only(
-                        top: 12,
-                        left: 36,
-                        right: 36,
-                        bottom: 24,
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(48),
-                          topRight: Radius.circular(48),
-                        ),
-                        color: AppTheme.purple,
-                      ),
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 4,
-                            width: 48,
+                    _index == 0
+                        ? Container(
+                            width: MediaQuery.of(context).size.width,
+                            padding: EdgeInsets.only(
+                              top: 12,
+                              left: 36,
+                              right: 36,
+                              bottom: 24,
+                            ),
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(4),
-                              color: AppTheme.gray,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(48),
+                                topRight: Radius.circular(48),
+                              ),
+                              color: AppTheme.purple,
                             ),
-                          ),
-                          SizedBox(height: 28),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return PersonalSettingsScreen();
-                                  },
+                            child: Column(
+                              children: [
+                                Container(
+                                  height: 4,
+                                  width: 48,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(4),
+                                    color: AppTheme.gray,
+                                  ),
                                 ),
-                              );
-                            },
-                            child: SettingsContainer(
-                              img: 'assets/icons/user.svg',
-                              title: 'Personal',
+                                SizedBox(height: 28),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) {
+                                          return PersonalSettingsScreen();
+                                        },
+                                      ),
+                                    );
+                                  },
+                                  child: SettingsContainer(
+                                    img: 'assets/icons/user.svg',
+                                    title: 'Personal',
+                                  ),
+                                ),
+                                SizedBox(height: 8),
+                                SettingsContainer(
+                                  img: 'assets/icons/privacy.svg',
+                                  title: 'Privacy & Security',
+                                ),
+                                SizedBox(height: 8),
+                                SettingsContainer(
+                                  img: 'assets/icons/promo.svg',
+                                  title: 'Denote',
+                                ),
+                                SizedBox(height: 8),
+                                SettingsContainer(
+                                  img: 'assets/icons/help.svg',
+                                  title: 'Help',
+                                ),
+                                SizedBox(height: 8),
+                                GestureDetector(
+                                  onTap: () {
+                                    BottomDialog.showLogOut(context);
+                                  },
+                                  child: SettingsContainer(
+                                    img: 'assets/icons/logout.svg',
+                                    title: 'Logout',
+                                  ),
+                                ),
+                                SizedBox(height: 92),
+                              ],
                             ),
-                          ),
-                          SizedBox(height: 8),
-                          SettingsContainer(
-                            img: 'assets/icons/privacy.svg',
-                            title: 'Privacy & Security',
-                          ),
-                          SizedBox(height: 8),
-                          SettingsContainer(
-                            img: 'assets/icons/promo.svg',
-                            title: 'Offers & Rewards',
-                          ),
-                          SizedBox(height: 8),
-                          SettingsContainer(
-                            img: 'assets/icons/help.svg',
-                            title: 'Help',
-                          ),
-                          SizedBox(height: 8),
-                          GestureDetector(
-                            onTap: () {
-                              BottomDialog.showLogOut(context);
+                          )
+                        : StreamBuilder(
+                            stream: blocSchedule.getSchedules,
+                            builder: (context,
+                                AsyncSnapshot<ScheduleModel> snapshot) {
+                              if (snapshot.hasData) {
+                                return ListView.builder(
+                                  itemCount: snapshot.data!.schedule.length,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, index) {
+                                    return Column(
+                                      children: [
+                                        ScheduleHistory(
+                                          data: snapshot.data!.schedule[index],
+                                        ),
+                                        index ==
+                                                snapshot.data!.schedule.length -
+                                                    1
+                                            ? Container()
+                                            : SizedBox(height: 12),
+                                      ],
+                                    );
+                                  },
+                                );
+                              } else {
+                                return Shimmer.fromColors(
+                                  child: Container(),
+                                  baseColor: AppTheme.baseColor,
+                                  highlightColor: AppTheme.highlightColor,
+                                );
+                              }
                             },
-                            child: SettingsContainer(
-                              img: 'assets/icons/logout.svg',
-                              title: 'Logout',
-                            ),
                           ),
-                          SizedBox(height: 92),
-                        ],
-                      ),
-                    ),
                   ],
                 ),
               ),
@@ -299,5 +342,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
       _myName = prefs.getString('fullname') ?? 'No nome';
       _myEmail = prefs.getString('email') ?? 'healthymeuser@gmail.com';
     });
+  }
+
+  void _getMoreData(int index) async {
+    if (!isLoading) {
+      blocSchedule.fetchSchedules(
+        'completed',
+      );
+      page++;
+    }
   }
 }

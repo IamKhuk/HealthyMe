@@ -1,13 +1,19 @@
 import 'dart:async';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:healthy_me/src/model/api/forgot_accept_model.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
 import 'package:healthy_me/src/ui/auth/reset_password_screen.dart';
 import 'package:pinput/pin_put/pin_put.dart';
+import '../../dialog/bottom_dialog.dart';
+import '../../resources/repository.dart';
 
 class ResetPassVerificationScreen extends StatefulWidget {
+  final String email;
+
+  ResetPassVerificationScreen({required this.email});
+
   @override
   _ResetPassVerificationScreenState createState() =>
       _ResetPassVerificationScreenState();
@@ -17,7 +23,9 @@ class _ResetPassVerificationScreenState
     extends State<ResetPassVerificationScreen> {
   final _pinPutFocusNode = FocusNode();
   final _pinPutController = TextEditingController();
+  Repository _repository = Repository();
   bool _isLoading = false;
+  bool success = false;
   int timer = 120;
   Timer? _timer;
 
@@ -46,7 +54,6 @@ class _ResetPassVerificationScreenState
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        brightness: Brightness.light,
         leadingWidth: 64,
         leading: Row(
           children: [
@@ -78,7 +85,7 @@ class _ResetPassVerificationScreenState
             height: 1.5,
             color: AppTheme.black,
           ),
-        ),
+        ), systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
       body: GestureDetector(
         onTap: () {
@@ -146,6 +153,9 @@ class _ResetPassVerificationScreenState
                 eachFieldHeight: 72,
                 withCursor: false,
                 fieldsCount: 4,
+                onSubmit: (String pin) {
+                  _initPinPut(pin);
+                },
                 focusNode: _pinPutFocusNode,
                 controller: _pinPutController,
                 submittedFieldDecoration: pinPutDecoration,
@@ -204,14 +214,16 @@ class _ResetPassVerificationScreenState
             SizedBox(height: 44),
             GestureDetector(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return ResetPasswordScreen();
-                    },
-                  ),
-                );
+                if(success == true){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return ResetPasswordScreen();
+                      },
+                    ),
+                  );
+                }
               },
               child: Container(
                 height: 56,
@@ -258,5 +270,56 @@ class _ResetPassVerificationScreenState
         setState(() {});
       },
     );
+  }
+
+
+  Future<void> _initPinPut(String pin) async {
+    setState(() {
+      _isLoading = true;
+    });
+    var response = await _repository.fetchForgotAccept(
+      widget.email,
+      pin,
+    );
+    var result = ForgotAcceptModel.fromJson(response.result);
+
+    if (response.isSuccess) {
+      setState(() {
+        _isLoading = false;
+      });
+      if (result.status == 1) {
+        setState(() {
+          success = true;
+        });
+        _repository.cacheToken(result.token);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return ResetPasswordScreen();
+            },
+          ),
+        );
+      } else {
+        BottomDialog.showAction(
+          context,
+          'Verification failed',
+          'Something went wrong, Please try again after some time',
+          'assets/icons/alert.svg',
+        );
+      }
+    } else {
+      setState(() {
+        _isLoading = false;
+      });
+      BottomDialog.showAction(
+        context,
+        'No Internet',
+        response.status == -1
+            ? 'Connection Failed'
+            : 'You do not have internet connection, please try again',
+        'assets/icons/alert.svg',
+      );
+    }
   }
 }

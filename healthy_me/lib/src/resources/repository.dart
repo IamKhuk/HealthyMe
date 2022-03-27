@@ -103,6 +103,29 @@ class Repository {
         token,
       );
 
+  Future<HttpResult> fetchForgotPassword(
+      String email,
+      ) =>
+      apiProvider.fetchForgotPassword(
+        email,
+      );
+
+  Future<HttpResult> fetchForgotAccept(
+      String email,
+      String code,
+      ) =>
+      apiProvider.fetchForgotAccept(
+        email,
+        code,
+      );
+
+  Future<HttpResult> fetchPassUpdate(
+      String newPass,
+      ) =>
+      apiProvider.fetchPassUpdate(
+        newPass,
+      );
+
   Future<HttpResult> fetchDiagnose(List<int?> ids) =>
       apiProvider.fetchDiagnose(ids);
 
@@ -125,4 +148,6 @@ class Repository {
   Future<ProfileData> cacheGetMe() => appCache.cacheGetMe();
 
   Future<void> cacheLoginUser(LoginModel data) => appCache.saveLoginUser(data);
+
+  Future<void> cacheToken(String token) => appCache.saveToken(token);
 }

@@ -7,7 +7,6 @@ import 'package:healthy_me/src/bloc/doctor_bloc.dart';
 import 'package:healthy_me/src/model/api/doctor_model.dart';
 import 'package:healthy_me/src/model/chat_model.dart';
 import 'package:healthy_me/src/model/doctor_model.dart';
-import 'package:healthy_me/src/model/msg_model.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
 import 'package:healthy_me/src/ui/menu/home/chat_screen.dart';
 import 'package:healthy_me/src/ui/menu/schedule/appointment_screen.dart';

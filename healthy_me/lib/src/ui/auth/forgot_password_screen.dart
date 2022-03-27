@@ -4,6 +4,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:healthy_me/src/dialog/bottom_dialog.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
 import 'package:healthy_me/src/ui/auth/reset_pass_verification.dart';
+import 'package:healthy_me/src/utils/utils.dart';
+
+import '../../resources/repository.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({Key? key}) : super(key: key);
@@ -13,7 +16,8 @@ class ForgotPasswordScreen extends StatefulWidget {
 }
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
-  TextEditingController _phoneController = new TextEditingController();
+  TextEditingController _emailController = new TextEditingController();
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +102,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             ),
             SizedBox(height: 40),
             Text(
-              'Phone Number',
+              'Email Address',
               style: TextStyle(
                 fontFamily: AppTheme.fontFamily,
                 fontSize: 18,
@@ -130,7 +134,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 ),
                 child: TextField(
                   enabled: true,
-                  controller: _phoneController,
+                  controller: _emailController,
                   enableSuggestions: true,
                   keyboardType: TextInputType.phone,
                   textAlignVertical: TextAlignVertical.center,
@@ -160,22 +164,49 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             ),
             SizedBox(height: 44),
             GestureDetector(
-              onTap: () {
-                _phoneController.text.length < 9
-                    ? BottomDialog.showAction(
+              onTap: () async {
+                if(Utils.emailValidator(_emailController.text) == false){
+                  BottomDialog.showAction(
+                    context,
+                    'Invalid Phone Number',
+                    'Please enter valid phone number so that we can register you correctly',
+                    'assets/icons/alert.svg',
+                  );
+                }else{
+                  setState(() {
+                    isLoading = true;
+                  });
+                  var response = await Repository().fetchForgotPassword(_emailController.text);
+                  if(response.isSuccess){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return ResetPassVerificationScreen(email: _emailController.text);
+                        },
+                      ),
+                    );
+                  }else{
+                    setState(() {
+                      isLoading = false;
+                    });
+                    if (response.status == -1) {
+                      BottomDialog.showAction(
                         context,
-                        'Invalid Phone Number',
-                        'Please enter valid phone number so that we can register you correctly',
+                        'Connection Failed',
+                        'You do not have internet connection, please try again',
                         'assets/icons/alert.svg',
-                      )
-                    : Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return ResetPassVerificationScreen();
-                          },
-                        ),
                       );
+                    } else {
+                      BottomDialog.showAction(
+                        context,
+                        'Action Failed',
+                        'Something went wrong, Please try again after some time',
+                        'assets/icons/alert.svg',
+                      );
+                    }
+                  }
+                }
               },
               child: Container(
                 height: 56,

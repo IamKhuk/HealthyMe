@@ -268,8 +268,12 @@ class ApiProvider {
     int cityId,
     int professionId,
   ) async {
+    String _rId = regionId==-1?'':regionId.toString();
+    String _cId = cityId==-1?'':cityId.toString();
+    String _pId = professionId==-1?'':professionId.toString();
+
     String url = baseUrl +
-        "doctorchoose?is_doctor=true&region_id=$regionId&city_id=$cityId&profession_id=$professionId&search=$text";
+        "doctorchoose?is_doctor=true&region_id=$_rId&city_id=$_cId&profession_id=$_pId&search=$text";
     return await getRequest(url);
   }
 
@@ -277,6 +281,44 @@ class ApiProvider {
   Future<HttpResult> fetchDocDetails(int doctorId) async {
     String url = baseUrl + 'doctor-detail?doctor_id=$doctorId';
     return await getRequest(url);
+  }
+
+  /// Forgot Password
+  Future<HttpResult> fetchForgotPassword(
+      String email,
+      ) async {
+    String url = baseUrl + 'forget-password/';
+
+    final data = {
+      "username": email,
+    };
+    return await postRequest(url, data, false);
+  }
+
+  /// Forgot Password Accept
+  Future<HttpResult> fetchForgotAccept(
+      String email,
+      String smsCode,
+      ) async {
+    String url = baseUrl + 'forgot-accept/';
+
+    final data = {
+      "username": email,
+      "sms_code": smsCode,
+    };
+    return await postRequest(url, data, false);
+  }
+
+  /// Password Update
+  Future<HttpResult> fetchPassUpdate(
+      String password,
+      ) async {
+    String url = baseUrl + 'forget-password-update/';
+
+    final data = {
+      "new_password": password,
+    };
+    return await postRequest(url, data, false);
   }
 
   /// Categories

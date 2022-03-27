@@ -53,11 +53,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           Column(
             children: [
               SizedBox(height: 40),
-              Image.asset(
-                'assets/images/logo.png',
-                height: 51,
-                width: 51,
-              ),
               Spacer(),
               Container(
                 height: MediaQuery.of(context).size.height * 0.48,
@@ -81,7 +76,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       width: 51,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(16),
-                        child: SvgPicture.asset('assets/icons/logo.svg'),
+                        child: Image.asset(
+                          'assets/images/logo.png',
+                          height: 51,
+                          width: 51,
+                        ),
                       ),
                     ),
                     Spacer(),

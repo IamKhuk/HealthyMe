@@ -10,6 +10,11 @@ class Cache {
     prefs.setInt("id", data.user.id);
   }
 
+  Future<void> saveToken(String token) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString("token", token);
+  }
+
   Future<void> saveSetMe(ProfileData data) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString("fullname", data.fullName);

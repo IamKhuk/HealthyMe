@@ -2,9 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../../defaults/advices_list.dart';
 import '../../../../theme/app_theme.dart';
 
 class AdviceSingleScreen extends StatefulWidget {
+  final int index;
+  final String title;
+
+  AdviceSingleScreen({
+    required this.index,
+    required this.title,
+  });
 
   @override
   _AdviceSingleScreenState createState() => _AdviceSingleScreenState();
@@ -45,7 +53,7 @@ class _AdviceSingleScreenState extends State<AdviceSingleScreen> {
         ),
         centerTitle: true,
         title: Text(
-          'Doctor Detail',
+          'Treatment',
           style: TextStyle(
             fontWeight: FontWeight.w500,
             fontSize: 14,
@@ -273,7 +281,66 @@ class _AdviceSingleScreenState extends State<AdviceSingleScreen> {
         ),
       ),
       body: ListView(
-
+        padding: EdgeInsets.only(
+          top: 20,
+          left: 24,
+          right: 24,
+          bottom: 24,
+        ),
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+            decoration: BoxDecoration(
+              color: AppTheme.white,
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Text(
+              adviceSingle[widget.index].diagnose,
+              style: TextStyle(
+                fontWeight: FontWeight.normal,
+                fontSize: 14,
+                fontFamily: AppTheme.fontFamily,
+                height: 1.5,
+                color: AppTheme.black,
+              ),
+            ),
+          ),
+          SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(width: 24),
+              Text(
+                'Additional Suggestions',
+                style: TextStyle(
+                  fontWeight: FontWeight.normal,
+                  fontSize: 18,
+                  fontFamily: AppTheme.fontFamily,
+                  height: 1.5,
+                  color: AppTheme.black,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 12),
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+            decoration: BoxDecoration(
+              color: AppTheme.white,
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Text(
+              adviceSingle[widget.index].suggestion,
+              style: TextStyle(
+                fontWeight: FontWeight.normal,
+                fontSize: 14,
+                fontFamily: AppTheme.fontFamily,
+                height: 1.5,
+                color: AppTheme.black,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

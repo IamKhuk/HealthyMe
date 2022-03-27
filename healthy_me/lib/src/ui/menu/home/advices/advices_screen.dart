@@ -1,8 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:healthy_me/src/defaults/advices_list.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
+import 'package:healthy_me/src/ui/menu/home/advices/advice_single_screen.dart';
 import 'package:healthy_me/src/widgets/advice_container.dart';
 
 class AdvicesScreen extends StatefulWidget {
@@ -18,7 +19,6 @@ class _AdvicesScreenState extends State<AdvicesScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        brightness: Brightness.light,
         leadingWidth: 76,
         leading: Row(
           children: [
@@ -73,6 +73,7 @@ class _AdvicesScreenState extends State<AdvicesScreen> {
           ),
           SizedBox(width: 36),
         ],
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
       body: ListView.builder(
         padding: EdgeInsets.only(
@@ -82,7 +83,22 @@ class _AdvicesScreenState extends State<AdvicesScreen> {
         ),
         itemCount: advices.length,
         itemBuilder: (context, index) {
-          return AdviceContainer(data: advices[index]);
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return AdviceSingleScreen(
+                      index: index,
+                      title: advices[index].title,
+                    );
+                  },
+                ),
+              );
+            },
+            child: AdviceContainer(data: advices[index]),
+          );
         },
       ),
     );

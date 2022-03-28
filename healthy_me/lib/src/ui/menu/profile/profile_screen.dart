@@ -284,9 +284,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   ),
                                 ),
                                 SizedBox(height: 8),
-                                SettingsContainer(
-                                  img: 'assets/icons/promo.svg',
-                                  title: 'Denote',
+                                GestureDetector(
+                                  onTap: () {
+                                    return BottomDialog.showAction(
+                                      context,
+                                      'Sorry',
+                                      'This page is not available right now',
+                                      'assets/icons/alert.svg',
+                                    );
+                                  },
+                                  child: SettingsContainer(
+                                    img: 'assets/icons/promo.svg',
+                                    title: 'Denote',
+                                  ),
                                 ),
                                 SizedBox(height: 8),
                                 GestureDetector(

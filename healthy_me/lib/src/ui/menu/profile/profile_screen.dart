@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:healthy_me/src/bloc/schedule_bloc.dart';
 import 'package:healthy_me/src/dialog/bottom_dialog.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
+import 'package:healthy_me/src/ui/menu/profile/help_screen.dart';
 import 'package:healthy_me/src/ui/menu/profile/personal_settings_screen.dart';
 import 'package:healthy_me/src/ui/menu/profile/privacy_screen.dart';
 import 'package:healthy_me/src/widgets/schedule_history.dart';
@@ -288,9 +289,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   title: 'Denote',
                                 ),
                                 SizedBox(height: 8),
-                                SettingsContainer(
-                                  img: 'assets/icons/help.svg',
-                                  title: 'Help',
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) {
+                                          return HelpScreen();
+                                        },
+                                      ),
+                                    );
+                                  },
+                                  child: SettingsContainer(
+                                    img: 'assets/icons/help.svg',
+                                    title: 'Help',
+                                  ),
                                 ),
                                 SizedBox(height: 8),
                                 GestureDetector(

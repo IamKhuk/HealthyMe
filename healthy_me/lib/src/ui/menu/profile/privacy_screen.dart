@@ -51,7 +51,7 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
         ),
         centerTitle: true,
         title: Text(
-          'Personal Settings',
+          'Privacy&Security',
           style: TextStyle(
             fontWeight: FontWeight.w500,
             fontSize: 16,

@@ -171,7 +171,7 @@ class ApiProvider {
   Future<HttpResult> fetchUpdateProfile(
     ProfileData info,
   ) async {
-    String url = baseUrl + 'profil/';
+    String url = baseUrl + 'profil';
     String birthFormat = info.birthDate.year.toString() +
         "-" +
         info.birthDate.month.toString() +
@@ -195,7 +195,7 @@ class ApiProvider {
   Future<HttpResult> fetchProfileImageSend(
     String path,
   ) async {
-    String url = baseUrl + 'update-profil-img/';
+    String url = baseUrl + 'update-profil-img';
     Dio dio = new Dio();
     final dynamic headers = await _getReqHeader();
 
@@ -240,7 +240,7 @@ class ApiProvider {
       double lat,
       double lng,
       ) async {
-    String url = baseUrl + 'send-location/';
+    String url = baseUrl + 'send-location';
     final data = {
       "lat": lat.toString(),
       "lng": lng.toString(),
@@ -288,7 +288,7 @@ class ApiProvider {
   Future<HttpResult> fetchForgotPassword(
       String email,
       ) async {
-    String url = baseUrl + 'forget-password/';
+    String url = baseUrl + 'forget-password';
 
     final data = {
       "username": email,
@@ -301,7 +301,7 @@ class ApiProvider {
       String email,
       String smsCode,
       ) async {
-    String url = baseUrl + 'forgot-accept/';
+    String url = baseUrl + 'forget-password-accepted';
 
     final data = {
       "username": email,
@@ -314,7 +314,7 @@ class ApiProvider {
   Future<HttpResult> fetchPassUpdate(
       String password,
       ) async {
-    String url = baseUrl + 'forget-password-update/';
+    String url = baseUrl + 'forget-password-update';
 
     final data = {
       "new_password": password,
@@ -379,7 +379,7 @@ class ApiProvider {
       String version,
       String token,
       ) async {
-    String url = baseUrl + 'check-version/';
+    String url = baseUrl + 'check-version';
     final data = {
       "version": version,
       "fctoken": token,

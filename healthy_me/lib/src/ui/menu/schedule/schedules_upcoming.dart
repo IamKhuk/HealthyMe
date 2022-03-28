@@ -43,7 +43,11 @@ class _UpcomingSchedulesState extends State<UpcomingSchedules> {
               if (snapshot.hasData) {
                 snapshot.data!.schedule
                     .sort((a, b) => a.startDatetime.compareTo(b.startDatetime));
-                return snapshot.data!.schedule.length > 0
+                List<Schedule> _list = snapshot.data!.schedule
+                    .where((element) =>
+                        element.startDatetime.isAfter(DateTime.now()) == true)
+                    .toList();
+                return _list.length > 0
                     ? ListView(
                         padding: EdgeInsets.only(
                           top: 76,
@@ -64,7 +68,7 @@ class _UpcomingSchedulesState extends State<UpcomingSchedules> {
                           ),
                           SizedBox(height: 12),
                           ScheduleContainer(
-                            data: snapshot.data!.schedule[0],
+                            data: _list[0],
                             onChanged: (_cancel) async {
                               if (_cancel == true) {
                                 setState(() {
@@ -72,7 +76,7 @@ class _UpcomingSchedulesState extends State<UpcomingSchedules> {
                                 });
                                 var response = await Repository()
                                     .fetchScheduleCancel(
-                                        snapshot.data!.schedule[0].id);
+                                    _list[0].id);
                                 if (response.isSuccess) {
                                   setState(() {
                                     onLoading = false;
@@ -127,7 +131,7 @@ class _UpcomingSchedulesState extends State<UpcomingSchedules> {
                             canceled: false,
                           ),
                           SizedBox(height: 24),
-                          snapshot.data!.schedule.length > 1
+                          _list.length > 1
                               ? Column(
                                   children: [
                                     Row(
@@ -147,7 +151,7 @@ class _UpcomingSchedulesState extends State<UpcomingSchedules> {
                                     SizedBox(height: 12),
                                     ListView.builder(
                                       itemCount:
-                                          snapshot.data!.schedule.length - 1,
+                                      _list.length - 1,
                                       physics: NeverScrollableScrollPhysics(),
                                       shrinkWrap: true,
                                       padding: EdgeInsets.only(bottom: 96),
@@ -155,8 +159,8 @@ class _UpcomingSchedulesState extends State<UpcomingSchedules> {
                                         List<Schedule> _schedules = [];
                                         _schedules.insertAll(
                                           0,
-                                          snapshot.data!.schedule.getRange(1,
-                                              snapshot.data!.schedule.length),
+                                          _list.getRange(1,
+                                              _list.length),
                                         );
                                         return Column(
                                           children: [
@@ -242,14 +246,21 @@ class _UpcomingSchedulesState extends State<UpcomingSchedules> {
                         ],
                       )
                     : Center(
-                        child: Text(
-                          'There is upcoming appointments',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontFamily: AppTheme.fontFamily,
-                            fontSize: 18,
-                            height: 1.5,
-                            color: AppTheme.black,
+                        child: Container(
+                          padding: EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: AppTheme.white,
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: Text(
+                            'There is no upcoming appointments',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontFamily: AppTheme.fontFamily,
+                              fontSize: 14,
+                              height: 1.5,
+                              color: AppTheme.black,
+                            ),
                           ),
                         ),
                       );

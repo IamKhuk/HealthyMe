@@ -181,7 +181,11 @@ class _SchedulesUpcomingState extends State<SchedulesUpcoming> {
         stream: blocSchedule.getSchedules,
         builder: (context, AsyncSnapshot<ScheduleModel> snapshot) {
           if (snapshot.hasData) {
-            return snapshot.data!.schedule.length > 0
+            List<Schedule> _list = snapshot.data!.schedule
+                .where((element) =>
+            element.startDatetime.isAfter(DateTime.now()) == true)
+                .toList();
+            return _list.length > 0
                 ? ListView.builder(
                     itemCount: snapshot.data!.schedule.length,
                     padding: EdgeInsets.only(
@@ -194,11 +198,11 @@ class _SchedulesUpcomingState extends State<SchedulesUpcoming> {
                       return Column(
                         children: [
                           ScheduleContainer(
-                            data: snapshot.data!.schedule[index],
+                            data: _list[index],
                             canceled: false,
                             onChanged: (_cancel) {},
                           ),
-                          index == snapshot.data!.schedule.length - 1
+                          index == _list.length - 1
                               ? Container()
                               : SizedBox(height: 16),
                         ],

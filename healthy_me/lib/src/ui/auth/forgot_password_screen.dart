@@ -136,7 +136,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   enabled: true,
                   controller: _emailController,
                   enableSuggestions: true,
-                  keyboardType: TextInputType.phone,
+                  keyboardType: TextInputType.emailAddress,
                   textAlignVertical: TextAlignVertical.center,
                   cursorColor: AppTheme.purple,
                   enableInteractiveSelection: true,

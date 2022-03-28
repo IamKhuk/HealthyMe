@@ -970,7 +970,7 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                           snapshot.data!.fullName = _nameController.text;
                           snapshot.data!.gender = gender;
                           snapshot.data!.phone =
-                              Utils.phoneFormat(_phoneController.text);
+                              Utils.phoneFormat(_phoneController.text.replaceAll(' ', ''));
                           snapshot.data!.username = _userController.text;
                         });
                         var response = await Repository()

@@ -292,38 +292,44 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ],
                             ),
                           )
-                        : StreamBuilder(
-                            stream: blocSchedule.getSchedules,
-                            builder: (context,
-                                AsyncSnapshot<ScheduleModel> snapshot) {
-                              if (snapshot.hasData) {
-                                return ListView.builder(
-                                  itemCount: snapshot.data!.schedule.length,
-                                  physics: NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemBuilder: (context, index) {
-                                    return Column(
-                                      children: [
-                                        ScheduleHistory(
-                                          data: snapshot.data!.schedule[index],
-                                        ),
-                                        index ==
-                                                snapshot.data!.schedule.length -
-                                                    1
-                                            ? Container()
-                                            : SizedBox(height: 12),
-                                      ],
-                                    );
-                                  },
-                                );
-                              } else {
-                                return Shimmer.fromColors(
-                                  child: Container(),
-                                  baseColor: AppTheme.baseColor,
-                                  highlightColor: AppTheme.highlightColor,
-                                );
-                              }
-                            },
+                        : Container(
+                            color: AppTheme.purple,
+                            padding: EdgeInsets.only(top: 12),
+                            child: StreamBuilder(
+                              stream: blocSchedule.getSchedules,
+                              builder: (context,
+                                  AsyncSnapshot<ScheduleModel> snapshot) {
+                                if (snapshot.hasData) {
+                                  return ListView.builder(
+                                    itemCount: snapshot.data!.schedule.length,
+                                    physics: NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, index) {
+                                      return Column(
+                                        children: [
+                                          ScheduleHistory(
+                                            data:
+                                                snapshot.data!.schedule[index],
+                                          ),
+                                          index ==
+                                                  snapshot.data!.schedule
+                                                          .length -
+                                                      1
+                                              ? Container()
+                                              : SizedBox(height: 12),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                } else {
+                                  return Shimmer.fromColors(
+                                    child: Container(),
+                                    baseColor: AppTheme.baseColor,
+                                    highlightColor: AppTheme.highlightColor,
+                                  );
+                                }
+                              },
+                            ),
                           ),
                   ],
                 ),

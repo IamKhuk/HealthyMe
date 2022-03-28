@@ -1,5 +1,4 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_tags_x/flutter_tags_x.dart';
@@ -9,7 +8,7 @@ import 'package:healthy_me/src/dialog/bottom_dialog.dart';
 import 'package:healthy_me/src/model/api/diagnose_model.dart';
 import 'package:healthy_me/src/resources/repository.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
-
+import 'package:healthy_me/src/ui/menu/home/advices/advice_single_screen.dart';
 import 'diagnose_result_screen.dart';
 
 class DiagnoseScreen extends StatefulWidget {
@@ -40,7 +39,6 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: AppTheme.bg,
-        brightness: Brightness.light,
         title: Text(
           'Diagnose',
           style: TextStyle(
@@ -51,7 +49,7 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
             color: AppTheme.black,
           ),
         ),
-        centerTitle: true,
+        centerTitle: true, systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
       body: Stack(
         children: [
@@ -131,67 +129,82 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
                 width: MediaQuery.of(context).size.width,
                 child: CarouselSlider(
                   items: advices.map((item) {
-                    return Container(
-                      height: 96,
-                      decoration: BoxDecoration(
-                        color: AppTheme.white,
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      child: Stack(
-                        children: [
-                          Container(
-                            height: 96,
-                            width: MediaQuery.of(context).size.width,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(16),
-                              child: Image.asset(
-                                item.img,
-                                fit: BoxFit.fitWidth,
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return AdviceSingleScreen(
+                                index: advices.indexOf(item),
+                                title: 'Treatment',
+                              );
+                            },
+                          ),
+                        );
+                      },
+                      child: Container(
+                        height: 96,
+                        decoration: BoxDecoration(
+                          color: AppTheme.white,
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: Stack(
+                          children: [
+                            Container(
+                              height: 96,
+                              width: MediaQuery.of(context).size.width,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(16),
+                                child: Image.asset(
+                                  item.img,
+                                  fit: BoxFit.fitWidth,
+                                ),
                               ),
                             ),
-                          ),
-                          Container(
-                            height: 96,
-                            width: MediaQuery.of(context).size.width,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16),
-                              gradient: LinearGradient(
-                                begin: Alignment.bottomCenter,
-                                end: Alignment.topCenter,
-                                colors: [
-                                  AppTheme.gray,
-                                  AppTheme.gray.withOpacity(0.7),
-                                  AppTheme.gray.withOpacity(0.4),
-                                  AppTheme.gray.withOpacity(0.1),
-                                ],
+                            Container(
+                              height: 96,
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16),
+                                gradient: LinearGradient(
+                                  begin: Alignment.bottomCenter,
+                                  end: Alignment.topCenter,
+                                  colors: [
+                                    AppTheme.gray,
+                                    AppTheme.gray.withOpacity(0.7),
+                                    AppTheme.gray.withOpacity(0.4),
+                                    AppTheme.gray.withOpacity(0.1),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Row(
-                                children: [
-                                  SizedBox(width: 12),
-                                  Expanded(
-                                    child: Text(
-                                      item.title,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w300,
-                                        fontSize: 12,
-                                        fontFamily: AppTheme.fontFamily,
-                                        height: 1.5,
-                                        color: AppTheme.black,
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Row(
+                                  children: [
+                                    SizedBox(width: 12),
+                                    Expanded(
+                                      child: Text(
+                                        item.title,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w300,
+                                          fontSize: 12,
+                                          fontFamily: AppTheme.fontFamily,
+                                          height: 1.5,
+                                          color: AppTheme.black,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  SizedBox(width: 12),
-                                ],
-                              ),
-                              SizedBox(height: 8),
-                            ],
-                          )
-                        ],
+                                    SizedBox(width: 12),
+                                  ],
+                                ),
+                                SizedBox(height: 8),
+                              ],
+                            )
+                          ],
+                        ),
                       ),
                     );
                   }).toList(),

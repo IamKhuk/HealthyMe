@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
 
@@ -47,7 +47,6 @@ class _WaitingScreenState extends State<WaitingScreen>
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        brightness: Brightness.light,
         leadingWidth: 76,
         leading: Row(
           children: [
@@ -109,7 +108,7 @@ class _WaitingScreenState extends State<WaitingScreen>
             ],
           ),
           SizedBox(width: 36),
-        ],
+        ], systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
       body: Stack(
         children: [

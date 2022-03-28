@@ -1,7 +1,6 @@
 import 'dart:async';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:healthy_me/src/dialog/bottom_dialog.dart';
 import 'package:healthy_me/src/model/api/login_model.dart';
@@ -69,7 +68,6 @@ class _VerificationScreenState extends State<VerificationScreen>
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        brightness: Brightness.light,
         leadingWidth: 64,
         leading: Row(
           children: [
@@ -101,7 +99,7 @@ class _VerificationScreenState extends State<VerificationScreen>
             height: 1.5,
             color: AppTheme.black,
           ),
-        ),
+        ), systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
       body: Stack(
         children: [
@@ -133,7 +131,7 @@ class _VerificationScreenState extends State<VerificationScreen>
                   children: [
                     Expanded(
                       child: Text(
-                        'Enter the 4 digits code that you received on your email so you can complete sign up process',
+                        'Enter the 4 digits code that you received on your email so you can complete sign up process. (Please check spam mails if you cannot get the mail)',
                         style: TextStyle(
                           fontFamily: AppTheme.fontFamily,
                           fontSize: 14,

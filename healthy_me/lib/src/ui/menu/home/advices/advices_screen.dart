@@ -12,9 +12,12 @@ class AdvicesScreen extends StatefulWidget {
 }
 
 class _AdvicesScreenState extends State<AdvicesScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: AppTheme.bg,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -57,7 +60,9 @@ class _AdvicesScreenState extends State<AdvicesScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  _scaffoldKey.currentState!.openEndDrawer();
+                },
                 child: Container(
                   height: 40,
                   width: 40,
@@ -74,6 +79,89 @@ class _AdvicesScreenState extends State<AdvicesScreen> {
           SizedBox(width: 36),
         ],
         systemOverlayStyle: SystemUiOverlayStyle.dark,
+      ),
+      endDrawerEnableOpenDragGesture: false,
+      endDrawer: Container(
+        color: AppTheme.white,
+        width: MediaQuery.of(context).size.width - 36,
+        child: Drawer(
+          elevation: 0,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              ListView(
+                padding: EdgeInsets.all(24),
+                children: [
+                  SizedBox(height: 24),
+                  Text(
+                    'What can I do in this page?',
+                    style: TextStyle(
+                      fontFamily: AppTheme.fontFamily,
+                      fontSize: 18,
+                      fontWeight: FontWeight.normal,
+                      height: 1.5,
+                      color: AppTheme.black,
+                    ),
+                  ),
+                  SizedBox(height: 12),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'You can get the list of advices about how to heal from the disease that is mentioned\nYou can get information about treatment and some of them contains information about how to treat yourself at home without going somewhere out.\n\nIf you are not satisfied with these advices you can go the diagnose page.\nHere you can get diagnosis based on your condition.',
+                          style: TextStyle(
+                            fontFamily: AppTheme.fontFamily,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w300,
+                            height: 1.8,
+                            color: AppTheme.dark,
+                          ),
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 90),
+                ],
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      height: 61,
+                      width: 61,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: AppTheme.white,
+                        boxShadow: [
+                          BoxShadow(
+                            offset: Offset(5, 9),
+                            blurRadius: 15,
+                            spreadRadius: 0,
+                            color: AppTheme.gray,
+                          ),
+                        ],
+                      ),
+                      child: Center(
+                        child: SvgPicture.asset(
+                          'assets/icons/x.svg',
+                          color: AppTheme.purple,
+                          height: 28,
+                          width: 28,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 32),
+                ],
+              ),
+            ],
+          ),
+        ),
       ),
       body: ListView.builder(
         padding: EdgeInsets.only(

@@ -46,6 +46,17 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     page = 1;
     blocProfile.fetchMe();
+    _sc.addListener(() {
+      if (_sc.position.pixels == _sc.position.minScrollExtent) {
+        _getData();
+      }
+    });
+    blocProfile.getInfo.listen((event) {
+      setState(() {
+        _myImage = event.avatar;
+      });
+      print('MY IMAGE: ' + _myImage);
+    });
     blocProfile.fetchMeCache();
     blocSchedule.fetchSchedules(
       'upcoming',
@@ -971,10 +982,14 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  void _getData() async {
+    blocProfile.fetchMe();
+  }
+
   Future<void> _getInfo() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      _myImage = prefs.getString('avatar') ?? '';
+      // _myImage = prefs.getString('avatar') ?? '';
       _cityName = prefs.getString('city') ?? '';
       _myName = prefs.getString('fullname') ?? 'No nome';
       _myEmail = prefs.getString('email') ?? 'healthymeuser@gmail.com';

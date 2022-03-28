@@ -186,6 +186,7 @@ class ApiProvider {
       "birth_date": birthFormat,
       "region": info.region.id.toString(),
       "city": info.city.id.toString(),
+      "avatar": info.avatar,
     };
     return await postRequest(url, data, true);
   }

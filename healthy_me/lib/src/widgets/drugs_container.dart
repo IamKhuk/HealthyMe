@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:healthy_me/src/model/drugs_model.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
@@ -38,7 +37,7 @@ class DrugsContainer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  data.title,
+                  data.title.replaceAll('-', ' '),
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     fontFamily: AppTheme.fontFamily,

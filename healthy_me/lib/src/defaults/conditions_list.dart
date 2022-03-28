@@ -130,7 +130,7 @@ List<ConditionsModel> conditions = [
         'Do: use painkillers, such as paracetamol or ibuprofen (children under 16 should not take aspirin), place a warm or cold flannel on the ear.\nDo not: do not put anything inside your ear, such as cotton buds, do not try to remove earwax, do not let water get inside your ear\nSee a General Practitioner if you or your child: have earache for more than 3 days, keep getting earache\nGet an urgent GP appointment if: You or your child have earache and: become generally unwell, a very high temperature or feel hot and shivery, swelling around the ear, fluid coming from the ear, hearing loss or a change in hearing, something stuck in the ear, your child is under 2 and has earache in both ears, Call 102 for advice if you cannot get an urgent appointment.',
   ),
   ConditionsModel(
-    id: 19,
+    id: 18,
     name: 'Feeling full',
     intro:
         'Most stomach aches are not anything serious and will go away after a few days.',
@@ -138,7 +138,7 @@ List<ConditionsModel> conditions = [
         'See a General Practitioner if: the pain gets much worse quickly, the pain or bloating will not go away or keeps coming back, you have stomach pain and problems with swallowing food, you\'re losing weight without trying to, you suddenly pee more often or less often, peeing is suddenly painful, you bleed from your bottom or vagina, or have abnormal discharge from your vagina, your diarrhoea does not go away after a few days',
   ),
   ConditionsModel(
-    id: 20,
+    id: 19,
     name: 'Bloated after eating',
     intro:
         'Most stomach aches are not anything serious and will go away after a few days.',
@@ -146,13 +146,13 @@ List<ConditionsModel> conditions = [
         'See a General Practitioner if: the pain gets much worse quickly, the pain or bloating will not go away or keeps coming back, you have stomach pain and problems with swallowing food, you\'re losing weight without trying to, you suddenly pee more often or less often, peeing is suddenly painful, you bleed from your bottom or vagina, or have abnormal discharge from your vagina, your diarrhoea does not go away after a few days',
   ),
   ConditionsModel(
-    id: 21,
+    id: 20,
     name: 'Heartburn',
     intro: '',
     text: '',
   ),
   ConditionsModel(
-    id: 22,
+    id: 21,
     name: 'Ear pain',
     intro:
         'Earache and ear pain is common, particularly in young children. It can be painful, but is not usually a sign of anything serious.',
@@ -160,7 +160,7 @@ List<ConditionsModel> conditions = [
         'Do: use painkillers, such as paracetamol or ibuprofen (children under 16 should not take aspirin), place a warm or cold flannel on the ear.\nDo not: do not put anything inside your ear, such as cotton buds, do not try to remove earwax, do not let water get inside your ear\nSee a General Practitioner if you or your child: have earache for more than 3 days, keep getting earache\nGet an urgent GP appointment if: You or your child have earache and: become generally unwell, a very high temperature or feel hot and shivery, swelling around the ear, fluid coming from the ear, hearing loss or a change in hearing, something stuck in the ear, your child is under 2 and has earache in both ears, Call 102 for advice if you cannot get an urgent appointment.',
   ),
   ConditionsModel(
-    id: 23,
+    id: 22,
     name: 'Watery poo',
     intro:
         'Most stomach aches are not anything serious and will go away after a few days.',

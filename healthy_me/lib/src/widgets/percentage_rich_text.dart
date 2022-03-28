@@ -23,7 +23,7 @@ class PercentageText extends StatelessWidget {
         ),
         children: <TextSpan>[
           TextSpan(
-            text: ' - ' + data.disease,
+            text: ' - ' + data.disease.replaceAll('-', ' '),
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 16,

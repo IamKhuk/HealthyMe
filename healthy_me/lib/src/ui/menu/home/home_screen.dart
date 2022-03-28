@@ -324,6 +324,11 @@ class _HomeScreenState extends State<HomeScreen> {
             StreamBuilder(
               stream: blocSchedule.getSchedules,
               builder: (context, AsyncSnapshot<ScheduleModel> snapshot) {
+                _sc.addListener(() {
+                  if (_sc.position.pixels == _sc.position.minScrollExtent) {
+                    _getData();
+                  }
+                });
                 if (snapshot.hasData) {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

@@ -14,6 +14,7 @@ class PrivacyScreen extends StatefulWidget {
 }
 
 class _PrivacyScreenState extends State<PrivacyScreen> {
+  TextEditingController _passOldController = new TextEditingController();
   TextEditingController _passController = new TextEditingController();
   TextEditingController _passAgainController = new TextEditingController();
   bool obscure = true;
@@ -67,7 +68,103 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
             padding: EdgeInsets.all(24),
             children: [
               Text(
-                'Password',
+                'Old Password',
+                style: TextStyle(
+                  fontFamily: AppTheme.fontFamily,
+                  fontSize: 18,
+                  fontWeight: FontWeight.normal,
+                  height: 1.5,
+                  color: AppTheme.black,
+                ),
+              ),
+              SizedBox(height: 8),
+              Container(
+                height: 56,
+                decoration: BoxDecoration(
+                  color: AppTheme.white,
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(0, 10),
+                      blurRadius: 75,
+                      spreadRadius: 0,
+                      color: Color(0xFF939393).withOpacity(0.07),
+                    ),
+                  ],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    left: 20,
+                    right: 20,
+                    top: 2,
+                  ),
+                  child: TextField(
+                    enabled: true,
+                    controller: _passOldController,
+                    enableSuggestions: true,
+                    textAlignVertical: TextAlignVertical.center,
+                    cursorColor: AppTheme.purple,
+                    enableInteractiveSelection: true,
+                    style: TextStyle(
+                      fontFamily: AppTheme.fontFamily,
+                      fontSize: 14,
+                      fontWeight: FontWeight.normal,
+                      height: 1.5,
+                      color: AppTheme.black,
+                    ),
+                    autofocus: false,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'Create your password',
+                      hintStyle: TextStyle(
+                        fontFamily: AppTheme.fontFamily,
+                        fontSize: 14,
+                        fontWeight: FontWeight.normal,
+                        height: 1.5,
+                        color: AppTheme.dark.withOpacity(0.6),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 14),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return ForgotPasswordScreen();
+                          },
+                        ),
+                      );
+                    },
+                    child: Container(
+                      padding: EdgeInsets.only(
+                        top: 2,
+                        bottom: 2,
+                        left: 15,
+                      ),
+                      child: Text(
+                        'Forgot Password?',
+                        style: TextStyle(
+                          fontFamily: AppTheme.fontFamily,
+                          fontSize: 16,
+                          fontWeight: FontWeight.normal,
+                          height: 1.5,
+                          color: AppTheme.dark,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 32),
+              Text(
+                'New Password',
                 style: TextStyle(
                   fontFamily: AppTheme.fontFamily,
                   fontSize: 18,
@@ -247,16 +344,17 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
             children: [
               GestureDetector(
                 onTap: () async {
-                  if (Utils.passwordValidator(_passController.text) ==
-                      false &&
+                  if (Utils.passwordValidator(_passController.text) == false &&
                       _passController.text != _passAgainController.text) {
                     BottomDialog.showPassFailed(context);
                   } else {
                     setState(() {
                       onLoading = true;
                     });
-                    var response = await Repository()
-                        .fetchPassUpdate(_passController.text);
+                    var response = await Repository().fetchUpdatePass(
+                      _passOldController.text,
+                      _passController.text,
+                    );
                     var result = LoginModel.fromJson(response.result);
 
                     if (response.isSuccess) {

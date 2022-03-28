@@ -126,6 +126,15 @@ class Repository {
         newPass,
       );
 
+  Future<HttpResult> fetchUpdatePass(
+      String oldPass,
+      String newPass,
+      ) =>
+      apiProvider.fetchUpdatePass(
+        oldPass,
+        newPass,
+      );
+
   Future<HttpResult> fetchDiagnose(List<int?> ids) =>
       apiProvider.fetchDiagnose(ids);
 

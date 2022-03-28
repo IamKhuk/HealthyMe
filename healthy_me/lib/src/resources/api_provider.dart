@@ -322,6 +322,20 @@ class ApiProvider {
     return await postRequest(url, data, false);
   }
 
+  /// Forgot Password Accept
+  Future<HttpResult> fetchUpdatePass(
+      String oldPass,
+      String newPass,
+      ) async {
+    String url = baseUrl + 'set-password';
+
+    final data = {
+      "old_password": oldPass,
+      "new_password": newPass,
+    };
+    return await postRequest(url, data, false);
+  }
+
   /// Categories
   Future<HttpResult> fetchCategories(String search) async {
     String url = baseUrl + 'profession?search=$search';

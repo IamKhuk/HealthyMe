@@ -201,10 +201,12 @@ class ApiProvider {
 
     FormData formData = FormData.fromMap(
       {
-        "avatar": await MultipartFile.fromFile(
-          path,
-          filename: basename(path),
-        ),
+        "avatar": path == ''
+            ? path
+            : await MultipartFile.fromFile(
+                path,
+                filename: basename(path),
+              ),
       },
     );
     Response response = await dio.post(
@@ -237,9 +239,9 @@ class ApiProvider {
 
   /// Send my location
   Future<HttpResult> fetchSendMyLocation(
-      double lat,
-      double lng,
-      ) async {
+    double lat,
+    double lng,
+  ) async {
     String url = baseUrl + 'send-location';
     final data = {
       "lat": lat.toString(),
@@ -269,9 +271,9 @@ class ApiProvider {
     int cityId,
     int professionId,
   ) async {
-    String _rId = regionId==-1?'':regionId.toString();
-    String _cId = cityId==-1?'':cityId.toString();
-    String _pId = professionId==-1?'':professionId.toString();
+    String _rId = regionId == -1 ? '' : regionId.toString();
+    String _cId = cityId == -1 ? '' : cityId.toString();
+    String _pId = professionId == -1 ? '' : professionId.toString();
 
     String url = baseUrl +
         "doctorchoose?is_doctor=true&region_id=$_rId&city_id=$_cId&profession_id=$_pId&search=$text";
@@ -286,8 +288,8 @@ class ApiProvider {
 
   /// Forgot Password
   Future<HttpResult> fetchForgotPassword(
-      String email,
-      ) async {
+    String email,
+  ) async {
     String url = baseUrl + 'forget-password';
 
     final data = {
@@ -298,9 +300,9 @@ class ApiProvider {
 
   /// Forgot Password Accept
   Future<HttpResult> fetchForgotAccept(
-      String email,
-      String smsCode,
-      ) async {
+    String email,
+    String smsCode,
+  ) async {
     String url = baseUrl + 'forget-password-accepted';
 
     final data = {
@@ -312,8 +314,8 @@ class ApiProvider {
 
   /// Password Update
   Future<HttpResult> fetchPassUpdate(
-      String password,
-      ) async {
+    String password,
+  ) async {
     String url = baseUrl + 'forget-password-update';
 
     final data = {
@@ -324,9 +326,9 @@ class ApiProvider {
 
   /// Forgot Password Accept
   Future<HttpResult> fetchUpdatePass(
-      String oldPass,
-      String newPass,
-      ) async {
+    String oldPass,
+    String newPass,
+  ) async {
     String url = baseUrl + 'set-password';
 
     final data = {
@@ -378,21 +380,18 @@ class ApiProvider {
 
   /// Schedule Cancel
   Future<HttpResult> fetchScheduleCancel(
-      int id,
-      ) async {
+    int id,
+  ) async {
     String url = baseUrl + 'set-status';
-    final data = {
-      'id': id.toString(),
-      'status': 'canceled'
-    };
+    final data = {'id': id.toString(), 'status': 'canceled'};
     return await postRequest(url, data, true);
   }
 
   ///Check version
   Future<HttpResult> fetchCheckVersion(
-      String version,
-      String token,
-      ) async {
+    String version,
+    String token,
+  ) async {
     String url = baseUrl + 'check-version';
     final data = {
       "version": version,

@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:healthy_me/src/defaults/doctors_list.dart';
 import 'package:healthy_me/src/model/chat_model.dart';
 import 'package:healthy_me/src/model/msg_model.dart';
@@ -73,7 +73,6 @@ class _ChatsScreenState extends State<ChatsScreen>
         appBar: AppBar(
           elevation: 0,
           backgroundColor: AppTheme.white,
-          brightness: Brightness.light,
           title: Text(
             'Messages',
             style: TextStyle(
@@ -139,7 +138,7 @@ class _ChatsScreenState extends State<ChatsScreen>
                 ),
               ),
             ],
-          ),
+          ), systemOverlayStyle: SystemUiOverlayStyle.dark,
         ),
         body: TabBarView(
           controller: _tabController,

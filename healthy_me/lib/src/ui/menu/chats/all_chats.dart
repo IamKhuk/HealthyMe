@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_swipe_action_cell/core/cell.dart';
@@ -56,6 +55,9 @@ class _AllChatsScreenState extends State<AllChatsScreen> {
           isDraggable: true,
           child: GestureDetector(
             onTap: () {
+              setState(() {
+                chats[index].isRead = false;
+              });
               Navigator.push(
                 context,
                 MaterialPageRoute(

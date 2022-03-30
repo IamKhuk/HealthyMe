@@ -273,32 +273,32 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                             ),
                           );
                         } else {
-                          BottomDialog.showAction(
-                            context,
-                            'Action Failed',
-                            result.msg,
-                            'assets/icons/alert.svg',
-                          );
+                          if (response.status == -1) {
+                            BottomDialog.showAction(
+                              context,
+                              'Connection Failed',
+                              'You do not have internet connection, please try again',
+                              'assets/icons/alert.svg',
+                            );
+                          } else {
+                            BottomDialog.showAction(
+                              context,
+                              'Action Failed',
+                              'Something went wrong, Please try again after sometime',
+                              'assets/icons/alert.svg',
+                            );
+                          }
                         }
                       } else {
                         setState(() {
                           onLoading = false;
                         });
-                        if (response.status == -1) {
-                          BottomDialog.showAction(
-                            context,
-                            'Connection Failed',
-                            'You do not have internet connection, please try again',
-                            'assets/icons/alert.svg',
-                          );
-                        } else {
-                          BottomDialog.showAction(
-                            context,
-                            'Action Failed',
-                            'Something went wrong, Please try again after sometime',
-                            'assets/icons/alert.svg',
-                          );
-                        }
+                        BottomDialog.showAction(
+                          context,
+                          'Action Failed',
+                          result.msg,
+                          'assets/icons/alert.svg',
+                        );
                       }
                     }
                   },

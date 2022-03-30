@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:healthy_me/src/model/api/forgot_accept_model.dart';
+import 'package:healthy_me/src/model/api/login_model.dart';
 import 'package:healthy_me/src/theme/app_theme.dart';
 import 'package:healthy_me/src/ui/auth/reset_password_screen.dart';
 import 'package:pinput/pin_put/pin_put.dart';
@@ -314,7 +314,7 @@ class _ResetPassVerificationScreenState
       widget.email,
       pin,
     );
-    var result = ForgotAcceptModel.fromJson(response.result);
+    var result = LoginModel.fromJson(response.result);
 
     if (response.isSuccess) {
       setState(() {
@@ -324,7 +324,7 @@ class _ResetPassVerificationScreenState
         setState(() {
           success = true;
         });
-        _repository.cacheToken(result.token);
+        _repository.cacheLoginUser(result);
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -336,8 +336,10 @@ class _ResetPassVerificationScreenState
       } else {
         BottomDialog.showAction(
           context,
-          'Verification failed',
-          'Something went wrong, Please try again after some time',
+          response.status == -1 ? 'No Internet' : 'Verification Failed',
+          response.status == -1
+              ? 'You do not have internet connection, please try again'
+              : 'Something went wrong, Please try again after sometime',
           'assets/icons/alert.svg',
         );
       }
@@ -347,10 +349,8 @@ class _ResetPassVerificationScreenState
       });
       BottomDialog.showAction(
         context,
-        'No Internet',
-        response.status == -1
-            ? 'Connection Failed'
-            : 'You do not have internet connection, please try again',
+        'Verification failed',
+        'Something went wrong, Please try again after some time',
         'assets/icons/alert.svg',
       );
     }

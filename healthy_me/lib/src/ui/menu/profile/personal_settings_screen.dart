@@ -93,7 +93,8 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
             height: 1.5,
             color: AppTheme.black,
           ),
-        ), systemOverlayStyle: SystemUiOverlayStyle.dark,
+        ),
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
       body: StreamBuilder(
         stream: blocProfile.getInfoCache,
@@ -215,30 +216,51 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                                               isLoadingImage = true;
                                             });
                                             var response = await Repository()
-                                                .fetchProfileImageSend(
+                                                .fetchProfileImageSend(S
                                               pickedFile.path,
                                             );
                                             if (response.isSuccess) {
+                                              setState(() {
+                                                isLoadingImage = false;
+                                              });
                                               var result =
                                                   ProfileModel.fromJson(
                                                       response.result);
-                                              setState(() {
-                                                isLoadingImage = false;
-                                                snapshot.data!.avatar =
-                                                    result.user.avatar;
-                                                avatar = result.user.avatar;
-                                              });
-                                              SharedPreferences prefs =
-                                                  await SharedPreferences
-                                                      .getInstance();
-                                              prefs.setString(
-                                                "avatar",
-                                                result.user.avatar,
-                                              );
-                                              blocProfile.fetchMe();
-                                              setState(() {
-                                                isLoadingImage = false;
-                                              });
+                                              if (result.status == 1) {
+                                                setState(() {
+                                                  isLoadingImage = false;
+                                                  snapshot.data!.avatar =
+                                                      result.user.avatar;
+                                                  avatar = result.user.avatar;
+                                                });
+                                                SharedPreferences prefs =
+                                                    await SharedPreferences
+                                                        .getInstance();
+                                                prefs.setString(
+                                                  "avatar",
+                                                  result.user.avatar,
+                                                );
+                                                blocProfile.fetchMe();
+                                              } else {
+                                                setState(() {
+                                                  isLoadingImage = false;
+                                                });
+                                                if (response.status == -1) {
+                                                  BottomDialog.showAction(
+                                                    context,
+                                                    'Connection Failed',
+                                                    'You do not have internet connection, please try again',
+                                                    'assets/icons/alert.svg',
+                                                  );
+                                                } else {
+                                                  BottomDialog.showAction(
+                                                    context,
+                                                    'Action Failed',
+                                                    'Uploading Image Failed, Please try again after sometime',
+                                                    'assets/icons/alert.svg',
+                                                  );
+                                                }
+                                              }
                                             } else {
                                               BottomDialog.showAction(
                                                 context,
@@ -266,23 +288,47 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                                               pickedFile.path,
                                             );
                                             if (response.isSuccess) {
+                                              setState(() {
+                                                isLoadingImage = false;
+                                              });
                                               var result =
                                                   ProfileModel.fromJson(
                                                       response.result);
-                                              setState(() {
-                                                isLoadingImage = false;
-                                                snapshot.data!.avatar =
-                                                    result.user.avatar;
-                                                avatar = result.user.avatar;
-                                              });
-                                              SharedPreferences prefs =
-                                                  await SharedPreferences
-                                                      .getInstance();
-                                              prefs.setString(
-                                                "avatar",
-                                                result.user.avatar,
-                                              );
-                                              blocProfile.fetchMe();
+                                              if (result.status == 1) {
+                                                setState(() {
+                                                  isLoadingImage = false;
+                                                  snapshot.data!.avatar =
+                                                      result.user.avatar;
+                                                  avatar = result.user.avatar;
+                                                });
+                                                SharedPreferences prefs =
+                                                    await SharedPreferences
+                                                        .getInstance();
+                                                prefs.setString(
+                                                  "avatar",
+                                                  result.user.avatar,
+                                                );
+                                                blocProfile.fetchMe();
+                                              } else {
+                                                setState(() {
+                                                  isLoadingImage = false;
+                                                });
+                                                if (response.status == -1) {
+                                                  BottomDialog.showAction(
+                                                    context,
+                                                    'Connection Failed',
+                                                    'You do not have internet connection, please try again',
+                                                    'assets/icons/alert.svg',
+                                                  );
+                                                } else {
+                                                  BottomDialog.showAction(
+                                                    context,
+                                                    'Action Failed',
+                                                    'Uploading Image Failed, Please try again after sometime',
+                                                    'assets/icons/alert.svg',
+                                                  );
+                                                }
+                                              }
                                             } else {
                                               BottomDialog.showAction(
                                                 context,
@@ -332,6 +378,64 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                                     ),
                                   ),
                                   GestureDetector(
+                                    onTap: () async {
+                                      setState(() {
+                                        isLoadingImage = true;
+                                      });
+                                      var response = await Repository()
+                                          .fetchProfileImageSend(
+                                        '',
+                                      );
+                                      if (response.isSuccess) {
+                                        setState(() {
+                                          isLoadingImage = false;
+                                        });
+                                        var result = ProfileModel.fromJson(
+                                            response.result);
+                                        if (result.status == 1) {
+                                          setState(() {
+                                            isLoadingImage = false;
+                                            snapshot.data!.avatar =
+                                                result.user.avatar;
+                                            avatar = result.user.avatar;
+                                          });
+                                          SharedPreferences prefs =
+                                              await SharedPreferences
+                                                  .getInstance();
+                                          prefs.setString(
+                                            "avatar",
+                                            result.user.avatar,
+                                          );
+                                          blocProfile.fetchMe();
+                                        } else {
+                                          setState(() {
+                                            isLoadingImage = false;
+                                          });
+                                          if (response.status == -1) {
+                                            BottomDialog.showAction(
+                                              context,
+                                              'Connection Failed',
+                                              'You do not have internet connection, please try again',
+                                              'assets/icons/alert.svg',
+                                            );
+                                          } else {
+                                            BottomDialog.showAction(
+                                              context,
+                                              'Action Failed',
+                                              'Deleting Image Failed, Please try again after sometime',
+                                              'assets/icons/alert.svg',
+                                            );
+                                          }
+                                        }
+                                      } else {
+                                        BottomDialog.showAction(
+                                          context,
+                                          'Action Failed',
+                                          'Could not delete the image, please try again',
+                                          'assets/icons/alert.svg',
+                                        );
+                                      }
+                                    },
                                     child: Container(
                                       height: 32,
                                       width:
@@ -969,8 +1073,8 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                           isLoading = true;
                           snapshot.data!.fullName = _nameController.text;
                           snapshot.data!.gender = gender;
-                          snapshot.data!.phone =
-                              Utils.phoneFormat(_phoneController.text.replaceAll(' ', ''));
+                          snapshot.data!.phone = Utils.phoneFormat(
+                              _phoneController.text.replaceAll(' ', ''));
                           snapshot.data!.username = _userController.text;
                         });
                         var response = await Repository()
@@ -988,7 +1092,8 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                             BottomDialog.showAction(
                               context,
                               'Something went wrong',
-                              response.result["msg"] ?? "Error occurred, Please try again",
+                              response.result["msg"] ??
+                                  "Error occurred, Please try again",
                               'assets/icons/alert.svg',
                             );
                           }

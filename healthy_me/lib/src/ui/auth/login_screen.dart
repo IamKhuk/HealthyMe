@@ -327,32 +327,32 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         );
                       } else {
-                        BottomDialog.showAction(
-                          context,
-                          'Login Failed',
-                          result.msg,
-                          'assets/icons/alert.svg',
-                        );
+                        if (response.status == -1) {
+                          BottomDialog.showAction(
+                            context,
+                            'Connection Failed',
+                            'You do not have internet connection, please try again',
+                            'assets/icons/alert.svg',
+                          );
+                        } else {
+                          BottomDialog.showAction(
+                            context,
+                            'Login Failed',
+                            result.msg,
+                            'assets/icons/alert.svg',
+                          );
+                        }
                       }
                     } else {
                       setState(() {
                         onLoading = false;
                       });
-                      if (response.status == -1) {
-                        BottomDialog.showAction(
-                          context,
-                          'Connection Failed',
-                          'You do not have internet connection, please try again',
-                          'assets/icons/alert.svg',
-                        );
-                      } else {
-                        BottomDialog.showAction(
-                          context,
-                          'Login Failed',
-                          result.msg,
-                          'assets/icons/alert.svg',
-                        );
-                      }
+                      BottomDialog.showAction(
+                        context,
+                        'Login Failed',
+                        result.msg,
+                        'assets/icons/alert.svg',
+                      );
                     }
                   },
                   child: Container(

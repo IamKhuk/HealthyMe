@@ -183,7 +183,7 @@ class _SchedulesUpcomingState extends State<SchedulesUpcoming> {
           if (snapshot.hasData) {
             List<Schedule> _list = snapshot.data!.schedule
                 .where((element) =>
-            element.startDatetime.isAfter(DateTime.now()) == true)
+                    element.startDatetime.isAfter(DateTime.now()) == true)
                 .toList();
             return _list.length > 0
                 ? ListView.builder(
@@ -209,7 +209,37 @@ class _SchedulesUpcomingState extends State<SchedulesUpcoming> {
                       );
                     },
                   )
-                : Container();
+                : Center(
+                    child: Container(
+                      padding: EdgeInsets.only(
+                        top: 16,
+                        left: 24,
+                        right: 24,
+                        bottom: 16,
+                      ),
+                      margin: EdgeInsets.symmetric(horizontal: 36),
+                      decoration: BoxDecoration(
+                        color: AppTheme.white,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              'There is no completed appointments',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontFamily: AppTheme.fontFamily,
+                                fontSize: 14,
+                                height: 1.5,
+                                color: AppTheme.black,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
           } else {
             return Shimmer.fromColors(
               child: ListView.builder(

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:healthy_me/src/bloc/schedule_bloc.dart';
 import 'package:healthy_me/src/model/api/schedule_model.dart';

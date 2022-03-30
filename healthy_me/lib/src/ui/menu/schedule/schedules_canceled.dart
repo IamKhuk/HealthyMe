@@ -64,20 +64,32 @@ class _CanceledSchedulesState extends State<CanceledSchedules> {
                   )
                 : Center(
                     child: Container(
-                      padding: EdgeInsets.all(12),
+                      padding: EdgeInsets.only(
+                        top: 16,
+                        left: 24,
+                        right: 24,
+                        bottom: 16,
+                      ),
+                      margin: EdgeInsets.symmetric(horizontal: 36),
                       decoration: BoxDecoration(
                         color: AppTheme.white,
                         borderRadius: BorderRadius.circular(16),
                       ),
-                      child: Text(
-                        'There is no canceled appointments',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontFamily: AppTheme.fontFamily,
-                          fontSize: 14,
-                          height: 1.5,
-                          color: AppTheme.black,
-                        ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              'There is no canceled appointments',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontFamily: AppTheme.fontFamily,
+                                fontSize: 14,
+                                height: 1.5,
+                                color: AppTheme.black,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   );

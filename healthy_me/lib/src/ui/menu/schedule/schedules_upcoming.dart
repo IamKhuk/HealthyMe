@@ -75,8 +75,7 @@ class _UpcomingSchedulesState extends State<UpcomingSchedules> {
                                   onLoading = true;
                                 });
                                 var response = await Repository()
-                                    .fetchScheduleCancel(
-                                    _list[0].id);
+                                    .fetchScheduleCancel(_list[0].id);
                                 if (response.isSuccess) {
                                   setState(() {
                                     onLoading = false;
@@ -150,8 +149,7 @@ class _UpcomingSchedulesState extends State<UpcomingSchedules> {
                                     ),
                                     SizedBox(height: 12),
                                     ListView.builder(
-                                      itemCount:
-                                      _list.length - 1,
+                                      itemCount: _list.length - 1,
                                       physics: NeverScrollableScrollPhysics(),
                                       shrinkWrap: true,
                                       padding: EdgeInsets.only(bottom: 96),
@@ -159,8 +157,7 @@ class _UpcomingSchedulesState extends State<UpcomingSchedules> {
                                         List<Schedule> _schedules = [];
                                         _schedules.insertAll(
                                           0,
-                                          _list.getRange(1,
-                                              _list.length),
+                                          _list.getRange(1, _list.length),
                                         );
                                         return Column(
                                           children: [
@@ -247,20 +244,32 @@ class _UpcomingSchedulesState extends State<UpcomingSchedules> {
                       )
                     : Center(
                         child: Container(
-                          padding: EdgeInsets.all(12),
+                          padding: EdgeInsets.only(
+                            top: 16,
+                            left: 24,
+                            right: 24,
+                            bottom: 16,
+                          ),
+                          margin: EdgeInsets.symmetric(horizontal: 36),
                           decoration: BoxDecoration(
                             color: AppTheme.white,
                             borderRadius: BorderRadius.circular(16),
                           ),
-                          child: Text(
-                            'There is no upcoming appointments',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontFamily: AppTheme.fontFamily,
-                              fontSize: 14,
-                              height: 1.5,
-                              color: AppTheme.black,
-                            ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  'There is no upcoming appointments',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontFamily: AppTheme.fontFamily,
+                                    fontSize: 14,
+                                    height: 1.5,
+                                    color: AppTheme.black,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       );

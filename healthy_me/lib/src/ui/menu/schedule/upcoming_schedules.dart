@@ -187,7 +187,7 @@ class _SchedulesUpcomingState extends State<SchedulesUpcoming> {
                 .toList();
             return _list.length > 0
                 ? ListView.builder(
-                    itemCount: snapshot.data!.schedule.length,
+                    itemCount: _list.length,
                     padding: EdgeInsets.only(
                       bottom: 24,
                       top: 20,

@@ -216,7 +216,7 @@ class _PersonalSettingsScreenState extends State<PersonalSettingsScreen> {
                                               isLoadingImage = true;
                                             });
                                             var response = await Repository()
-                                                .fetchProfileImageSend(S
+                                                .fetchProfileImageSend(
                                               pickedFile.path,
                                             );
                                             if (response.isSuccess) {

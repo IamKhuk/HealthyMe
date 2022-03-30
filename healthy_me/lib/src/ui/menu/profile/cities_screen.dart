@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:healthy_me/src/bloc/profile_bloc.dart';
 import 'package:healthy_me/src/model/api/region_model.dart';
@@ -46,7 +46,6 @@ class _CitiesScreenState extends State<CitiesScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        brightness: Brightness.light,
         leadingWidth: 76,
         leading: Row(
           children: [
@@ -79,7 +78,7 @@ class _CitiesScreenState extends State<CitiesScreen> {
             height: 1.5,
             color: AppTheme.black,
           ),
-        ),
+        ), systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
       body: StreamBuilder(
         stream: blocProfile.getCities,
@@ -89,7 +88,7 @@ class _CitiesScreenState extends State<CitiesScreen> {
               children: [
                 ListView.builder(
                   itemCount: snapshot.data!.data.length,
-                  padding: EdgeInsets.only(top: 4, bottom: 24),
+                  padding: EdgeInsets.only(top: 4, bottom: 96),
                   itemBuilder: (context, index) {
                     return Column(
                       children: [

@@ -396,7 +396,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       } else {
                         BottomDialog.showAction(
                           context,
-                          'Invalid Phone Number',
+                          'Invalid Email Address',
                           'Please enter valid email address so that we can register you correctly',
                           'assets/icons/alert.svg',
                         );

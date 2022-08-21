@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:healthy_me/src/dialog/bottom_dialog.dart';
 import 'package:healthy_me/src/dialog/center_dialog.dart';
@@ -54,7 +53,6 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        brightness: Brightness.light,
         leadingWidth: 76,
         leading: Row(
           children: [
@@ -110,7 +108,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
             ],
           ),
           SizedBox(width: 36),
-        ],
+        ], systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
       endDrawerEnableOpenDragGesture: false,
       endDrawer: Container(

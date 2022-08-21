@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:healthy_me/src/bloc/home_bloc.dart';
 import 'package:healthy_me/src/model/api/profession_model.dart';
@@ -43,7 +43,6 @@ class _SpecialtyScreenState extends State<SpecialtyScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        brightness: Brightness.light,
         leadingWidth: 76,
         leading: Row(
           children: [
@@ -100,6 +99,7 @@ class _SpecialtyScreenState extends State<SpecialtyScreen> {
           ),
           SizedBox(width: 36),
         ],
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
       body: GestureDetector(
         onTap: () {
